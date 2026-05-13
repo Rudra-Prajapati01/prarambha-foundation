@@ -1,6 +1,6 @@
-import program1 from "../../assets/programs/programs1.png"
-import program2 from "../../assets/programs/programs2.png"
-import program3 from "../../assets/programs/programs3.png"
+import program1 from "../../assets/programs/programs1.jpg"
+import program2 from "../../assets/programs/programs2.jpg"
+import program3 from "../../assets/programs/programs3.jpg"
 
 function Programs() {
 

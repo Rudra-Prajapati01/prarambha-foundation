@@ -7,7 +7,7 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 
-import hero from "../../assets/hero/hero.png";
+import hero from "../../assets/hero/hero2.png";
 
 export default function Hero() {
 
@@ -41,9 +41,7 @@ export default function Hero() {
   return (
     <div className="font-sans antialiased bg-white overflow-x-hidden">
 
-      {/* ═══════════════════════════════════════════
-          MOBILE HERO — only visible below lg
-      ═══════════════════════════════════════════ */}
+      {/* MOBILE HERO */}
       <section className="lg:hidden bg-[#FFF7E8]">
 
         {/* ── Text content — left aligned, cream bg ── */}
@@ -237,7 +235,7 @@ export default function Hero() {
               <img
                 src={hero}
                 alt="Children"
-                className="relative z-0 w-full max-w-2xl object-contain translate-x-24 pt-10"
+                className="bottom-1 relative z-0 w-full max-w-2xl object-contain translate-x-24 pt-10"
               />
             </div>
 
