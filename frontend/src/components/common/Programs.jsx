@@ -3,25 +3,79 @@ import program2 from "../../assets/programs/programs2.png"
 import program3 from "../../assets/programs/programs3.png"
 
 function Programs() {
+
+    const programList = [
+        {
+            title: "Early Intervention & Child Development",
+            color: "#F7C600",
+            items: [
+                "Autism & ADHD Support",
+                "Developmental Delay Programs",
+                "Learning Disorder Support",
+            ],
+        },
+
+        {
+            title: "Therapy & Developmental Support",
+            color: "#38BDF8",
+            items: [
+                "Speech & Language Therapy",
+                "Occupational Therapy",
+                "Sensory Integration Activities",
+            ],
+        },
+
+        {
+            title: "Inclusive Education Support",
+            color: "#E63946",
+            items: [
+                "Montessori-based Learning",
+                "Individual Learning Plans",
+                "School Readiness Programs",
+            ],
+        },
+    ]
+
     return (
-        <section className="bg-white py-20">
+
+        <section className="bg-white py-14 lg:py-24 overflow-hidden">
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
                     {/* LEFT CONTENT */}
                     <div>
 
                         {/* TAG */}
-                        <p className="text-[#E63946] font-semibold uppercase tracking-widest mb-4">
+                        <p
+                            className="
+                                text-[#E63946]
+                                font-bold
+                                uppercase
+                                tracking-[4px]
+                                text-xs
+                                mb-4
+                            "
+                        >
                             Our Core Programs
                         </p>
 
                         {/* HEADING */}
-                        <h2 className="text-4xl sm:text-5xl font-extrabold text-[#1F2937] leading-tight mb-6">
+                        <h2
+                            className="
+                                text-[36px]
+                                sm:text-[44px]
+                                lg:text-5xl
+                                font-extrabold
+                                text-[#0B1B4D]
+                                leading-[1.05]
+                                mb-6
+                            "
+                        >
 
                             Supporting Every Child
+
                             <span className="block text-[#E63946]">
                                 With Care & Inclusion
                             </span>
@@ -29,115 +83,246 @@ function Programs() {
                         </h2>
 
                         {/* DESCRIPTION */}
-                        <p className="text-gray-600 text-lg leading-relaxed mb-10">
+                        <p
+                            className="
+                                text-gray-600
+                                text-[15px]
+                                lg:text-lg
+                                leading-relaxed
+                                mb-10
+                                max-w-2xl
+                            "
+                        >
 
-                            Our programs focus on early intervention, therapy,
-                            inclusive education, sensory development, and family
-                            support to help children grow with confidence,
-                            independence, and dignity.
+                            Our programs focus on early intervention,
+                            therapy, inclusive education, sensory
+                            development, and family support to help
+                            children grow with confidence, independence,
+                            and dignity.
 
                         </p>
 
                         {/* PROGRAM LIST */}
-                        <div className="space-y-8">
+                        <div className="space-y-5 lg:space-y-7">
 
-                            {/* ITEM */}
-                            <div className="bg-[#F3F4F6] rounded-2xl p-6 border-l-4 border-[#F7C600]">
+                            {programList.map((program, index) => (
 
-                                <h3 className="text-xl font-bold text-[#1F2937] mb-3">
-                                    Early Intervention & Child Development
-                                </h3>
+                                <div
+                                    key={index}
+                                    className="
+                                        bg-[#F8FAFC]
+                                        rounded-[24px]
+                                        p-5 lg:p-7
+                                        shadow-[0_4px_20px_rgba(0,0,0,0.04)]
+                                        border border-gray-100
+                                        transition
+                                        hover:-translate-y-1
+                                    "
+                                    style={{
+                                        borderLeft: `5px solid ${program.color}`,
+                                    }}
+                                >
 
-                                <ul className="space-y-2 text-gray-600">
+                                    <h3
+                                        className="
+                                            text-[18px]
+                                            lg:text-xl
+                                            font-bold
+                                            text-[#0B1B4D]
+                                            mb-4
+                                            leading-snug
+                                        "
+                                    >
+                                        {program.title}
+                                    </h3>
 
-                                    <li>• Autism & ADHD Support</li>
+                                    <ul className="space-y-2.5">
 
-                                    <li>• Developmental Delay Programs</li>
+                                        {program.items.map((item, idx) => (
 
-                                    <li>• Learning Disorder Support</li>
+                                            <li
+                                                key={idx}
+                                                className="
+                                                    text-gray-600
+                                                    text-sm
+                                                    lg:text-base
+                                                    flex items-start gap-2
+                                                    leading-relaxed
+                                                "
+                                            >
 
-                                </ul>
+                                                <span
+                                                    className="mt-[8px] w-1.5 h-1.5 rounded-full flex-shrink-0"
+                                                    style={{ background: program.color }}
+                                                ></span>
 
-                            </div>
+                                                {item}
 
-                            {/* ITEM */}
-                            <div className="bg-[#F3F4F6] rounded-2xl p-6 border-l-4 border-[#38BDF8]">
+                                            </li>
 
-                                <h3 className="text-xl font-bold text-[#1F2937] mb-3">
-                                    Therapy & Developmental Support
-                                </h3>
+                                        ))}
 
-                                <ul className="space-y-2 text-gray-600">
+                                    </ul>
 
-                                    <li>• Speech & Language Therapy</li>
+                                </div>
 
-                                    <li>• Occupational Therapy</li>
-
-                                    <li>• Sensory Integration Activities</li>
-
-                                </ul>
-
-                            </div>
-
-                            {/* ITEM */}
-                            <div className="bg-[#F3F4F6] rounded-2xl p-6 border-l-4 border-[#E63946]">
-
-                                <h3 className="text-xl font-bold text-[#1F2937] mb-3">
-                                    Inclusive Education Support
-                                </h3>
-
-                                <ul className="space-y-2 text-gray-600">
-
-                                    <li>• Montessori-based Learning</li>
-
-                                    <li>• Individual Learning Plans</li>
-
-                                    <li>• School Readiness Programs</li>
-
-                                </ul>
-
-                            </div>
+                            ))}
 
                         </div>
 
                     </div>
 
                     {/* RIGHT IMAGES */}
-                    <div className="relative h-[620px] flex items-center justify-center">
+<div
+  className="
+    relative
+    h-[420px]
+    sm:h-[520px]
+    lg:h-[620px]
+    flex items-center justify-center
+    mt-8 lg:mt-0
+  "
+>
 
-                        {/* IMAGE 1 */}
-                        <div className="absolute top-40 left-12 w-[240px] rounded-[30px] overflow-hidden shadow-2xl rotate-[-6deg] hover:rotate-0 transition duration-500 z-10">
+    {/* IMAGE 1 */}
+    <div
+      className="
+        absolute
 
-                            <img
-                                src={program1}
-                                alt="Program"
-                                className="w-full h-[200px] object-cover"
-                            />
+        top-6
+        left-4
 
-                        </div>
+        sm:top-12
+        sm:left-10
 
-                        {/* IMAGE 2 */}
-                        <div className="absolute top-[280px] right-1 w-[300px] rounded-[30px] overflow-hidden shadow-2xl rotate-[4deg] hover:rotate-0 transition duration-500 z-20">
-                            <img
-                                src={program2}
-                                alt="Program"
-                                className="w-full h-[300px] object-cover"
-                            />
+        lg:top-40
+        lg:left-12
 
-                        </div>
+        w-[150px]
+        sm:w-[200px]
+        lg:w-[240px]
 
-                        {/* IMAGE 3 */}
-                        <div className="absolute bottom-[-160px] left-28 w-[260px] rounded-[30px] overflow-hidden shadow-2xl rotate-[-4deg] hover:rotate-0 transition duration-500 z-10">
+        rounded-[24px]
+        lg:rounded-[30px]
 
-                            <img
-                                src={program3}
-                                alt="Program"
-                                className="w-full h-[220px] object-cover"
-                            />
+        overflow-hidden
+        shadow-2xl
 
-                        </div>
+        rotate-[-6deg]
+        hover:rotate-0
 
-                    </div>
+        transition duration-500
+        z-10
+      "
+    >
+
+        <img
+          src={program1}
+          alt="Program"
+          className="
+            w-full
+            h-[150px]
+            sm:h-[180px]
+            lg:h-[200px]
+            object-cover
+          "
+        />
+
+    </div>
+
+    {/* IMAGE 2 */}
+    <div
+      className="
+        absolute
+
+        top-[90px]
+        right-2
+
+        sm:top-[150px]
+        sm:right-6
+
+        lg:top-[280px]
+        lg:right-1
+
+        w-[220px]
+        sm:w-[260px]
+        lg:w-[300px]
+
+        rounded-[24px]
+        lg:rounded-[30px]
+
+        overflow-hidden
+        shadow-2xl
+
+        rotate-[4deg]
+        hover:rotate-0
+
+        transition duration-500
+        z-20
+      "
+    >
+
+        <img
+          src={program2}
+          alt="Program"
+          className="
+            w-full
+            h-[220px]
+            sm:h-[260px]
+            lg:h-[300px]
+            object-cover
+          "
+        />
+
+    </div>
+
+    {/* IMAGE 3 */}
+    <div
+      className="
+        absolute
+
+        bottom-0
+        left-16
+
+        sm:bottom-2
+        sm:left-24
+
+        lg:bottom-[-160px]
+        lg:left-28
+
+        w-[170px]
+        sm:w-[220px]
+        lg:w-[260px]
+
+        rounded-[24px]
+        lg:rounded-[30px]
+
+        overflow-hidden
+        shadow-2xl
+
+        rotate-[-4deg]
+        hover:rotate-0
+
+        transition duration-500
+        z-10
+      "
+    >
+
+        <img
+          src={program3}
+          alt="Program"
+          className="
+            w-full
+            h-[160px]
+            sm:h-[200px]
+            lg:h-[220px]
+            object-cover
+          "
+        />
+
+    </div>
+
+</div>
 
                 </div>
 

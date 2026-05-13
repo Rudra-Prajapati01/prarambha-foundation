@@ -32,11 +32,83 @@ function Stats() {
 
   return (
 
-    <section className="py-24 bg-[#F4FBFF]">
+    <section className="py-12 lg:py-24 bg-[#F4FBFF] overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* MOBILE DESIGN */}
+        <div className="grid grid-cols-2 gap-4 lg:hidden">
+
+          {stats.map((item, index) => (
+
+            <div
+              key={index}
+              className="
+                bg-white
+                rounded-[24px]
+                shadow-md
+                border border-[#EAF6FF]
+                py-8
+                px-4
+                text-center
+              "
+            >
+
+              {/* ICON */}
+              <div
+                className="
+                  w-16 h-16
+                  mx-auto
+                  rounded-full
+                  bg-[#EAF6FF]
+                  flex items-center justify-center
+                  text-[#38BDF8]
+                  text-3xl
+                  mb-4
+                "
+              >
+
+                {item.icon}
+
+              </div>
+
+              {/* NUMBER */}
+              <h2
+                className="
+                  text-[32px]
+                  font-extrabold
+                  text-[#F7C600]
+                  leading-none
+                  mb-3
+                "
+              >
+
+                {item.number}
+
+              </h2>
+
+              {/* TEXT */}
+              <p
+                className="
+                  text-[#1F2937]
+                  text-sm
+                  leading-relaxed
+                  font-medium
+                "
+              >
+
+                {item.text}
+
+              </p>
+
+            </div>
+
+          ))}
+
+        </div>
+
+        {/* DESKTOP DESIGN */}
+        <div className="hidden lg:grid grid-cols-4 gap-6">
 
           {stats.map((item, index) => (
 
