@@ -173,157 +173,93 @@ function Programs() {
                     </div>
 
                     {/* RIGHT IMAGES */}
+{/* RIGHT IMAGES */}
 <div
   className="
     relative
-    h-[420px]
-    sm:h-[520px]
-    lg:h-[620px]
+    mt-12 lg:mt-0
     flex items-center justify-center
-    mt-8 lg:mt-0
   "
 >
 
-    {/* IMAGE 1 */}
-    <div
+  {/* MOBILE */}
+  <div className="flex flex-col gap-6 lg:hidden w-full items-center">
+
+    <img
+      src={program1}
+      alt="Program"
       className="
-        absolute
-
-        top-6
-        left-4
-
-        sm:top-12
-        sm:left-10
-
-        lg:top-40
-        lg:left-12
-
-        w-[150px]
-        sm:w-[200px]
-        lg:w-[240px]
-
-        rounded-[24px]
-        lg:rounded-[30px]
-
-        overflow-hidden
+        w-[220px]
+        rounded-[28px]
         shadow-2xl
-
-        rotate-[-6deg]
-        hover:rotate-0
-
-        transition duration-500
-        z-10
+        rotate-[-4deg]
       "
-    >
+    />
 
-        <img
-          src={program1}
-          alt="Program"
-          className="
-            w-full
-            h-[150px]
-            sm:h-[180px]
-            lg:h-[200px]
-            object-cover
-          "
-        />
+    <img
+      src={program2}
+      alt="Program"
+      className="
+        w-[280px]
+        rounded-[30px]
+        shadow-2xl
+        rotate-[3deg]
+        -mt-2
+      "
+    />
+
+    <img
+      src={program3}
+      alt="Program"
+      className="
+        w-[230px]
+        rounded-[28px]
+        shadow-2xl
+        rotate-[-3deg]
+      "
+    />
+
+  </div>
+
+  {/* DESKTOP */}
+  <div className="hidden lg:block relative h-[620px] w-full">
+
+    {/* IMAGE 1 */}
+    <div className="absolute top-40 left-12 w-[240px] rounded-[30px] overflow-hidden shadow-2xl rotate-[-6deg] hover:rotate-0 transition duration-500 z-10">
+
+      <img
+        src={program1}
+        alt="Program"
+        className="w-full h-[200px] object-cover"
+      />
 
     </div>
 
     {/* IMAGE 2 */}
-    <div
-      className="
-        absolute
+    <div className="absolute top-[280px] right-1 w-[300px] rounded-[30px] overflow-hidden shadow-2xl rotate-[4deg] hover:rotate-0 transition duration-500 z-20">
 
-        top-[90px]
-        right-2
-
-        sm:top-[150px]
-        sm:right-6
-
-        lg:top-[280px]
-        lg:right-1
-
-        w-[220px]
-        sm:w-[260px]
-        lg:w-[300px]
-
-        rounded-[24px]
-        lg:rounded-[30px]
-
-        overflow-hidden
-        shadow-2xl
-
-        rotate-[4deg]
-        hover:rotate-0
-
-        transition duration-500
-        z-20
-      "
-    >
-
-        <img
-          src={program2}
-          alt="Program"
-          className="
-            w-full
-            h-[220px]
-            sm:h-[260px]
-            lg:h-[300px]
-            object-cover
-          "
-        />
+      <img
+        src={program2}
+        alt="Program"
+        className="w-full h-[300px] object-cover"
+      />
 
     </div>
 
     {/* IMAGE 3 */}
-    <div
-      className="
-        absolute
+    <div className="absolute bottom-[-160px] left-28 w-[260px] rounded-[30px] overflow-hidden shadow-2xl rotate-[-4deg] hover:rotate-0 transition duration-500 z-10">
 
-        bottom-0
-        left-16
-
-        sm:bottom-2
-        sm:left-24
-
-        lg:bottom-[-160px]
-        lg:left-28
-
-        w-[170px]
-        sm:w-[220px]
-        lg:w-[260px]
-
-        rounded-[24px]
-        lg:rounded-[30px]
-
-        overflow-hidden
-        shadow-2xl
-
-        rotate-[-4deg]
-        hover:rotate-0
-
-        transition duration-500
-        z-10
-      "
-    >
-
-        <img
-          src={program3}
-          alt="Program"
-          className="
-            w-full
-            h-[160px]
-            sm:h-[200px]
-            lg:h-[220px]
-            object-cover
-          "
-        />
+      <img
+        src={program3}
+        alt="Program"
+        className="w-full h-[220px] object-cover"
+      />
 
     </div>
 
-</div>
+  </div>
 
+</div>
                 </div>
 
             </div>
