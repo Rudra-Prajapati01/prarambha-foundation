@@ -1,12 +1,16 @@
 import { FaArrowRight } from "react-icons/fa"
+import Story1 from "../../assets/Story/Story1.jpg"
+import Story2 from "../../assets/Story/Story2.jpg"
+import Story3 from "../../assets/Story/Story3.jpg"
+import Story4 from "../../assets/Story/Story4.jpg"
+
 
 const stories = [
   {
     id: 1,
     title: "Seeds of Confidence",
     category: "Livelihood",
-    image:
-      "https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1200&auto=format&fit=crop",
+    image: Story1,
     desc:
       "Supporting children and families through inclusive education, therapy, and confidence-building programs.",
     large: true,
@@ -16,8 +20,7 @@ const stories = [
     id: 2,
     title: "Letting Children Dream Big",
     category: "Sports",
-    image:
-      "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=1200&auto=format&fit=crop",
+    image: Story2,
     desc:
       "Helping every child discover their abilities and grow with confidence and dignity.",
     tall: true,
@@ -27,8 +30,7 @@ const stories = [
     id: 3,
     title: "From Classroom To Confidence",
     category: "Education",
-    image:
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1200&auto=format&fit=crop",
+    image: Story3,
     desc:
       "Creating safe learning environments for children with special needs.",
   },
@@ -37,13 +39,11 @@ const stories = [
     id: 4,
     title: "Every Family Matters",
     category: "Care",
-    image:
-      "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=1200&auto=format&fit=crop",
+    image: Story4,
     desc:
       "Empowering families with therapy support and community care programs.",
   },
 ]
-
 function ImpactStories() {
   return (
 
