@@ -168,7 +168,7 @@ function Pages() {
 
       const { data } =
         await axios.get(
-          `http://localhost:5000/api/pages/${selectedPage}`
+          `https://prarambha-backend.onrender.com/api/pages/${selectedPage}`
         )
 
       if (data) {
@@ -194,7 +194,7 @@ function Pages() {
       setSuccess("")
 
       await axios.put(
-        `http://localhost:5000/api/pages/${selectedPage}`,
+        `https://prarambha-backend.onrender.com/api/pages/${selectedPage}`,
         pageData
       )
 
@@ -245,7 +245,7 @@ function Pages() {
 
       const { data } =
         await axios.post(
-          "http://localhost:5000/api/upload",
+          "https://prarambha-backend.onrender.com/api/upload",
           formData,
           {
             headers: {

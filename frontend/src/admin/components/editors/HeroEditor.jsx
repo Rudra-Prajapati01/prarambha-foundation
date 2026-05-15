@@ -242,7 +242,7 @@ function HeroEditor({
             </p>
 
             <img
-              src={`http://localhost:5000${pageData.hero.image}`}
+              src={`https://prarambha-backend.onrender.com${pageData.hero.image}`}
               alt="Hero"
               className="
                 w-full

@@ -348,7 +348,7 @@ function StoryEditor({
 
                     const { data } =
                       await axios.post(
-                        "http://localhost:5000/api/upload",
+                        "https://prarambha-backend.onrender.com/api/upload",
                         formData,
                         {
                           headers: {
@@ -382,7 +382,7 @@ function StoryEditor({
               {story.image && (
 
                 <img
-                  src={`http://localhost:5000${story.image}`}
+                  src={`https://prarambha-backend.onrender.com${story.image}`}
                   alt=""
                   className="
         w-full

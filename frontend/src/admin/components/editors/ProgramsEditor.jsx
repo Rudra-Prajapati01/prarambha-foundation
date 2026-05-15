@@ -176,7 +176,7 @@ function ProgramsEditor({
 
       const response =
         await fetch(
-          "http://localhost:5000/api/upload",
+          "https://prarambha-backend.onrender.com/api/upload",
           {
             method: "POST",
             body: formData,
@@ -556,7 +556,7 @@ function ProgramsEditor({
             {pageData.programImage1 && (
 
               <img
-                src={`http://localhost:5000${pageData.programImage1}`}
+                src={`https://prarambha-backend.onrender.com${pageData.programImage1}`}
                 alt=""
                 className="
                   w-full
@@ -588,7 +588,7 @@ function ProgramsEditor({
             {pageData.programImage2 && (
 
               <img
-                src={`http://localhost:5000${pageData.programImage2}`}
+                src={`https://prarambha-backend.onrender.com${pageData.programImage2}`}
                 alt=""
                 className="
                   w-full
@@ -620,7 +620,7 @@ function ProgramsEditor({
             {pageData.programImage3 && (
 
               <img
-                src={`http://localhost:5000${pageData.programImage3}`}
+                src={`https://prarambha-backend.onrender.com${pageData.programImage3}`}
                 alt=""
                 className="
                   w-full

@@ -215,7 +215,7 @@ function AboutTeamEditor({
 
                                             const response =
                                                 await fetch(
-                                                    "http://localhost:5000/api/upload",
+                                                    "https://prarambha-backend.onrender.com/api/upload",
                                                     {
                                                         method: "POST",
                                                         body: formData,
@@ -241,7 +241,7 @@ function AboutTeamEditor({
                                 {member.image && (
 
                                     <img
-                                        src={`http://localhost:5000${member.image}`}
+                                        src={`https://prarambha-backend.onrender.com${member.image}`}
                                         alt="preview"
                                         className="
         w-[120px]
@@ -291,7 +291,7 @@ function AboutTeamEditor({
                                 <img
                                     src={
                                         member.image
-                                            ? `http://localhost:5000${member.image}`
+                                            ? `https://prarambha-backend.onrender.com${member.image}`
                                             : "https://i.pravatar.cc/150"
                                     }
                                     alt="preview"

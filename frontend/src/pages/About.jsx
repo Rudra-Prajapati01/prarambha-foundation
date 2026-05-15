@@ -23,7 +23,7 @@ export default function About() {
       try {
 
         const response = await fetch(
-          "http://localhost:5000/api/pages/about"
+          "https://prarambha-backend.onrender.com/api/pages/about"
         )
 
         const data =

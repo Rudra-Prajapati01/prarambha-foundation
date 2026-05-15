@@ -13,7 +13,7 @@ function TeamCard({ name, role, image, color }) {
         <img
           src={
             image
-              ? `http://localhost:5000${image}`
+              ? `https://prarambha-backend.onrender.com${image}`
               : "https://i.pravatar.cc/300"
           }
           alt={name}

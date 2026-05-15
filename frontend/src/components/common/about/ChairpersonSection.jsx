@@ -128,7 +128,7 @@ export default function ChairpersonSection({ data }) {
             <img
               src={
                 data?.image
-                  ? `http://localhost:5000${data.image}`
+                  ? `https://prarambha-backend.onrender.com${data.image}`
                   : "https://i.pravatar.cc/500?img=47"
               }
               alt="Chairperson"

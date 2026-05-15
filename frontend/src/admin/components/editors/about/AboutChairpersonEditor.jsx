@@ -134,7 +134,7 @@ function AboutChairpersonEditor({
           {pageData?.chairperson?.image && (
 
             <img
-              src={`http://localhost:5000${pageData.chairperson.image}`}
+              src={`https://prarambha-backend.onrender.com${pageData.chairperson.image}`}
               alt="Chairperson"
               className="
                 w-[220px]

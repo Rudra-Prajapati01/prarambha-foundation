@@ -23,7 +23,7 @@ function Home() {
     try {
 
       const { data } = await axios.get(
-        "http://localhost:5000/api/pages/home"
+        "https://prarambha-backend.onrender.com/api/pages/home"
       )
 
       setPageData(data)

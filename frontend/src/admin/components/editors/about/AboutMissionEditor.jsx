@@ -109,7 +109,7 @@ function AboutMissionEditor({
           {pageData?.mission?.image && (
 
             <img
-              src={`http://localhost:5000${pageData.mission.image}`}
+              src={`https://prarambha-backend.onrender.com${pageData.mission.image}`}
               alt="Mission"
               className="
                 w-[220px]

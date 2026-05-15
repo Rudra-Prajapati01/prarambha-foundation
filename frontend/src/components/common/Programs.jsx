@@ -217,7 +217,7 @@ function Programs({ pageData }) {
               {firstProgram.image1 && (
 
                 <img
-                  src={`http://localhost:5000${firstProgram.image1}`}
+                  src={`https://prarambha-backend.onrender.com${firstProgram.image1}`}
                   alt=""
                   className="
                     w-[220px]
@@ -232,7 +232,7 @@ function Programs({ pageData }) {
               {firstProgram.image2 && (
 
                 <img
-                  src={`http://localhost:5000${firstProgram.image2}`}
+                  src={`https://prarambha-backend.onrender.com${firstProgram.image2}`}
                   alt=""
                   className="
                     w-[280px]
@@ -248,7 +248,7 @@ function Programs({ pageData }) {
               {firstProgram.image3 && (
 
                 <img
-                  src={`http://localhost:5000${firstProgram.image3}`}
+                  src={`https://prarambha-backend.onrender.com${firstProgram.image3}`}
                   alt=""
                   className="
                     w-[230px]
@@ -294,7 +294,7 @@ function Programs({ pageData }) {
                 >
 
                   <img
-                    src={`http://localhost:5000${firstProgram.image1}`}
+                    src={`https://prarambha-backend.onrender.com${firstProgram.image1}`}
                     alt=""
                     className="
                       w-full
@@ -328,7 +328,7 @@ function Programs({ pageData }) {
                 >
 
                   <img
-                    src={`http://localhost:5000${firstProgram.image2}`}
+                    src={`https://prarambha-backend.onrender.com${firstProgram.image2}`}
                     alt=""
                     className="
                       w-full
@@ -362,7 +362,7 @@ function Programs({ pageData }) {
                 >
 
                   <img
-                    src={`http://localhost:5000${firstProgram.image3}`}
+                    src={`https://prarambha-backend.onrender.com${firstProgram.image3}`}
                     alt=""
                     className="
                       w-full

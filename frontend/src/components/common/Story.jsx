@@ -79,7 +79,7 @@ function ImpactStories({ pageData }) {
 
               {/* IMAGE */}
               <img
-                src={`http://localhost:5000${story.image}`}
+                src={`https://prarambha-backend.onrender.com${story.image}`}
                 alt={story.title}
                 className="
                   w-full
@@ -193,7 +193,7 @@ function ImpactStories({ pageData }) {
               >
 
                 <img
-                  src={`http://localhost:5000${largeStory.image}`}
+                  src={`https://prarambha-backend.onrender.com${largeStory.image}`}
                   alt={largeStory.title}
                   className="
                     w-full
@@ -296,7 +296,7 @@ function ImpactStories({ pageData }) {
                 >
 
                   <img
-                    src={`http://localhost:5000${story.image}`}
+                    src={`https://prarambha-backend.onrender.com${story.image}`}
                     alt={story.title}
                     className="
                       w-full
@@ -392,7 +392,7 @@ function ImpactStories({ pageData }) {
             >
 
               <img
-                src={`http://localhost:5000${tallStory.image}`}
+                src={`https://prarambha-backend.onrender.com${tallStory.image}`}
                 alt={tallStory.title}
                 className="
                   w-full

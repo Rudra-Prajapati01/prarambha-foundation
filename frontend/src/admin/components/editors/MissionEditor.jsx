@@ -48,7 +48,7 @@ function MissionEditor({
 
       const { data } =
         await axios.post(
-          "http://localhost:5000/api/upload",
+          "https://prarambha-backend.onrender.com/api/upload",
           formData,
           {
             headers: {
@@ -215,7 +215,7 @@ function MissionEditor({
         {pageData.mission?.image && (
 
           <img
-            src={`http://localhost:5000${pageData.mission.image}`}
+            src={`https://prarambha-backend.onrender.com${pageData.mission.image}`}
             alt=""
             className="
               w-full

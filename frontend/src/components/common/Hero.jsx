@@ -66,7 +66,7 @@ export default function Hero({ pageData }) {
   ===================================== */
   const heroImage =
     heroData.image
-      ? `http://localhost:5000${heroData.image}`
+      ? `https://prarambha-backend.onrender.com${heroData.image}`
       : hero
 
   /* =====================================
