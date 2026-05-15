@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 import {
@@ -16,7 +16,32 @@ function Navbar() {
 
   const [menuOpen, setMenuOpen] = useState(false)
 
+  /* =========================================
+     PREVENT BACKGROUND SCROLL WHEN MENU OPEN
+  ========================================= */
+
+  useEffect(() => {
+
+    if (menuOpen) {
+
+      document.body.style.overflow = "hidden"
+
+    } else {
+
+      document.body.style.overflow = "auto"
+
+    }
+
+    return () => {
+
+      document.body.style.overflow = "auto"
+
+    }
+
+  }, [menuOpen])
+
   const navLinks = [
+
     {
       name: "Home",
       path: "/",
@@ -64,11 +89,16 @@ function Navbar() {
   return (
     <>
 
-      {/* TOP INFO BAR */}
+      {/* =========================================
+          TOP INFO BAR
+      ========================================= */}
+
       <div className="hidden lg:flex items-center justify-between bg-[#0B1B4D] text-white px-10 xl:px-16 py-2 text-sm">
 
         <p className="font-medium tracking-wide">
+
           Discovering Ability Before Disability
+
         </p>
 
         <div className="flex items-center gap-8">
@@ -85,26 +115,32 @@ function Navbar() {
 
       </div>
 
-      {/* NAVBAR */}
+      {/* =========================================
+          NAVBAR
+      ========================================= */}
+
       <nav className="w-full bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
 
         <div className="w-full px-4 lg:px-10 xl:px-16">
 
           {/* MAIN NAVBAR */}
+
           <div className="flex items-center justify-between h-[88px]">
 
             {/* LOGO */}
+
             <Link to="/" className="flex-shrink-0">
 
               <img
                 src={logo}
                 alt="Prarambha Foundation"
-                className="w-40 sm:w-44 lg:w-48 object-contain"
+                className="w-32 sm:w-40 lg:w-48 object-contain"
               />
 
             </Link>
 
-            {/* DESKTOP NAV LINKS */}
+            {/* DESKTOP NAV */}
+
             <ul className="hidden lg:flex items-center gap-8 xl:gap-10 font-semibold text-[16px] text-[#1F2937]">
 
               {navLinks.map((link, index) => (
@@ -114,7 +150,6 @@ function Navbar() {
                   className="relative group"
                 >
 
-                  {/* NORMAL LINK */}
                   {!link.dropdown ? (
 
                     <Link
@@ -145,6 +180,7 @@ function Navbar() {
                     <>
 
                       {/* DROPDOWN BUTTON */}
+
                       <button
                         className="
                           relative
@@ -167,7 +203,8 @@ function Navbar() {
 
                       </button>
 
-                      {/* DROPDOWN MENU */}
+                      {/* DROPDOWN */}
+
                       <div
                         className="
                           absolute
@@ -230,13 +267,17 @@ function Navbar() {
             </ul>
 
             {/* RIGHT SIDE */}
+
             <div className="flex items-center gap-3">
 
               {/* DONATE BUTTON */}
+
               <button
                 className="
-                  flex items-center justify-center gap-2
-                  bg-[#E63946] hover:bg-[#d62839]
+                  hidden sm:flex
+                  items-center justify-center gap-2
+                  bg-[#E63946]
+                  hover:bg-[#d62839]
                   text-white
                   px-5 sm:px-6
                   py-3
@@ -258,6 +299,7 @@ function Navbar() {
               </button>
 
               {/* MOBILE MENU BUTTON */}
+
               <button
                 onClick={() => setMenuOpen(true)}
                 className="
@@ -281,7 +323,10 @@ function Navbar() {
 
         </div>
 
-        {/* MOBILE MENU OVERLAY */}
+        {/* =========================================
+            MOBILE OVERLAY
+        ========================================= */}
+
         <div
           className={`
             fixed inset-0 bg-black/40 z-40
@@ -291,11 +336,17 @@ function Navbar() {
           onClick={() => setMenuOpen(false)}
         />
 
-        {/* MOBILE SIDEBAR */}
+        {/* =========================================
+            MOBILE SIDEBAR
+        ========================================= */}
+
         <div
           className={`
-            fixed top-0 right-0 h-full w-[78%] sm:w-[70%] max-w-[340px]
-            bg-white z-50 shadow-2xl
+            fixed top-0 right-0 h-screen
+            w-[82%] sm:w-[70%] max-w-[340px]
+            bg-white
+            z-50
+            shadow-2xl
             transition-transform duration-300
             flex flex-col
             ${menuOpen ? "translate-x-0" : "translate-x-full"}
@@ -303,6 +354,7 @@ function Navbar() {
         >
 
           {/* TOP */}
+
           <div className="border-b border-gray-100">
 
             <div className="flex items-center justify-between px-5 py-5">
@@ -310,7 +362,7 @@ function Navbar() {
               <img
                 src={logo}
                 alt="Logo"
-                className="w-36 object-contain"
+                className="w-32 object-contain"
               />
 
               <button
@@ -330,7 +382,6 @@ function Navbar() {
 
             </div>
 
-            {/* TAGLINE */}
             <p className="text-sm text-gray-500 px-5 pb-5 leading-relaxed">
 
               Discovering Ability Before Disability
@@ -339,7 +390,8 @@ function Navbar() {
 
           </div>
 
-          {/* MOBILE LINKS */}
+          {/* LINKS */}
+
           <div className="flex flex-col px-5 py-6 gap-3 overflow-y-auto">
 
             {navLinks.map((link, index) => (
@@ -417,7 +469,8 @@ function Navbar() {
 
           </div>
 
-          {/* MOBILE SOCIALS */}
+          {/* SOCIALS */}
+
           <div className="flex items-center gap-4 px-5 pb-5 mt-auto">
 
             <div className="w-11 h-11 rounded-full bg-[#F3F4F6] hover:bg-[#E63946] hover:text-white transition flex items-center justify-center cursor-pointer text-[#1F2937]">
@@ -440,14 +493,16 @@ function Navbar() {
 
           </div>
 
-          {/* MOBILE FOOTER */}
+          {/* MOBILE DONATE */}
+
           <div className="p-5 border-t border-gray-100">
 
             <button
               className="
                 w-full
                 flex items-center justify-center gap-3
-                bg-[#E63946] hover:bg-[#d62839]
+                bg-[#E63946]
+                hover:bg-[#d62839]
                 text-white
                 py-4
                 rounded-full
