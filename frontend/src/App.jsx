@@ -7,25 +7,95 @@ import Events from "./pages/Events"
 import Gallery from "./pages/Gallery"
 import Contact from "./pages/Contact"
 
+import Login from "./admin/pages/Login"
+import Dashboard from "./admin/pages/Dashboard"
+import Pages from "./admin/pages/Pages"
+
+import ProtectedRoute from "./admin/components/ProtectedRoute"
+
 function App() {
+
   return (
+
     <div className="overflow-x-hidden w-full">
 
       <BrowserRouter>
 
         <Routes>
 
-          <Route path="/" element={<Home />} />
+          {/* =====================================
+              PUBLIC WEBSITE ROUTES
+          ===================================== */}
 
-          <Route path="/about" element={<About />} />
+          {/* HOME */}
+          <Route
+            path="/"
+            element={<Home />}
+          />
 
-          <Route path="/services" element={<Services />} />
+          {/* ABOUT */}
+          <Route
+            path="/about"
+            element={<About />}
+          />
 
-          <Route path="/events" element={<Events />} />
+          {/* SERVICES */}
+          <Route
+            path="/services"
+            element={<Services />}
+          />
 
-          <Route path="/gallery" element={<Gallery />} />
+          {/* EVENTS */}
+          <Route
+            path="/events"
+            element={<Events />}
+          />
 
-          <Route path="/contact" element={<Contact />} />
+          {/* GALLERY */}
+          <Route
+            path="/gallery"
+            element={<Gallery />}
+          />
+
+          {/* CONTACT */}
+          <Route
+            path="/contact"
+            element={<Contact />}
+          />
+
+          {/* =====================================
+              ADMIN ROUTES
+          ===================================== */}
+
+          {/* LOGIN */}
+          <Route
+            path="/admin"
+            element={<Login />}
+          />
+
+          {/* DASHBOARD */}
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute>
+
+                <Dashboard />
+
+              </ProtectedRoute>
+            }
+          />
+
+          {/* CMS PAGES */}
+          <Route
+            path="/admin/pages"
+            element={
+              <ProtectedRoute>
+
+                <Pages />
+
+              </ProtectedRoute>
+            }
+          />
 
         </Routes>
 

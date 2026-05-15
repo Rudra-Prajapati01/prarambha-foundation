@@ -5,12 +5,73 @@ import {
   FaHandHoldingHeart,
   FaUserFriends,
   FaChevronRight,
-} from "react-icons/fa";
+} from "react-icons/fa"
 
-import hero from "../../assets/hero/hero2.png";
+import hero from "../../assets/hero/hero2.png"
 
-export default function Hero() {
+export default function Hero({ pageData }) {
 
+  /* =====================================
+      HERO DATA
+  ===================================== */
+  const heroData =
+    pageData?.hero || {}
+
+  const heroTitle =
+    heroData.title ||
+    "Discovering Ability Before Disability"
+
+  const heroTag =
+    heroData.tag ||
+    "Early Intervention • Inclusive Education"
+
+  const heroSubtitle =
+    heroData.subtitle ||
+    ""
+
+  const heroDescription =
+    heroData.description ||
+    ""
+
+  const primaryButton =
+    heroData.buttonText ||
+    "Donate Now"
+
+  const secondaryButton =
+    heroData.secondaryButtonText ||
+    "Learn More"
+
+  const primaryButtonLink =
+    heroData.buttonLink ||
+    "/donate"
+
+  const secondaryButtonLink =
+    heroData.secondaryButtonLink ||
+    "/about"
+
+  /* =====================================
+      TITLE SPLIT
+  ===================================== */
+  const titleWords =
+    heroTitle.split(" ")
+
+  const firstLine =
+    titleWords.slice(0, 2).join(" ")
+
+  const secondLine =
+    titleWords.slice(2).join(" ")
+
+  /* =====================================
+      HERO IMAGE
+  ===================================== */
+  const heroImage =
+    heroData.image
+      ? `http://localhost:5000${heroData.image}`
+      : hero
+
+  /* =====================================
+      FEATURES
+  ===================================== */
   const features = [
     {
       icon: <FaBook className="text-yellow-600 text-xl" />,
@@ -36,278 +97,509 @@ export default function Hero() {
       title: "Family Support",
       desc: "Counseling and guidance for families to build a strong support system.",
     },
-  ];
+  ]
 
   return (
+
     <div className="font-sans antialiased bg-white overflow-x-hidden">
 
-      {/* MOBILE HERO */}
+      {/* =========================================================
+          MOBILE HERO
+      ========================================================= */}
       <section className="lg:hidden bg-[#FFF7E8]">
 
-        {/* ── Text content — left aligned, cream bg ── */}
+        {/* TEXT CONTENT */}
         <div className="px-5 pt-7 pb-0">
 
-          {/* Tagline */}
+          {/* TAGLINE */}
           <p className="text-red-500 font-bold tracking-widest uppercase text-[11px] mb-4">
-            Early Intervention • Inclusive Education
+
+            {heroTag}
+
           </p>
 
-          {/* Heading */}
+          {/* HEADING */}
           <h1 className="text-[40px] sm:text-[52px] font-extrabold leading-[1.05] text-[#0B1B4D] mb-0">
-            Empowering Every
+
+            {firstLine}
+
           </h1>
+
           <h1 className="text-[40px] sm:text-[52px] font-extrabold leading-[1.05] text-red-500 mb-4">
-            Child's Future
+
+            {secondLine}
+
           </h1>
 
-          {/* Mission */}
+          {/* SUBTITLE */}
           <p className="text-[#0B1B4D] font-bold text-[15px] sm:text-base mb-3">
-            Discovering Ability before Disability.
+
+            {heroSubtitle}
+
           </p>
 
-          {/* Description */}
+          {/* DESCRIPTION */}
           <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-7 max-w-sm">
-            Supporting children through therapy, inclusive education,
-            sensory learning, and family-centered care programs.
+
+            {heroDescription}
+
           </p>
 
-          {/* Buttons — stacked, full width, left aligned */}
+          {/* BUTTONS */}
           <div className="flex flex-col gap-3 mb-8">
-            <button className="w-full flex items-center justify-center gap-3
-                               bg-red-500 hover:bg-red-600 active:bg-red-700
-                               text-white font-semibold
-                               py-[14px] px-6 rounded-full shadow-md transition text-[15px]">
+
+            {/* BUTTON 1 */}
+            <a
+              href={primaryButtonLink}
+              className="
+                w-full flex items-center justify-center gap-3
+                bg-red-500 hover:bg-red-600 active:bg-red-700
+                text-white font-semibold
+                py-[14px] px-6 rounded-full
+                shadow-md transition text-[15px]
+              "
+            >
+
               <FaHeart />
-              Explore Programs
-            </button>
-            <button className="w-full flex items-center justify-center gap-3
-                               border-2 border-blue-400 text-blue-500
-                               hover:bg-blue-50 active:bg-blue-100
-                               font-semibold py-[14px] px-6 rounded-full
-                               transition bg-white text-[15px]">
-              <FaUserFriends />
-              Volunteer With Us
-            </button>
+
+              {primaryButton}
+
+            </a>
+
+            {/* BUTTON 2 */}
+            <a
+              href={secondaryButtonLink}
+              className="
+                w-full flex items-center justify-center gap-3
+                border-2 border-[#0B1B4D]
+                text-[#0B1B4D]
+                hover:bg-[#0B1B4D]
+                hover:text-white
+                font-semibold py-[14px] px-6 rounded-full
+                transition bg-white text-[15px]
+              "
+            >
+
+              <FaUsers />
+
+              {secondaryButton}
+
+            </a>
+
           </div>
 
         </div>
 
-        {/* ── Yellow strip with image + doodles ── */}
+        {/* =========================================================
+            MOBILE IMAGE SECTION
+        ========================================================= */}
         <div
-          className="relative w-full overflow-hidden flex justify-center items-end"
+          className="
+            relative w-full overflow-hidden
+            flex justify-center items-end
+          "
           style={{
-            background: "linear-gradient(135deg, #FFD600 0%, #FFC107 100%)",
+            background:
+              "linear-gradient(135deg, #FFD600 0%, #FFC107 100%)",
             borderRadius: "40px 40px 0 0",
             minHeight: "280px",
           }}
         >
-          {/* Heart doodle */}
+
+          {/* HEART DOODLE */}
           <svg
             className="absolute top-6 right-[20%] w-9 h-9 opacity-90"
-            viewBox="0 0 40 40" fill="none"
+            viewBox="0 0 40 40"
+            fill="none"
           >
             <path
               d="M20 35s-15-9-15-20A9 9 0 0120 8a9 9 0 0115 7c0 11-15 20-15 20z"
-              stroke="white" strokeWidth="2.5" fill="none"
+              stroke="white"
+              strokeWidth="2.5"
+              fill="none"
             />
           </svg>
 
-          {/* Sun doodle */}
+          {/* SUN DOODLE */}
           <svg
             className="absolute top-4 right-4 w-12 h-12 opacity-90"
-            viewBox="0 0 100 100" fill="none"
+            viewBox="0 0 100 100"
+            fill="none"
           >
-            <circle cx="50" cy="50" r="16" stroke="white" strokeWidth="4" />
-            <line x1="50" y1="6"  x2="50" y2="22" stroke="white" strokeWidth="4" strokeLinecap="round" />
-            <line x1="50" y1="78" x2="50" y2="94" stroke="white" strokeWidth="4" strokeLinecap="round" />
-            <line x1="6"  y1="50" x2="22" y2="50" stroke="white" strokeWidth="4" strokeLinecap="round" />
-            <line x1="78" y1="50" x2="94" y2="50" stroke="white" strokeWidth="4" strokeLinecap="round" />
-            <line x1="20" y1="20" x2="30" y2="30" stroke="white" strokeWidth="4" strokeLinecap="round" />
-            <line x1="70" y1="70" x2="80" y2="80" stroke="white" strokeWidth="4" strokeLinecap="round" />
-            <line x1="20" y1="80" x2="30" y2="70" stroke="white" strokeWidth="4" strokeLinecap="round" />
-            <line x1="70" y1="30" x2="80" y2="20" stroke="white" strokeWidth="4" strokeLinecap="round" />
+            <circle
+              cx="50"
+              cy="50"
+              r="16"
+              stroke="white"
+              strokeWidth="4"
+            />
           </svg>
 
-          {/* Paper plane doodle */}
-          <svg
-            className="absolute bottom-16 left-4 w-[100px] opacity-90"
-            viewBox="0 0 250 250" fill="none"
-          >
-            <path
-              d="M52 220 C30 180 42 145 78 122 C112 100 126 82 142 72"
-              stroke="#20B7FF" strokeWidth="3" strokeLinecap="round" strokeDasharray="10 12" fill="none"
-            />
-            <path
-              d="M54 194 C68 176 88 184 84 202 C80 218 58 214 58 198"
-              stroke="#20B7FF" strokeWidth="3" strokeLinecap="round" strokeDasharray="10 12" fill="none"
-            />
-            <path
-              d="M142 52 L210 12 L170 82 L162 60 L142 52 Z"
-              stroke="#20B7FF" strokeWidth="4" strokeLinejoin="round" fill="none"
-            />
-            <path d="M162 60L194 28" stroke="#20B7FF" strokeWidth="4" strokeLinecap="round" />
-          </svg>
-
-          {/* Hero image — bottom flush */}
+          {/* HERO IMAGE */}
           <img
-            src={hero}
+            src={heroImage}
             alt="Children"
-            className="relative z-10 w-[90%] max-w-[360px] sm:max-w-[440px] object-contain"
+            className="
+              relative z-10
+              w-[90%]
+              max-w-[360px]
+              sm:max-w-[440px]
+              object-contain
+            "
             style={{ marginBottom: "-4px" }}
           />
+
         </div>
 
       </section>
 
-      {/* ═══════════════════════════════════════════
-          DESKTOP HERO — hidden below lg, 100% UNCHANGED
-      ═══════════════════════════════════════════ */}
-      <section className="relative bg-[#FFF7E8] overflow-hidden min-h-[555px] hidden lg:block">
+      {/* =========================================================
+          DESKTOP HERO
+      ========================================================= */}
+      <section
+        className="
+          relative bg-[#FFF7E8]
+          overflow-hidden
+          min-h-[555px]
+          hidden lg:block
+        "
+      >
 
-        {/* Desktop yellow blob — UNTOUCHED */}
+        {/* YELLOW SHAPE */}
         <div
-          className="absolute top-0 right-0 w-[58%] h-full rounded-bl-[60%] rounded-tl-[28%] overflow-hidden"
-          style={{ background: "linear-gradient(135deg, #FFD600 0%, #FFC107 100%)" }}
+          className="
+            absolute top-0 right-0
+            w-[58%] h-full
+            rounded-bl-[60%]
+            rounded-tl-[28%]
+            overflow-hidden
+          "
+          style={{
+            background:
+              "linear-gradient(135deg, #FFD600 0%, #FFC107 100%)",
+          }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          className="
+            relative max-w-7xl mx-auto
+            px-4 sm:px-6 lg:px-8
+          "
+        >
+
           <div className="flex flex-row items-center min-h-[540px]">
 
             {/* LEFT CONTENT */}
             <div className="w-1/2 z-10 text-left">
-              <p className="text-red-500 font-semibold tracking-wide uppercase mb-3 text-sm">
-                Early Intervention • Inclusive Education
+
+              {/* TAG */}
+              <p
+                className="
+                  text-red-500 font-semibold
+                  tracking-wide uppercase
+                  mb-3 text-sm
+                "
+              >
+
+                {heroTag}
+
               </p>
-              <h1 className="text-[70px] font-extrabold leading-[1.05] text-[#0B1B4D]">
-                Empowering Every
+
+              {/* TITLE */}
+              <h1
+                className="
+                  text-[70px]
+                  font-extrabold
+                  leading-[1.05]
+                  text-[#0B1B4D]
+                "
+              >
+
+                {firstLine}
+
               </h1>
-              <h1 className="text-[70px] font-extrabold leading-[1.05] text-red-500 mb-5">
-                Child's Future
+
+              <h1
+                className="
+                  text-[70px]
+                  font-extrabold
+                  leading-[1.05]
+                  text-red-500
+                  mb-5
+                "
+              >
+
+                {secondLine}
+
               </h1>
-              <p className="text-[#0B1B4D] font-semibold text-xl mb-4">
-                Discovering Ability before Disability.
+
+              {/* SUBTITLE */}
+              <p
+                className="
+                  text-[#0B1B4D]
+                  font-semibold
+                  text-xl
+                  mb-4
+                  max-w-xl
+                "
+              >
+
+                {heroSubtitle}
+
               </p>
-              <p className="text-gray-700 text-lg leading-relaxed max-w-xl mb-8">
-                Supporting children through therapy, inclusive education,
-                sensory learning, and family-centered care programs.
+
+              {/* DESCRIPTION */}
+              <p
+                className="
+                  text-gray-700
+                  text-lg
+                  leading-relaxed
+                  max-w-xl
+                  mb-8
+                "
+              >
+
+                {heroDescription}
+
               </p>
+
+              {/* BUTTONS */}
               <div className="flex flex-row items-start gap-5">
-                <button className="flex items-center justify-center gap-3 bg-red-500 hover:bg-red-600 text-white font-semibold px-8 py-4 rounded-full shadow-lg transition">
+
+                {/* PRIMARY */}
+                <a
+                  href={primaryButtonLink}
+                  className="
+                    flex items-center justify-center gap-3
+                    bg-red-500 hover:bg-red-600
+                    text-white font-semibold
+                    px-8 py-4 rounded-full
+                    shadow-lg transition
+                  "
+                >
+
                   <FaHeart />
-                  Explore Programs
-                </button>
-                <button className="flex items-center justify-center gap-3 border-2 border-blue-400 text-blue-500 hover:bg-blue-50 font-semibold px-8 py-4 rounded-full transition bg-white">
-                  <FaUserFriends />
-                  Volunteer With Us
-                </button>
+
+                  {primaryButton}
+
+                </a>
+
+                {/* SECONDARY */}
+                <a
+                  href={secondaryButtonLink}
+                  className="
+                    flex items-center justify-center gap-3
+                    border-2 border-[#0B1B4D]
+                    text-[#0B1B4D]
+                    hover:bg-[#0B1B4D]
+                    hover:text-white
+                    font-semibold px-8 py-4
+                    rounded-full transition bg-white
+                  "
+                >
+
+                  <FaUsers />
+
+                  {secondaryButton}
+
+                </a>
+
               </div>
+
             </div>
 
             {/* RIGHT IMAGE */}
-            <div className="w-1/2 relative flex justify-center z-10">
-              {/* Paper Plane */}
-              <svg className="absolute top-40 left-[-62px] w-[220px] z-20" viewBox="0 0 250 250" fill="none">
-                <path d="M52 220 C30 180 42 145 78 122 C112 100 126 82 142 72"
-                  stroke="#20B7FF" strokeWidth="3" strokeLinecap="round" strokeDasharray="10 12" fill="none" />
-                <path d="M54 194 C68 176 88 184 84 202 C80 218 58 214 58 198"
-                  stroke="#20B7FF" strokeWidth="3" strokeLinecap="round" strokeDasharray="10 12" fill="none" />
-                <path d="M142 52 L210 12 L170 82 L162 60 L142 52 Z"
-                  stroke="#20B7FF" strokeWidth="4" strokeLinejoin="round" fill="none" />
-                <path d="M162 60L194 28" stroke="#20B7FF" strokeWidth="4" strokeLinecap="round" />
-              </svg>
-              {/* Heart */}
-              <svg className="absolute top-3 right-[280px] w-12 z-20" viewBox="0 0 40 40" fill="none">
-                <path d="M20 35s-15-9-15-20A9 9 0 0120 8a9 9 0 0115 7c0 11-15 20-15 20z"
-                  stroke="white" strokeWidth="2.5" fill="none" />
-              </svg>
-              {/* Sun */}
-              <svg className="absolute top-4 right-0 w-16 h-16 z-20" viewBox="0 0 100 100" fill="none">
-                <circle cx="50" cy="50" r="16" stroke="white" strokeWidth="4" />
-                <line x1="50" y1="6"  x2="50" y2="22" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                <line x1="50" y1="78" x2="50" y2="94" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                <line x1="6"  y1="50" x2="22" y2="50" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                <line x1="78" y1="50" x2="94" y2="50" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                <line x1="20" y1="20" x2="30" y2="30" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                <line x1="70" y1="70" x2="80" y2="80" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                <line x1="20" y1="80" x2="30" y2="70" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                <line x1="70" y1="30" x2="80" y2="20" stroke="white" strokeWidth="4" strokeLinecap="round" />
-              </svg>
+            <div
+              className="
+                w-1/2 relative
+                flex justify-center z-10
+              "
+            >
+
               <img
-                src={hero}
+                src={heroImage}
                 alt="Children"
-                className="bottom-1 relative z-0 w-full max-w-2xl object-contain translate-x-24 pt-10"
+                className="
+                  bottom-1 relative z-0
+                  w-full max-w-2xl
+                  object-contain
+                  translate-x-24 pt-10
+                "
               />
+
             </div>
 
           </div>
+
         </div>
 
-        {/* Wave */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-20">
-          <svg viewBox="0 0 1440 120" className="w-full h-[120px]" preserveAspectRatio="none">
-            <path fill="#ffffff"
-              d="M0,0 C180,140 420,120 540,80 C720,20 900,0 1080,40 C1260,80 1380,20 1440,40 L1440,120 L0,120 Z" />
+        {/* WAVE */}
+        <div
+          className="
+            absolute bottom-0 left-0
+            w-full leading-none
+            z-20 translate-y-[1px]
+          "
+        >
+          <svg
+            viewBox="0 0 1440 80"
+            className="w-full h-[146px] block"
+            preserveAspectRatio="none"
+          >
+            <path
+              fill="#ffffff"
+              d="
+                M0,40 C180,110 500,90 610,55
+                C720,25 900,10 1080,35
+                C1260,60 1380,20 1440,30
+                L1440,80 L0,80 Z
+              "
+            />
           </svg>
         </div>
 
       </section>
 
-      {/* ═══════════════════════════════════════════
+      {/* =========================================================
           FEATURES SECTION
-      ═══════════════════════════════════════════ */}
-      <section className="bg-white relative z-30 py-6 lg:py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      ========================================================= */}
+      <section className="bg-white relative z-30 py-6 lg:py-10">
 
-          {/* ── MOBILE feature cards (hidden on lg+) ── */}
+        <div
+          className="
+            max-w-7xl mx-auto
+            px-4 sm:px-6 lg:px-8
+          "
+        >
+
+          {/* MOBILE FEATURES */}
           <div className="flex flex-col gap-3 lg:hidden">
+
             {features.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center gap-4 bg-white rounded-2xl px-4 py-4
-                           shadow-[0_2px_12px_rgba(0,0,0,0.07)] border border-gray-100"
+                className="
+                  flex items-center gap-4
+                  bg-white rounded-2xl
+                  px-4 py-4
+                  shadow-[0_2px_12px_rgba(0,0,0,0.07)]
+                  border border-gray-100
+                "
               >
-                {/* Icon */}
-                <div className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center flex-shrink-0`}>
+
+                <div
+                  className={`
+                    w-14 h-14 rounded-2xl ${item.bg}
+                    flex items-center justify-center
+                    flex-shrink-0
+                  `}
+                >
                   {item.icon}
                 </div>
 
-                {/* Text */}
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-[#0B1B4D] text-[15px] mb-0.5 leading-tight">
+
+                  <h3
+                    className="
+                      font-bold text-[#0B1B4D]
+                      text-[15px]
+                      mb-0.5
+                      leading-tight
+                    "
+                  >
                     {item.title}
                   </h3>
-                  <p className="text-gray-500 text-xs leading-relaxed line-clamp-2">
+
+                  <p
+                    className="
+                      text-gray-500
+                      text-xs
+                      leading-relaxed
+                    "
+                  >
                     {item.desc}
                   </p>
+
                 </div>
 
-                {/* Arrow */}
-                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gray-50 flex items-center justify-center">
+                <div
+                  className="
+                    flex-shrink-0
+                    w-7 h-7
+                    rounded-full
+                    bg-gray-50
+                    flex items-center justify-center
+                  "
+                >
                   <FaChevronRight className="text-gray-400 text-[10px]" />
                 </div>
+
               </div>
             ))}
+
           </div>
 
-          {/* ── DESKTOP feature grid — UNCHANGED (hidden on mobile) ── */}
+          {/* DESKTOP FEATURES */}
           <div className="hidden lg:grid lg:grid-cols-4 gap-5">
+
             {features.map((item, index) => (
-              <div key={index}
-                className="bg-[#F9FAFB] rounded-2xl flex items-start gap-5 p-6 shadow-sm">
-                <div className={`w-14 h-14 rounded-full ${item.bg} flex items-center justify-center flex-shrink-0`}>
+              <div
+                key={index}
+                className="
+                  bg-[#F9FAFB]
+                  rounded-2xl
+                  flex items-start gap-5
+                  p-6
+                  shadow-sm
+                  hover:shadow-md
+                  transition
+                "
+              >
+
+                <div
+                  className={`
+                    w-14 h-14 rounded-full ${item.bg}
+                    flex items-center justify-center
+                    flex-shrink-0
+                  `}
+                >
                   {item.icon}
                 </div>
+
                 <div>
-                  <h3 className="font-bold text-[#0B1B4D] text-lg mb-2">{item.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+
+                  <h3
+                    className="
+                      font-bold
+                      text-[#0B1B4D]
+                      text-lg
+                      mb-2
+                    "
+                  >
+                    {item.title}
+                  </h3>
+
+                  <p
+                    className="
+                      text-gray-600
+                      text-sm
+                      leading-relaxed
+                    "
+                  >
+                    {item.desc}
+                  </p>
+
                 </div>
+
               </div>
             ))}
+
           </div>
 
         </div>
+
       </section>
 
     </div>
-  );
+  )
 }
