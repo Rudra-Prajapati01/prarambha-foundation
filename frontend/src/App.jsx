@@ -13,6 +13,14 @@ import Pages from "./admin/pages/Pages"
 
 import ProtectedRoute from "./admin/components/ProtectedRoute"
 
+import GalleryAdmin from "./admin/pages/GalleryAdmin"
+
+import StoryDetails from "./pages/StoryDetails"
+
+import Stories from "./components/common/stories/Stories"
+
+import StoriesAdmin from "./admin/pages/StoriesAdmin"
+
 function App() {
 
   return (
@@ -64,6 +72,22 @@ function App() {
           />
 
           {/* =====================================
+              STORIES ROUTES
+          ===================================== */}
+
+          {/* ALL STORIES */}
+          <Route
+            path="/stories"
+            element={<Stories />}
+          />
+
+          {/* SINGLE STORY */}
+          <Route
+            path="/stories/:id"
+            element={<StoryDetails />}
+          />
+
+          {/* =====================================
               ADMIN ROUTES
           ===================================== */}
 
@@ -93,6 +117,27 @@ function App() {
 
                 <Pages />
 
+              </ProtectedRoute>
+            }
+          />
+
+          {/* GALLERY ADMIN */}
+          <Route
+            path="/admin/gallery"
+            element={
+              <ProtectedRoute>
+
+                <GalleryAdmin />
+
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/stories"
+            element={
+              <ProtectedRoute>
+                <StoriesAdmin />
               </ProtectedRoute>
             }
           />

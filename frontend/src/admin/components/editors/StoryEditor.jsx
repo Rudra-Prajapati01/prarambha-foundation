@@ -1,66 +1,112 @@
 import axios from "axios"
+import { useEffect, useState } from "react"
 
-function StoryEditor({
-  pageData,
-  setPageData,
-}) {
+function StoryEditor() {
 
-  const stories =
-    pageData?.impactStories || []
+  /* =========================================
+      STATES
+  ========================================= */
 
-  /* =========================
-      ADD STORY
-  ========================= */
-  const addStory = () => {
+  const [stories, setStories] =
+    useState([])
 
-    const newStory = {
+  /* =========================================
+      FETCH STORIES
+  ========================================= */
 
-      title: "",
+  useEffect(() => {
 
-      category: "",
+    fetchStories()
 
-      image: "",
+  }, [])
 
-      desc: "",
+  const fetchStories = async () => {
 
-      type: "small",
+    try {
+
+      const { data } =
+        await axios.get(
+          "https://prarambha-backend.onrender.com/api/stories"
+        )
+
+      setStories(data)
+
+    } catch (error) {
+
+      console.log(error)
+
     }
-
-    setPageData((prev) => ({
-
-      ...prev,
-
-      impactStories: [
-
-        ...prev.impactStories,
-
-        newStory,
-      ],
-    }))
   }
 
-  /* =========================
-      DELETE STORY
-  ========================= */
-  const deleteStory = (index) => {
+  /* =========================================
+      ADD STORY
+  ========================================= */
 
-    const updatedStories =
-      stories.filter(
-        (_, i) => i !== index
+  const addStory = async () => {
+
+    try {
+
+      const newStory = {
+
+        title: "New Story",
+
+        category: "Therapy",
+
+        image: "",
+
+        desc: "Write story here...",
+
+        type: "small",
+      }
+
+      const { data } =
+        await axios.post(
+          "https://prarambha-backend.onrender.com/api/stories",
+          newStory
+        )
+
+      setStories((prev) => [
+        ...prev,
+        data,
+      ])
+
+    } catch (error) {
+
+      console.log(error)
+
+    }
+  }
+
+  /* =========================================
+      DELETE STORY
+  ========================================= */
+
+  const deleteStory = async (id) => {
+
+    try {
+
+      await axios.delete(
+        `https://prarambha-backend.onrender.com/api/stories/${id}`
       )
 
-    setPageData((prev) => ({
+      setStories((prev) =>
+        prev.filter(
+          (story) =>
+            story._id !== id
+        )
+      )
 
-      ...prev,
+    } catch (error) {
 
-      impactStories:
-        updatedStories,
-    }))
+      console.log(error)
+
+    }
   }
 
-  /* =========================
+  /* =========================================
       HANDLE CHANGE
-  ========================= */
+  ========================================= */
+
   const handleChange = (
     index,
     field,
@@ -73,13 +119,7 @@ function StoryEditor({
     updatedStories[index][field] =
       value
 
-    setPageData((prev) => ({
-
-      ...prev,
-
-      impactStories:
-        updatedStories,
-    }))
+    setStories(updatedStories)
   }
 
   return (
@@ -93,7 +133,10 @@ function StoryEditor({
       "
     >
 
-      {/* HEADER */}
+      {/* =====================================
+          HEADER
+      ===================================== */}
+
       <div
         className="
           flex
@@ -113,6 +156,7 @@ function StoryEditor({
         </h2>
 
         {/* ADD BUTTON */}
+
         <button
           onClick={addStory}
           className="
@@ -133,7 +177,10 @@ function StoryEditor({
 
       </div>
 
-      {/* EMPTY STATE */}
+      {/* =====================================
+          EMPTY STATE
+      ===================================== */}
+
       {stories.length === 0 && (
 
         <div
@@ -188,13 +235,16 @@ function StoryEditor({
 
       )}
 
-      {/* STORIES */}
+      {/* =====================================
+          STORIES
+      ===================================== */}
+
       <div className="space-y-8">
 
         {stories.map((story, index) => (
 
           <div
-            key={index}
+            key={story._id}
             className="
               border
               border-gray-200
@@ -204,6 +254,7 @@ function StoryEditor({
           >
 
             {/* TOP */}
+
             <div
               className="
                 flex
@@ -222,28 +273,72 @@ function StoryEditor({
                 Story {index + 1}
               </h3>
 
-              {/* DELETE */}
-              <button
-                onClick={() =>
-                  deleteStory(index)
-                }
-                className="
-                  bg-red-100
-                  text-red-600
-                  px-4
-                  py-2
-                  rounded-xl
-                  font-semibold
-                "
-              >
+              <div className="flex items-center gap-3">
 
-                Delete
+                {/* SAVE */}
 
-              </button>
+                <button
+                  onClick={async () => {
+
+                    try {
+
+                      await axios.put(
+                        `https://prarambha-backend.onrender.com/api/stories/${story._id}`,
+                        story
+                      )
+
+                      alert(
+                        "Story Saved ✅"
+                      )
+
+                    } catch (error) {
+
+                      console.log(error)
+
+                    }
+                  }}
+                  className="
+                    bg-green-100
+                    text-green-700
+                    px-4
+                    py-2
+                    rounded-xl
+                    font-semibold
+                  "
+                >
+
+                  Save
+
+                </button>
+
+                {/* DELETE */}
+
+                <button
+                  onClick={() =>
+                    deleteStory(
+                      story._id
+                    )
+                  }
+                  className="
+                    bg-red-100
+                    text-red-600
+                    px-4
+                    py-2
+                    rounded-xl
+                    font-semibold
+                  "
+                >
+
+                  Delete
+
+                </button>
+
+              </div>
 
             </div>
 
             {/* TITLE */}
+
             <input
               type="text"
               placeholder="Story Title"
@@ -267,6 +362,7 @@ function StoryEditor({
             />
 
             {/* CATEGORY */}
+
             <input
               type="text"
               placeholder="Category"
@@ -290,6 +386,7 @@ function StoryEditor({
             />
 
             {/* DESCRIPTION */}
+
             <textarea
               rows="4"
               placeholder="Description"
@@ -313,15 +410,15 @@ function StoryEditor({
             />
 
             {/* IMAGE */}
-            {/* IMAGE UPLOAD */}
+
             <div className="mb-4">
 
               <p
                 className="
-      font-semibold
-      mb-3
-      text-[#111827]
-    "
+                  font-semibold
+                  mb-3
+                  text-[#111827]
+                "
               >
                 Upload Image
               </p>
@@ -367,30 +464,32 @@ function StoryEditor({
                   } catch (error) {
 
                     console.log(error)
+
                   }
                 }}
                 className="
-      w-full
-      bg-[#F3F4F6]
-      p-4
-      rounded-2xl
-      cursor-pointer
-    "
+                  w-full
+                  bg-[#F3F4F6]
+                  p-4
+                  rounded-2xl
+                  cursor-pointer
+                "
               />
 
               {/* PREVIEW */}
+
               {story.image && (
 
                 <img
                   src={`https://prarambha-backend.onrender.com${story.image}`}
                   alt=""
                   className="
-        w-full
-        h-[220px]
-        object-cover
-        rounded-2xl
-        mt-4
-      "
+                    w-full
+                    h-[220px]
+                    object-cover
+                    rounded-2xl
+                    mt-4
+                  "
                 />
 
               )}
@@ -398,6 +497,7 @@ function StoryEditor({
             </div>
 
             {/* TYPE */}
+
             <select
               value={story.type || ""}
               onChange={(e) =>

@@ -47,6 +47,12 @@ function Sidebar() {
     },
 
     {
+      title: "Stories",
+      icon: <FaFileAlt />,
+      path: "/admin/stories",
+    },
+
+    {
       title: "Messages",
       icon: <FaEnvelope />,
       path: "/admin/messages",

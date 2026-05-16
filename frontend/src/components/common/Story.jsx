@@ -1,16 +1,46 @@
+import { useEffect, useState } from "react"
 import { FaArrowRight } from "react-icons/fa"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
 
-function ImpactStories({ pageData }) {
+function Story() {
+
+  const navigate = useNavigate()
+
+  const [stories, setStories] = useState([])
 
   /* =========================
-      STORIES
+      FETCH STORIES
   ========================= */
-  const stories =
-    pageData?.impactStories || []
+
+  useEffect(() => {
+
+    const fetchStories = async () => {
+
+      try {
+
+        const { data } = await axios.get(
+          "https://prarambha-backend.onrender.com/api/stories"
+        )
+
+        setStories(data)
+
+      } catch (error) {
+
+        console.log(error)
+
+      }
+
+    }
+
+    fetchStories()
+
+  }, [])
 
   /* =========================
       STORY TYPES
   ========================= */
+
   const largeStory =
     stories.find(
       (story) =>
@@ -36,9 +66,19 @@ function ImpactStories({ pageData }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* HEADING */}
+
         <div className="mb-8 lg:mb-10">
 
-          <p className="text-[#E63946] uppercase tracking-[3px] text-xs font-bold mb-3">
+          <p
+            className="
+              text-[#E63946]
+              uppercase
+              tracking-[4px]
+              text-xs
+              font-bold
+              mb-3
+            "
+          >
             Real Stories
           </p>
 
@@ -46,38 +86,45 @@ function ImpactStories({ pageData }) {
             className="
               text-[34px]
               sm:text-[42px]
-              lg:text-4xl
+              lg:text-5xl
               font-extrabold
               text-[#0B1B4D]
               leading-tight
-              mb-3
+              mb-4
             "
           >
             Impact Stories
           </h2>
 
-          <div className="w-20 h-1 bg-[#E63946] rounded-full"></div>
+          <div
+            className="
+              w-24
+              h-1
+              bg-[#E63946]
+              rounded-full
+            "
+          ></div>
 
         </div>
 
-        {/* MOBILE DESIGN */}
+        {/* MOBILE */}
+
         <div className="flex flex-col gap-5 lg:hidden">
 
-          {stories.map((story, index) => (
+          {stories.map((story) => (
 
             <div
-              key={index}
+              key={story._id}
               className="
                 relative
-                rounded-[28px]
+                rounded-[30px]
                 overflow-hidden
-                h-[320px]
-                shadow-[0_8px_30px_rgba(0,0,0,0.08)]
+                h-[340px]
+                shadow-[0_10px_40px_rgba(0,0,0,0.08)]
                 group
               "
             >
 
-              {/* IMAGE */}
               <img
                 src={`https://prarambha-backend.onrender.com${story.image}`}
                 alt={story.title}
@@ -91,10 +138,17 @@ function ImpactStories({ pageData }) {
                 "
               />
 
-              {/* OVERLAY */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"></div>
+              <div
+                className="
+                  absolute
+                  inset-0
+                  bg-gradient-to-t
+                  from-black/80
+                  via-black/30
+                  to-transparent
+                "
+              ></div>
 
-              {/* CATEGORY */}
               <div
                 className="
                   absolute
@@ -106,16 +160,22 @@ function ImpactStories({ pageData }) {
                   py-2
                   text-[11px]
                   font-bold
-                  tracking-widest
                   rounded-full
-                  shadow-lg
                 "
               >
                 {story.category}
               </div>
 
-              {/* CONTENT */}
-              <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+              <div
+                className="
+                  absolute
+                  bottom-0
+                  left-0
+                  right-0
+                  p-5
+                  text-white
+                "
+              >
 
                 <h3
                   className="
@@ -131,15 +191,19 @@ function ImpactStories({ pageData }) {
                 <p
                   className="
                     text-sm
-                    text-gray-200
                     leading-relaxed
+                    text-gray-200
                     mb-5
+                    line-clamp-3
                   "
                 >
                   {story.desc}
                 </p>
 
                 <button
+                  onClick={() =>
+                    navigate(`/stories/${story._id}`)
+                  }
                   className="
                     flex
                     items-center
@@ -173,21 +237,24 @@ function ImpactStories({ pageData }) {
 
         </div>
 
-        {/* DESKTOP DESIGN */}
+        {/* DESKTOP */}
+
         <div className="hidden lg:grid lg:grid-cols-3 gap-5">
 
           {/* LEFT */}
+
           <div className="lg:col-span-2 flex flex-col gap-5">
 
-            {/* LARGE CARD */}
+            {/* LARGE */}
+
             {largeStory && (
 
               <div
                 className="
                   relative
-                  rounded-[32px]
+                  rounded-[34px]
                   overflow-hidden
-                  h-[430px]
+                  h-[450px]
                   group
                 "
               >
@@ -218,7 +285,6 @@ function ImpactStories({ pageData }) {
                     py-2
                     text-sm
                     font-bold
-                    tracking-wider
                     rounded-full
                   "
                 >
@@ -235,22 +301,33 @@ function ImpactStories({ pageData }) {
                   "
                 >
 
-                  <h3 className="text-4xl font-bold mb-4">
+                  <h3
+                    className="
+                      text-4xl
+                      font-bold
+                      mb-4
+                      leading-tight
+                    "
+                  >
                     {largeStory.title}
                   </h3>
 
                   <p
                     className="
                       text-lg
+                      text-gray-100
                       leading-relaxed
                       mb-6
-                      text-gray-100
+                      line-clamp-3
                     "
                   >
                     {largeStory.desc}
                   </p>
 
                   <button
+                    onClick={() =>
+                      navigate(`/stories/${largeStory._id}`)
+                    }
                     className="
                       bg-[#E63946]
                       hover:bg-red-600
@@ -263,7 +340,6 @@ function ImpactStories({ pageData }) {
                       items-center
                       gap-3
                       transition
-                      shadow-lg
                     "
                   >
 
@@ -279,13 +355,14 @@ function ImpactStories({ pageData }) {
 
             )}
 
-            {/* SMALL CARDS */}
+            {/* SMALL */}
+
             <div className="grid grid-cols-2 gap-5">
 
-              {smallStories.map((story, index) => (
+              {smallStories.map((story) => (
 
                 <div
-                  key={index}
+                  key={story._id}
                   className="
                     relative
                     rounded-[32px]
@@ -302,9 +379,6 @@ function ImpactStories({ pageData }) {
                       w-full
                       h-full
                       object-cover
-                      group-hover:scale-105
-                      transition
-                      duration-700
                     "
                   />
 
@@ -321,7 +395,6 @@ function ImpactStories({ pageData }) {
                       py-2
                       text-sm
                       font-bold
-                      tracking-wider
                       rounded-full
                     "
                   >
@@ -342,7 +415,7 @@ function ImpactStories({ pageData }) {
                       className="
                         text-2xl
                         font-bold
-                        mb-3
+                        mb-4
                         leading-snug
                       "
                     >
@@ -350,6 +423,9 @@ function ImpactStories({ pageData }) {
                     </h3>
 
                     <button
+                      onClick={() =>
+                        navigate(`/stories/${story._id}`)
+                      }
                       className="
                         bg-white/20
                         backdrop-blur-md
@@ -361,8 +437,6 @@ function ImpactStories({ pageData }) {
                         text-sm
                         font-semibold
                         transition
-                        border
-                        border-white/20
                       "
                     >
                       Read More
@@ -378,15 +452,16 @@ function ImpactStories({ pageData }) {
 
           </div>
 
-          {/* RIGHT TALL CARD */}
+          {/* TALL */}
+
           {tallStory && (
 
             <div
               className="
                 relative
-                rounded-[32px]
+                rounded-[34px]
                 overflow-hidden
-                min-h-[770px]
+                min-h-[785px]
                 group
               "
             >
@@ -398,9 +473,6 @@ function ImpactStories({ pageData }) {
                   w-full
                   h-full
                   object-cover
-                  group-hover:scale-105
-                  transition
-                  duration-700
                 "
               />
 
@@ -417,7 +489,6 @@ function ImpactStories({ pageData }) {
                   py-2
                   text-sm
                   font-bold
-                  tracking-wider
                   rounded-full
                 "
               >
@@ -436,10 +507,10 @@ function ImpactStories({ pageData }) {
 
                 <h3
                   className="
-                    text-4xl
-                    font-bold
-                    mb-5
+                    text-5xl
+                    font-black
                     leading-tight
+                    mb-5
                   "
                 >
                   {tallStory.title}
@@ -450,13 +521,16 @@ function ImpactStories({ pageData }) {
                     text-lg
                     leading-relaxed
                     text-gray-100
-                    mb-6
+                    mb-7
                   "
                 >
                   {tallStory.desc}
                 </p>
 
                 <button
+                  onClick={() =>
+                    navigate(`/stories/${tallStory._id}`)
+                  }
                   className="
                     bg-[#E63946]
                     hover:bg-red-600
@@ -469,7 +543,6 @@ function ImpactStories({ pageData }) {
                     items-center
                     gap-3
                     transition
-                    shadow-lg
                   "
                 >
 
@@ -493,4 +566,4 @@ function ImpactStories({ pageData }) {
   )
 }
 
-export default ImpactStories
+export default Story
