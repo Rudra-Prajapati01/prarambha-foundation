@@ -15,6 +15,7 @@ import galleryRoutes from "./routes/galleryRoutes.js"
 
 import storyRoutes from "./routes/storyRoutes.js"
 
+import messageRoutes from "./routes/messageRoutes.js"
 
 dotenv.config()
 
@@ -30,6 +31,7 @@ app.use("/api/pages", pageRoutes)
 app.use("/api/upload", uploadRoutes)
 app.use("/api/gallery", galleryRoutes)
 app.use("/api/stories", storyRoutes)
+app.use("/api/messages", messageRoutes)
 
 const __dirname = path.resolve()
 
