@@ -11,6 +11,9 @@ import path from "path"
 
 import uploadRoutes from "./routes/uploadRoutes.js"
 
+import galleryRoutes from "./routes/galleryRoutes.js"
+
+
 
 
 dotenv.config()
@@ -25,6 +28,7 @@ app.use(express.json())
 app.use("/api/admin", adminRoutes)
 app.use("/api/pages", pageRoutes)
 app.use("/api/upload", uploadRoutes)
+app.use("/api/gallery", galleryRoutes)
 
 const __dirname = path.resolve()
 
