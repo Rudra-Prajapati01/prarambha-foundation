@@ -5,61 +5,61 @@ import { useParams, Link } from "react-router-dom"
 import axios from "axios"
 
 import {
-  FaArrowLeft,
-  FaHeart,
-  FaQuoteLeft,
-  FaShareAlt,
+    FaArrowLeft,
+    FaHeart,
+    FaQuoteLeft,
+    FaShareAlt,
 } from "react-icons/fa"
 
 function StoryDetails() {
 
-  const { id } = useParams()
+    const { id } = useParams()
 
-  const [story, setStory] =
-    useState(null)
+    const [story, setStory] =
+        useState(null)
 
-  useEffect(() => {
+    useEffect(() => {
 
-    const fetchStory = async () => {
+        const fetchStory = async () => {
 
-      try {
+            try {
 
-        const { data } =
-          await axios.get(
-            `https://prarambha-backend.onrender.com/api/stories/${id}`
-          )
+                const { data } =
+                    await axios.get(
+                        `https://prarambha-backend.onrender.com/api/stories/${id}`
+                    )
 
-        setStory(data)
+                setStory(data)
 
-      } catch (error) {
+            } catch (error) {
 
-        console.log(error)
+                console.log(error)
 
-      }
-    }
+            }
+        }
 
-    fetchStory()
+        fetchStory()
 
-  }, [id])
+    }, [id])
 
-  if (!story) {
+    if (!story) {
 
-    return (
+        return (
 
-      <div
-        className="
+            <div
+                className="
           min-h-screen
           flex
           items-center
           justify-center
           bg-[#F8FAFC]
         "
-      >
+            >
 
-        <div className="text-center">
+                <div className="text-center">
 
-          <div
-            className="
+                    <div
+                        className="
               w-16
               h-16
               border-4
@@ -70,53 +70,64 @@ function StoryDetails() {
               mx-auto
               mb-6
             "
-          />
+                    />
 
-          <h2
-            className="
+                    <h2
+                        className="
               text-2xl
               font-bold
               text-[#0B1B4D]
             "
-          >
-            Loading Story...
-          </h2>
+                    >
+                        Loading Story...
+                    </h2>
 
-        </div>
+                </div>
 
-      </div>
-    )
-  }
+            </div>
+        )
+    }
 
-  return (
+    return (
 
-    <section className="bg-[#F8FAFC] min-h-screen">
+        <section className="bg-[#F8FAFC] min-h-screen">
 
-      {/* HERO SECTION */}
-      <div
-        className="
+            {/* HERO SECTION */}
+            <div
+                className="
           relative
           w-full
           bg-black
           overflow-hidden
         "
-      >
+            >
 
-        {/* IMAGE */}
-        <img
-          src={`https://prarambha-backend.onrender.com${story.image}`}
-          alt={story.title}
-          className="
-            w-full
-            max-h-screen
-            object-contain
-            mx-auto
-          "
-        />
+                {/* IMAGE */}
+                <img
+                    src={
+                        story.image?.startsWith("http")
+                            ? story.image
+                            : `https://prarambha-backend.onrender.com${story.image}`
+                    }
+                    alt={story.title}
+                    onError={(e) => {
 
-        {/* DARK OVERLAY */}
-        <div
-          className="
+                        e.target.onerror = null
+
+                        e.target.src =
+                            "https://via.placeholder.com/1200x800?text=Story+Image"
+                    }}
+                    className="
+                                w-full
+                                max-h-screen
+                                object-contain
+                                mx-auto
+                            "
+                />
+
+                {/* DARK OVERLAY */}
+                <div
+                    className="
             absolute
             inset-0
             bg-gradient-to-t
@@ -124,11 +135,11 @@ function StoryDetails() {
             via-black/20
             to-transparent
           "
-        />
+                />
 
-        {/* TOP BAR */}
-        <div
-          className="
+                {/* TOP BAR */}
+                <div
+                    className="
             absolute
             top-0
             left-0
@@ -140,12 +151,12 @@ function StoryDetails() {
             py-6
             z-20
           "
-        >
+                >
 
-          {/* BACK BUTTON */}
-          <Link
-            to="/stories"
-            className="
+                    {/* BACK BUTTON */}
+                    <Link
+                        to="/stories"
+                        className="
               flex
               items-center
               gap-3
@@ -159,17 +170,17 @@ function StoryDetails() {
               hover:bg-white/30
               transition-all
             "
-          >
+                    >
 
-            <FaArrowLeft />
+                        <FaArrowLeft />
 
-            Back Stories
+                        Back Stories
 
-          </Link>
+                    </Link>
 
-          {/* SHARE */}
-          <button
-            className="
+                    {/* SHARE */}
+                    <button
+                        className="
               w-14
               h-14
               rounded-full
@@ -183,17 +194,17 @@ function StoryDetails() {
               hover:bg-white/30
               transition-all
             "
-          >
+                    >
 
-            <FaShareAlt />
+                        <FaShareAlt />
 
-          </button>
+                    </button>
 
-        </div>
+                </div>
 
-        {/* HERO CONTENT */}
-        <div
-          className="
+                {/* HERO CONTENT */}
+                <div
+                    className="
             absolute
             bottom-0
             left-0
@@ -202,13 +213,13 @@ function StoryDetails() {
             px-6
             pb-12
           "
-        >
+                >
 
-          <div className="max-w-6xl mx-auto">
+                    <div className="max-w-6xl mx-auto">
 
-            {/* CATEGORY */}
-            <div
-              className="
+                        {/* CATEGORY */}
+                        <div
+                            className="
                 inline-block
                 bg-[#E63946]
                 text-white
@@ -221,13 +232,13 @@ function StoryDetails() {
                 mb-6
                 shadow-lg
               "
-            >
-              {story.category}
-            </div>
+                        >
+                            {story.category}
+                        </div>
 
-            {/* TITLE */}
-            <h1
-              className="
+                        {/* TITLE */}
+                        <h1
+                            className="
                 text-4xl
                 md:text-6xl
                 font-black
@@ -236,19 +247,19 @@ function StoryDetails() {
                 max-w-4xl
                 drop-shadow-xl
               "
-            >
-              {story.title}
-            </h1>
+                        >
+                            {story.title}
+                        </h1>
 
-          </div>
+                    </div>
 
-        </div>
+                </div>
 
-      </div>
+            </div>
 
-      {/* CONTENT SECTION */}
-      <div
-        className="
+            {/* CONTENT SECTION */}
+            <div
+                className="
           max-w-6xl
           mx-auto
           px-6
@@ -257,14 +268,14 @@ function StoryDetails() {
           lg:grid-cols-[2fr_1fr]
           gap-14
         "
-      >
+            >
 
-        {/* LEFT SIDE */}
-        <div>
+                {/* LEFT SIDE */}
+                <div>
 
-          {/* STORY CARD */}
-          <div
-            className="
+                    {/* STORY CARD */}
+                    <div
+                        className="
               bg-white
               rounded-[35px]
               p-10
@@ -272,13 +283,13 @@ function StoryDetails() {
               border
               border-gray-100
             "
-          >
+                    >
 
-            {/* HEADING */}
-            <div className="mb-10">
+                        {/* HEADING */}
+                        <div className="mb-10">
 
-              <p
-                className="
+                            <p
+                                className="
                   text-[#E63946]
                   uppercase
                   tracking-[4px]
@@ -286,45 +297,45 @@ function StoryDetails() {
                   text-sm
                   mb-4
                 "
-              >
-                Real Impact Story
-              </p>
+                            >
+                                Real Impact Story
+                            </p>
 
-              <h2
-                className="
+                            <h2
+                                className="
                   text-4xl
                   font-black
                   text-[#0B1B4D]
                   leading-tight
                 "
-              >
-                A Journey of Hope,
-                Growth & Inclusion
-              </h2>
+                            >
+                                A Journey of Hope,
+                                Growth & Inclusion
+                            </h2>
 
-            </div>
+                        </div>
 
-            {/* DESCRIPTION */}
-            <div
-              className="
+                        {/* DESCRIPTION */}
+                        <div
+                            className="
                 text-[19px]
                 leading-[2.1]
                 text-gray-700
                 space-y-6
               "
-            >
+                        >
 
-              <p>
-                {story.desc}
-              </p>
+                            <p>
+                                {story.desc}
+                            </p>
 
-            </div>
+                        </div>
 
-          </div>
+                    </div>
 
-          {/* QUOTE */}
-          <div
-            className="
+                    {/* QUOTE */}
+                    <div
+                        className="
               mt-10
               bg-gradient-to-r
               from-[#E63946]
@@ -336,35 +347,35 @@ function StoryDetails() {
               relative
               overflow-hidden
             "
-          >
+                    >
 
-            <FaQuoteLeft
-              className="
+                        <FaQuoteLeft
+                            className="
                 text-7xl
                 absolute
                 top-6
                 right-6
                 text-white/10
               "
-            />
+                        />
 
-            <p
-              className="
+                        <p
+                            className="
                 text-3xl
                 font-bold
                 leading-[1.7]
                 relative
                 z-10
               "
-            >
-              “Every child deserves
-              love, dignity, support,
-              and the opportunity
-              to grow.”
-            </p>
+                        >
+                            “Every child deserves
+                            love, dignity, support,
+                            and the opportunity
+                            to grow.”
+                        </p>
 
-            <div
-              className="
+                        <div
+                            className="
                 mt-8
                 flex
                 items-center
@@ -372,24 +383,24 @@ function StoryDetails() {
                 text-white/90
                 font-semibold
               "
-            >
+                        >
 
-              <FaHeart />
+                            <FaHeart />
 
-              Prarambha Foundation
+                            Prarambha Foundation
 
-            </div>
+                        </div>
 
-          </div>
+                    </div>
 
-        </div>
+                </div>
 
-        {/* RIGHT SIDEBAR */}
-        <div>
+                {/* RIGHT SIDEBAR */}
+                <div>
 
-          {/* IMPACT CARD */}
-          <div
-            className="
+                    {/* IMPACT CARD */}
+                    <div
+                        className="
               bg-white
               rounded-[35px]
               p-8
@@ -399,126 +410,126 @@ function StoryDetails() {
               border
               border-gray-100
             "
-          >
+                    >
 
-            <h3
-              className="
+                        <h3
+                            className="
                 text-2xl
                 font-black
                 text-[#0B1B4D]
                 mb-8
               "
-            >
-              Story Impact
-            </h3>
+                        >
+                            Story Impact
+                        </h3>
 
-            <div className="space-y-6">
+                        <div className="space-y-6">
 
-              <div
-                className="
+                            <div
+                                className="
                   bg-[#FFF5F5]
                   rounded-2xl
                   p-5
                 "
-              >
+                            >
 
-                <p
-                  className="
+                                <p
+                                    className="
                     text-sm
                     font-bold
                     text-[#E63946]
                     uppercase
                     mb-2
                   "
-                >
-                  Category
-                </p>
+                                >
+                                    Category
+                                </p>
 
-                <h4
-                  className="
+                                <h4
+                                    className="
                     text-xl
                     font-bold
                     text-[#0B1B4D]
                   "
-                >
-                  {story.category}
-                </h4>
+                                >
+                                    {story.category}
+                                </h4>
 
-              </div>
+                            </div>
 
-              <div
-                className="
+                            <div
+                                className="
                   bg-[#F8FAFC]
                   rounded-2xl
                   p-5
                 "
-              >
+                            >
 
-                <p
-                  className="
+                                <p
+                                    className="
                     text-sm
                     font-bold
                     text-[#E63946]
                     uppercase
                     mb-2
                   "
-                >
-                  Mission
-                </p>
+                                >
+                                    Mission
+                                </p>
 
-                <h4
-                  className="
+                                <h4
+                                    className="
                     text-lg
                     font-semibold
                     text-[#0B1B4D]
                     leading-relaxed
                   "
-                >
-                  Discovering Ability
-                  Before Disability
-                </h4>
+                                >
+                                    Discovering Ability
+                                    Before Disability
+                                </h4>
 
-              </div>
+                            </div>
 
-              <div
-                className="
+                            <div
+                                className="
                   bg-[#F8FAFC]
                   rounded-2xl
                   p-5
                 "
-              >
+                            >
 
-                <p
-                  className="
+                                <p
+                                    className="
                     text-sm
                     font-bold
                     text-[#E63946]
                     uppercase
                     mb-2
                   "
-                >
-                  Focus
-                </p>
+                                >
+                                    Focus
+                                </p>
 
-                <h4
-                  className="
+                                <h4
+                                    className="
                     text-lg
                     font-semibold
                     text-[#0B1B4D]
                     leading-relaxed
                   "
-                >
-                  Child Development,
-                  Inclusion & Growth
-                </h4>
+                                >
+                                    Child Development,
+                                    Inclusion & Growth
+                                </h4>
 
-              </div>
+                            </div>
 
-            </div>
+                        </div>
 
-            {/* CTA */}
-            <button
-              className="
+                        {/* CTA */}
+                        <button
+                            className="
                 w-full
                 mt-10
                 bg-[#E63946]
@@ -532,19 +543,19 @@ function StoryDetails() {
                 duration-300
                 shadow-lg
               "
-            >
-              Support Our Mission
+                        >
+                            Support Our Mission
 
-            </button>
+                        </button>
 
-          </div>
+                    </div>
 
-        </div>
+                </div>
 
-      </div>
+            </div>
 
-    </section>
-  )
+        </section>
+    )
 }
 
 export default StoryDetails

@@ -126,18 +126,28 @@ function Story() {
             >
 
               <img
-                src={`https://prarambha-backend.onrender.com${story.image}`}
+                src={
+                  story.image?.startsWith("http")
+                    ? story.image
+                    : `https://prarambha-backend.onrender.com${story.image}`
+                }
                 alt={story.title}
-                className="
-                  w-full
-                  h-full
-                  object-cover
-                  group-hover:scale-105
-                  transition
-                  duration-700
-                "
-              />
+                onError={(e) => {
 
+                  e.target.onerror = null
+
+                  e.target.src =
+                    "https://via.placeholder.com/800x600?text=Story+Image"
+                }}
+                className="
+                          w-full
+                          h-full
+                          object-cover
+                          group-hover:scale-105
+                          transition
+                          duration-700
+  "
+              />
               <div
                 className="
                   absolute
@@ -373,13 +383,24 @@ function Story() {
                 >
 
                   <img
-                    src={`https://prarambha-backend.onrender.com${story.image}`}
+                    src={
+                      story.image?.startsWith("http")
+                        ? story.image
+                        : `https://prarambha-backend.onrender.com${story.image}`
+                    }
                     alt={story.title}
+                    onError={(e) => {
+
+                      e.target.onerror = null
+
+                      e.target.src =
+                        "https://via.placeholder.com/800x600?text=Story+Image"
+                    }}
                     className="
-                      w-full
-                      h-full
-                      object-cover
-                    "
+                              w-full
+                              h-full
+                              object-cover
+                            "
                   />
 
                   <div className="absolute inset-0 bg-black/35"></div>

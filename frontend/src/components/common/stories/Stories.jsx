@@ -1,102 +1,102 @@
-// src/pages/Stories.jsx
-
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
 import { FaArrowRight } from "react-icons/fa"
 
+import StoriesCTA from "./StoriesCTA"
+
 function Stories() {
 
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
-  const [stories, setStories] = useState([])
+    const [stories, setStories] = useState([])
 
-  const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
 
-  const [selectedCategory, setSelectedCategory] =
-    useState("All")
+    const [selectedCategory, setSelectedCategory] =
+        useState("All")
 
-  const [search, setSearch] =
-    useState("")
+    const [search, setSearch] =
+        useState("")
 
-  /* =========================================
-      FETCH STORIES
-  ========================================= */
+    /* =========================================
+        FETCH STORIES
+    ========================================= */
 
-  useEffect(() => {
+    useEffect(() => {
 
-    const fetchStories = async () => {
+        const fetchStories = async () => {
 
-      try {
+            try {
 
-        const { data } =
-          await axios.get(
-            "https://prarambha-backend.onrender.com/api/stories"
-          )
+                const { data } =
+                    await axios.get(
+                        "https://prarambha-backend.onrender.com/api/stories"
+                    )
 
-        setStories(data)
+                setStories(data)
 
-      } catch (error) {
+            } catch (error) {
 
-        console.log(error)
+                console.log(error)
 
-      } finally {
+            } finally {
 
-        setLoading(false)
+                setLoading(false)
 
-      }
-    }
+            }
+        }
 
-    fetchStories()
+        fetchStories()
 
-  }, [])
+    }, [])
 
-  /* =========================================
-      FILTER
-  ========================================= */
+    /* =========================================
+        FILTER
+    ========================================= */
 
-  const categories = [
-    "All",
-    "Therapy",
-    "Inclusive Education",
-    "Parent Support",
-    "Child Development",
-    "Community",
-  ]
+    const categories = [
+        "All",
+        "Therapy",
+        "Inclusive Education",
+        "Parent Support",
+        "Child Development",
+        "Community",
+    ]
 
-  const filteredStories =
-    stories.filter((story) => {
+    const filteredStories =
+        stories.filter((story) => {
 
-      const matchesCategory =
-        selectedCategory === "All"
-          ? true
-          : story.category === selectedCategory
+            const matchesCategory =
+                selectedCategory === "All"
+                    ? true
+                    : story.category === selectedCategory
 
-      const matchesSearch =
-        story.title
-          .toLowerCase()
-          .includes(search.toLowerCase())
+            const matchesSearch =
+                story.title
+                    .toLowerCase()
+                    .includes(search.toLowerCase())
 
-      return (
-        matchesCategory &&
-        matchesSearch
-      )
-    })
+            return (
+                matchesCategory &&
+                matchesSearch
+            )
+        })
 
-  const featuredStory =
-    stories[0]
+    const featuredStory =
+        stories[0]
 
-  return (
+    return (
 
-    <div className="bg-[#FFFDFB] min-h-screen">
+        <div className="bg-[#FFFDFB] min-h-screen">
 
-      {/* =========================================
+            {/* =========================================
           HERO
       ========================================= */}
 
-      <section
-        className="
+            <section
+                className="
           relative
           overflow-hidden
           py-28
@@ -106,12 +106,12 @@ function Stories() {
           via-[#FFFDFB]
           to-[#F8FAFC]
         "
-      >
+            >
 
-        <div className="max-w-6xl mx-auto text-center">
+                <div className="max-w-6xl mx-auto text-center">
 
-          <div
-            className="
+                    <div
+                        className="
               inline-flex
               items-center
               gap-3
@@ -122,32 +122,32 @@ function Stories() {
               rounded-full
               mb-8
             "
-          >
+                    >
 
-            <div
-              className="
+                        <div
+                            className="
                 w-3
                 h-3
                 rounded-full
                 bg-[#E63946]
               "
-            ></div>
+                        ></div>
 
-            <span
-              className="
+                        <span
+                            className="
                 text-sm
                 font-bold
                 tracking-wider
                 text-[#E63946]
               "
-            >
-              REAL STORIES • REAL GROWTH
-            </span>
+                        >
+                            REAL STORIES • REAL GROWTH
+                        </span>
 
-          </div>
+                    </div>
 
-          <h1
-            className="
+                    <h1
+                        className="
               text-5xl
               md:text-7xl
               font-black
@@ -155,15 +155,15 @@ function Stories() {
               leading-tight
               mb-8
             "
-          >
-            Real Journeys of
-            <span className="text-[#E63946]">
-              {" "}Growth & Hope
-            </span>
-          </h1>
+                    >
+                        Real Journeys of
+                        <span className="text-[#E63946]">
+                            {" "}Growth & Hope
+                        </span>
+                    </h1>
 
-          <p
-            className="
+                    <p
+                        className="
               max-w-3xl
               mx-auto
               text-lg
@@ -171,27 +171,27 @@ function Stories() {
               text-gray-600
               leading-[2]
             "
-          >
-            Every child carries a unique story of courage,
-            resilience, and possibility. These journeys
-            reflect the heart of Prarambha Foundation
-            and the transformative power of inclusive care.
-          </p>
+                    >
+                        Every child carries a unique story of courage,
+                        resilience, and possibility. These journeys
+                        reflect the heart of Prarambha Foundation
+                        and the transformative power of inclusive care.
+                    </p>
 
-        </div>
+                </div>
 
-      </section>
+            </section>
 
-      {/* =========================================
+            {/* =========================================
           FEATURED STORY
       ========================================= */}
 
-      {featuredStory && (
+            {featuredStory && (
 
-        <section className="px-6 -mt-16 relative z-10 mb-24">
+                <section className="px-6 -mt-16 relative z-10 mb-24">
 
-          <div
-            className="
+                    <div
+                        className="
               max-w-7xl
               mx-auto
               bg-white
@@ -201,29 +201,29 @@ function Stories() {
               grid
               lg:grid-cols-2
             "
-          >
+                    >
 
-            {/* IMAGE */}
-            <div className="h-full">
+                        {/* IMAGE */}
+                        <div className="h-full">
 
-              <img
-                src={`https://prarambha-backend.onrender.com${featuredStory.image}`}
-                alt={featuredStory.title}
-                className="
+                            <img
+                                src={`https://prarambha-backend.onrender.com${featuredStory.image}`}
+                                alt={featuredStory.title}
+                                className="
                   w-full
                   h-full
                   min-h-[420px]
                   object-cover
                 "
-              />
+                            />
 
-            </div>
+                        </div>
 
-            {/* CONTENT */}
-            <div className="p-10 lg:p-14 flex flex-col justify-center">
+                        {/* CONTENT */}
+                        <div className="p-10 lg:p-14 flex flex-col justify-center">
 
-              <div
-                className="
+                            <div
+                                className="
                   inline-block
                   bg-[#FFF1F2]
                   text-[#E63946]
@@ -234,12 +234,12 @@ function Stories() {
                   font-bold
                   mb-6
                 "
-              >
-                Featured Story
-              </div>
+                            >
+                                Featured Story
+                            </div>
 
-              <h2
-                className="
+                            <h2
+                                className="
                   text-4xl
                   md:text-5xl
                   font-black
@@ -247,28 +247,28 @@ function Stories() {
                   leading-tight
                   mb-6
                 "
-              >
-                {featuredStory.title}
-              </h2>
+                            >
+                                {featuredStory.title}
+                            </h2>
 
-              <p
-                className="
+                            <p
+                                className="
                   text-gray-600
                   leading-[2]
                   text-lg
                   mb-8
                 "
-              >
-                {featuredStory.desc}
-              </p>
+                            >
+                                {featuredStory.desc}
+                            </p>
 
-              <button
-                onClick={() =>
-                  navigate(
-                    `/stories/${featuredStory._id}`
-                  )
-                }
-                className="
+                            <button
+                                onClick={() =>
+                                    navigate(
+                                        `/stories/${featuredStory._id}`
+                                    )
+                                }
+                                className="
                   bg-[#E63946]
                   hover:bg-red-600
                   text-white
@@ -282,41 +282,41 @@ function Stories() {
                   w-fit
                   transition
                 "
-              >
+                            >
 
-                Read Full Story
+                                Read Full Story
 
-                <FaArrowRight />
+                                <FaArrowRight />
 
-              </button>
+                            </button>
 
-            </div>
+                        </div>
 
-          </div>
+                    </div>
 
-        </section>
+                </section>
 
-      )}
+            )}
 
-      {/* =========================================
+            {/* =========================================
           FILTERS
       ========================================= */}
 
-      <section className="px-6 mb-12">
+            <section className="px-6 mb-12">
 
-        <div className="max-w-7xl mx-auto">
+                <div className="max-w-7xl mx-auto">
 
-          {/* SEARCH */}
-          <div className="mb-8">
+                    {/* SEARCH */}
+                    <div className="mb-8">
 
-            <input
-              type="text"
-              placeholder="Search stories..."
-              value={search}
-              onChange={(e) =>
-                setSearch(e.target.value)
-              }
-              className="
+                        <input
+                            type="text"
+                            placeholder="Search stories..."
+                            value={search}
+                            onChange={(e) =>
+                                setSearch(e.target.value)
+                            }
+                            className="
                 w-full
                 h-[65px]
                 rounded-2xl
@@ -327,59 +327,58 @@ function Stories() {
                 border-gray-100
                 outline-none
               "
-            />
+                        />
 
-          </div>
+                    </div>
 
-          {/* CATEGORY BUTTONS */}
-          <div className="flex flex-wrap gap-4">
+                    {/* CATEGORY BUTTONS */}
+                    <div className="flex flex-wrap gap-4">
 
-            {categories.map((category,index)=>(
+                        {categories.map((category, index) => (
 
-              <button
-                key={index}
-                onClick={() =>
-                  setSelectedCategory(category)
-                }
-                className={`
+                            <button
+                                key={index}
+                                onClick={() =>
+                                    setSelectedCategory(category)
+                                }
+                                className={`
                   px-6
                   py-3
                   rounded-full
                   font-bold
                   transition
 
-                  ${
-                    selectedCategory === category
-                      ? "bg-[#E63946] text-white"
-                      : "bg-white text-[#0B1B4D]"
-                  }
+                  ${selectedCategory === category
+                                        ? "bg-[#E63946] text-white"
+                                        : "bg-white text-[#0B1B4D]"
+                                    }
                 `}
-              >
+                            >
 
-                {category}
+                                {category}
 
-              </button>
+                            </button>
 
-            ))}
+                        ))}
 
-          </div>
+                    </div>
 
-        </div>
+                </div>
 
-      </section>
+            </section>
 
-      {/* =========================================
+            {/* =========================================
           STORIES GRID
       ========================================= */}
 
-      <section className="px-6 pb-24">
+            <section className="px-6 pb-24">
 
-        <div className="max-w-7xl mx-auto">
+                <div className="max-w-7xl mx-auto">
 
-          {loading ? (
+                    {loading ? (
 
-            <div
-              className="
+                        <div
+                            className="
                 min-h-[300px]
                 flex
                 items-center
@@ -388,26 +387,26 @@ function Stories() {
                 font-bold
                 text-[#0B1B4D]
               "
-            >
-              Loading Stories...
-            </div>
+                        >
+                            Loading Stories...
+                        </div>
 
-          ) : (
+                    ) : (
 
-            <div
-              className="
+                        <div
+                            className="
                 grid
                 md:grid-cols-2
                 xl:grid-cols-3
                 gap-8
               "
-            >
+                        >
 
-              {filteredStories.map((story,index)=>(
+                            {filteredStories.map((story, index) => (
 
-                <div
-                  key={index}
-                  className="
+                                <div
+                                    key={index}
+                                    className="
                     bg-white
                     rounded-[35px]
                     overflow-hidden
@@ -418,24 +417,34 @@ function Stories() {
                     transition
                     duration-300
                   "
-                >
+                                >
 
-                  {/* IMAGE */}
-                  <img
-                    src={`https://prarambha-backend.onrender.com${story.image}`}
-                    alt={story.title}
-                    className="
-                      w-full
-                      h-[280px]
-                      object-cover
-                    "
-                  />
+                                    <img
+                                        src={
+                                            story.image?.startsWith("http")
+                                                ? story.image
+                                                : `https://prarambha-backend.onrender.com${story.image}`
+                                        }
+                                        alt={story.title}
+                                        onError={(e) => {
 
-                  {/* CONTENT */}
-                  <div className="p-7">
+                                            e.target.onerror = null
 
-                    <div
-                      className="
+                                            e.target.src =
+                                                "https://via.placeholder.com/800x600?text=Story+Image"
+                                        }}
+                                        className="
+                                                    w-full
+                                                    h-full
+                                                    object-cover
+                                                "
+                                    />
+
+                                    {/* CONTENT */}
+                                    <div className="p-7">
+
+                                        <div
+                                            className="
                         inline-block
                         bg-[#FFF4F4]
                         text-[#E63946]
@@ -446,40 +455,40 @@ function Stories() {
                         font-bold
                         mb-5
                       "
-                    >
-                      {story.category}
-                    </div>
+                                        >
+                                            {story.category}
+                                        </div>
 
-                    <h3
-                      className="
+                                        <h3
+                                            className="
                         text-3xl
                         font-black
                         text-[#0B1B4D]
                         leading-snug
                         mb-4
                       "
-                    >
-                      {story.title}
-                    </h3>
+                                        >
+                                            {story.title}
+                                        </h3>
 
-                    <p
-                      className="
+                                        <p
+                                            className="
                         text-gray-600
                         leading-[1.9]
                         mb-7
                         line-clamp-4
                       "
-                    >
-                      {story.desc}
-                    </p>
+                                        >
+                                            {story.desc}
+                                        </p>
 
-                    <button
-                      onClick={() =>
-                        navigate(
-                          `/stories/${story._id}`
-                        )
-                      }
-                      className="
+                                        <button
+                                            onClick={() =>
+                                                navigate(
+                                                    `/stories/${story._id}`
+                                                )
+                                            }
+                                            className="
                         bg-[#E63946]
                         hover:bg-red-600
                         text-white
@@ -492,93 +501,33 @@ function Stories() {
                         gap-3
                         transition
                       "
-                    >
+                                        >
 
-                      Read More
+                                            Read More
 
-                      <FaArrowRight />
+                                            <FaArrowRight />
 
-                    </button>
+                                        </button>
 
-                  </div>
+                                    </div>
+
+                                </div>
+
+                            ))}
+
+                        </div>
+
+                    )}
 
                 </div>
 
-              ))}
+            </section>
 
-            </div>
-
-          )}
-
-        </div>
-
-      </section>
-
-      {/* =========================================
-          CTA
-      ========================================= */}
-
-      <section
-        className="
-          bg-[#0B1B4D]
-          py-24
-          px-6
-          text-center
-        "
-      >
-
-        <div className="max-w-4xl mx-auto">
-
-          <h2
-            className="
-              text-4xl
-              md:text-6xl
-              font-black
-              text-white
-              leading-tight
-              mb-8
-            "
-          >
-            Every Child Deserves
-            To Be Understood
-            Before Being Judged
-          </h2>
-
-          <p
-            className="
-              text-gray-300
-              text-lg
-              leading-[2]
-              mb-10
-            "
-          >
-            Together, we can create more stories of hope,
-            inclusion, confidence, and growth for children
-            and families who need support.
-          </p>
-
-          <button
-            className="
-              bg-[#E63946]
-              hover:bg-red-600
-              text-white
-              px-10
-              py-5
-              rounded-full
-              font-bold
-              text-lg
-              transition
-            "
-          >
-            Support Our Mission ❤️
-          </button>
+            {/* CTA SECTION */}
+            <StoriesCTA />
 
         </div>
-
-      </section>
-
-    </div>
-  )
+    )
 }
 
 export default Stories

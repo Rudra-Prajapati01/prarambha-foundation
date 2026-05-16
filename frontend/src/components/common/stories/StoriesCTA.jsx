@@ -109,6 +109,28 @@ export default function CTASection({ data }) {
           bottom: -150px;
           right: -120px;
         }
+
+        @media (max-width: 768px) {
+
+          .cta-section {
+            padding: 70px 20px;
+          }
+
+          .cta-desc {
+            font-size: 15px;
+          }
+
+          .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .cta-btn-primary,
+          .cta-btn-outline {
+            width: 100%;
+            max-width: 320px;
+          }
+        }
       `}</style>
 
       <section className="cta-section">
