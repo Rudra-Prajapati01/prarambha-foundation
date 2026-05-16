@@ -144,7 +144,7 @@ function StoryDetails() {
 
           {/* BACK BUTTON */}
           <Link
-            to="/story"
+            to="/stories"
             className="
               flex
               items-center
