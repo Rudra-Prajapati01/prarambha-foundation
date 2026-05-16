@@ -47,6 +47,7 @@ function StoryDetails() {
           justify-center
           text-2xl
           font-bold
+          bg-white
         "
       >
         Loading Story...
@@ -59,15 +60,23 @@ function StoryDetails() {
     <section className="bg-white min-h-screen">
 
       {/* HERO IMAGE */}
-      <div className="w-full h-[70vh] overflow-hidden">
+      <div
+        className="
+          w-full
+          bg-black
+          flex
+          items-center
+          justify-center
+        "
+      >
 
         <img
           src={`https://prarambha-backend.onrender.com${story.image}`}
           alt={story.title}
           className="
             w-full
-            h-full
-            object-cover
+            max-h-screen
+            object-contain
           "
         />
 
