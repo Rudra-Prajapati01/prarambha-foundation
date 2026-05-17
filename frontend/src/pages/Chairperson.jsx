@@ -5,6 +5,13 @@ import Footer from "../components/common/Footer"
 
 export default function Chairperson() {
 
+  /* =========================================
+     STATES
+  ========================================= */
+
+  const [pageData, setPageData] =
+    useState(null)
+
   const [chairData, setChairData] =
     useState(null)
 
@@ -12,7 +19,7 @@ export default function Chairperson() {
     useState(true)
 
   /* =========================================
-     FETCH SAME ABOUT API
+     FETCH ABOUT API
   ========================================= */
 
   useEffect(() => {
@@ -30,6 +37,10 @@ export default function Chairperson() {
 
         console.log(data)
 
+        /* FULL PAGE DATA */
+        setPageData(data)
+
+        /* ONLY CHAIRPERSON */
         setChairData(
           data?.chairperson
         )
@@ -48,13 +59,15 @@ export default function Chairperson() {
 
   }, [])
 
+  /* =========================================
+     LOADING
+  ========================================= */
+
   if (loading) {
 
     return (
       <>
         <Navbar pageData={pageData} />
-
-
 
         <div
           style={{
@@ -218,15 +231,15 @@ export default function Chairperson() {
 
       <div className="chair-page">
 
+        {/* NAVBAR */}
         <Navbar pageData={pageData} />
 
-
+        {/* CHAIRPERSON SECTION */}
         <section className="chair-section">
 
           <div className="chair-inner">
 
             {/* IMAGE */}
-
             <div className="chair-img-wrap">
 
               <div className="chair-blob"></div>
@@ -244,7 +257,6 @@ export default function Chairperson() {
             </div>
 
             {/* CONTENT */}
-
             <div className="chair-content">
 
               <p className="section-tag">
@@ -277,6 +289,7 @@ export default function Chairperson() {
 
         </section>
 
+        {/* FOOTER */}
         <Footer pageData={pageData} />
 
       </div>
