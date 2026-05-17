@@ -21,7 +21,7 @@ import Stories from "./components/common/stories/Stories"
 
 import StoriesAdmin from "./admin/pages/StoriesAdmin"
 
-import Chairperson from "./pages/Chairperson"
+import Chairperson from "./pages/chairperson";
 
 
 import EarlyIntervention from "./pages/programs/EarlyIntervention"
