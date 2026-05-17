@@ -21,19 +21,25 @@ import Stories from "./components/common/stories/Stories"
 
 import StoriesAdmin from "./admin/pages/StoriesAdmin"
 
-import Chairperson from "./pages/chairperson";
+import Messages from "./admin/pages/Messages"
 
+/* =====================================
+   CHAIRPERSON
+===================================== */
+
+import Chairperson from "./pages/chairperson"
+
+/* =====================================
+   PROGRAM PAGES
+===================================== */
 
 import EarlyIntervention from "./pages/programs/EarlyIntervention"
+
 import TherapySupport from "./pages/programs/TherapySupport"
+
 import InclusiveEducation from "./pages/programs/InclusiveEducation"
+
 import CommunitySupport from "./pages/programs/CommunitySupport"
-
-/* =========================
-   ADD THIS IMPORT
-========================= */
-
-import Messages from "./admin/pages/Messages"
 
 function App() {
 
@@ -49,42 +55,48 @@ function App() {
               PUBLIC WEBSITE ROUTES
           ===================================== */}
 
-          {/* HOME */}
           <Route
             path="/"
             element={<Home />}
           />
 
-          {/* ABOUT */}
           <Route
             path="/about"
             element={<About />}
           />
 
-          {/* SERVICES */}
           <Route
             path="/services"
             element={<Services />}
           />
 
-          {/* EVENTS */}
           <Route
             path="/events"
             element={<Events />}
           />
 
-          {/* GALLERY */}
           <Route
             path="/gallery"
             element={<Gallery />}
           />
 
-          {/* CONTACT */}
           <Route
             path="/contact"
             element={<Contact />}
           />
 
+          {/* =====================================
+              CHAIRPERSON PAGE
+          ===================================== */}
+
+          <Route
+            path="/chairperson"
+            element={<Chairperson />}
+          />
+
+          {/* =====================================
+              PROGRAM PAGES
+          ===================================== */}
 
           <Route
             path="/programs/early-intervention"
@@ -110,29 +122,29 @@ function App() {
               STORIES ROUTES
           ===================================== */}
 
-          {/* ALL STORIES */}
           <Route
             path="/stories"
             element={<Stories />}
           />
 
-          {/* SINGLE STORY */}
           <Route
             path="/stories/:id"
             element={<StoryDetails />}
           />
 
           {/* =====================================
-              ADMIN ROUTES
+              ADMIN LOGIN
           ===================================== */}
 
-          {/* LOGIN */}
           <Route
             path="/admin"
             element={<Login />}
           />
 
-          {/* DASHBOARD */}
+          {/* =====================================
+              ADMIN DASHBOARD
+          ===================================== */}
+
           <Route
             path="/admin/dashboard"
             element={
@@ -144,7 +156,10 @@ function App() {
             }
           />
 
-          {/* CMS PAGES */}
+          {/* =====================================
+              ADMIN PAGES
+          ===================================== */}
+
           <Route
             path="/admin/pages"
             element={
@@ -156,7 +171,10 @@ function App() {
             }
           />
 
-          {/* GALLERY ADMIN */}
+          {/* =====================================
+              ADMIN GALLERY
+          ===================================== */}
+
           <Route
             path="/admin/gallery"
             element={
@@ -168,7 +186,10 @@ function App() {
             }
           />
 
-          {/* STORIES ADMIN */}
+          {/* =====================================
+              ADMIN STORIES
+          ===================================== */}
+
           <Route
             path="/admin/stories"
             element={
@@ -181,7 +202,7 @@ function App() {
           />
 
           {/* =====================================
-              MESSAGES ADMIN
+              ADMIN MESSAGES
           ===================================== */}
 
           <Route
@@ -193,12 +214,6 @@ function App() {
 
               </ProtectedRoute>
             }
-          />
-
-
-          <Route
-            path="/chairperson"
-            element={<Chairperson />}
           />
 
         </Routes>
