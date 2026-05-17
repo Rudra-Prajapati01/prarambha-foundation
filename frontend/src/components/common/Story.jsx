@@ -7,7 +7,8 @@ function Story() {
 
   const navigate = useNavigate()
 
-  const [stories, setStories] = useState([])
+  const [stories, setStories] =
+    useState([])
 
   /* =========================
       FETCH STORIES
@@ -15,23 +16,24 @@ function Story() {
 
   useEffect(() => {
 
-    const fetchStories = async () => {
+    const fetchStories =
+      async () => {
 
-      try {
+        try {
 
-        const { data } = await axios.get(
-          "https://prarambha-backend.onrender.com/api/stories"
-        )
+          const { data } =
+            await axios.get(
+              "https://prarambha-backend.onrender.com/api/stories"
+            )
 
-        setStories(data)
+          setStories(data)
 
-      } catch (error) {
+        } catch (error) {
 
-        console.log(error)
+          console.log(error)
 
+        }
       }
-
-    }
 
     fetchStories()
 
@@ -61,9 +63,24 @@ function Story() {
 
   return (
 
-    <section className="bg-[#F8FAFC] py-14 lg:py-20 overflow-hidden">
+    <section
+      className="
+        bg-[#F8FAFC]
+        py-14
+        lg:py-20
+        overflow-hidden
+      "
+    >
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        className="
+          max-w-7xl
+          mx-auto
+          px-4
+          sm:px-6
+          lg:px-8
+        "
+      >
 
         {/* HEADING */}
 
@@ -103,18 +120,26 @@ function Story() {
               bg-[#E63946]
               rounded-full
             "
-          ></div>
+          />
 
         </div>
 
         {/* MOBILE */}
 
-        <div className="flex flex-col gap-5 lg:hidden">
+        <div
+          className="
+            flex
+            flex-col
+            gap-5
+            lg:hidden
+          "
+        >
 
           {stories.map((story) => (
 
             <div
               key={story._id}
+
               className="
                 relative
                 rounded-[30px]
@@ -127,11 +152,12 @@ function Story() {
 
               <img
                 src={
-                  story.image?.startsWith("http")
-                    ? story.image
-                    : `https://prarambha-backend.onrender.com${story.image}`
+                  story.image ||
+                  "https://via.placeholder.com/800x600?text=Story+Image"
                 }
+
                 alt={story.title}
+
                 onError={(e) => {
 
                   e.target.onerror = null
@@ -139,15 +165,17 @@ function Story() {
                   e.target.src =
                     "https://via.placeholder.com/800x600?text=Story+Image"
                 }}
+
                 className="
-                          w-full
-                          h-full
-                          object-cover
-                          group-hover:scale-105
-                          transition
-                          duration-700
-  "
+                  w-full
+                  h-full
+                  object-cover
+                  group-hover:scale-105
+                  transition
+                  duration-700
+                "
               />
+
               <div
                 className="
                   absolute
@@ -157,7 +185,7 @@ function Story() {
                   via-black/30
                   to-transparent
                 "
-              ></div>
+              />
 
               <div
                 className="
@@ -214,6 +242,7 @@ function Story() {
                   onClick={() =>
                     navigate(`/stories/${story._id}`)
                   }
+
                   className="
                     flex
                     items-center
@@ -249,11 +278,25 @@ function Story() {
 
         {/* DESKTOP */}
 
-        <div className="hidden lg:grid lg:grid-cols-3 gap-5">
+        <div
+          className="
+            hidden
+            lg:grid
+            lg:grid-cols-3
+            gap-5
+          "
+        >
 
           {/* LEFT */}
 
-          <div className="lg:col-span-2 flex flex-col gap-5">
+          <div
+            className="
+              lg:col-span-2
+              flex
+              flex-col
+              gap-5
+            "
+          >
 
             {/* LARGE */}
 
@@ -270,8 +313,21 @@ function Story() {
               >
 
                 <img
-                  src={`https://prarambha-backend.onrender.com${largeStory.image}`}
+                  src={
+                    largeStory.image ||
+                    "https://via.placeholder.com/1200x800?text=Story+Image"
+                  }
+
                   alt={largeStory.title}
+
+                  onError={(e) => {
+
+                    e.target.onerror = null
+
+                    e.target.src =
+                      "https://via.placeholder.com/1200x800?text=Story+Image"
+                  }}
+
                   className="
                     w-full
                     h-full
@@ -282,7 +338,7 @@ function Story() {
                   "
                 />
 
-                <div className="absolute inset-0 bg-black/35"></div>
+                <div className="absolute inset-0 bg-black/35" />
 
                 <div
                   className="
@@ -338,6 +394,7 @@ function Story() {
                     onClick={() =>
                       navigate(`/stories/${largeStory._id}`)
                     }
+
                     className="
                       bg-[#E63946]
                       hover:bg-red-600
@@ -373,6 +430,7 @@ function Story() {
 
                 <div
                   key={story._id}
+
                   className="
                     relative
                     rounded-[32px]
@@ -384,11 +442,12 @@ function Story() {
 
                   <img
                     src={
-                      story.image?.startsWith("http")
-                        ? story.image
-                        : `https://prarambha-backend.onrender.com${story.image}`
+                      story.image ||
+                      "https://via.placeholder.com/800x600?text=Story+Image"
                     }
+
                     alt={story.title}
+
                     onError={(e) => {
 
                       e.target.onerror = null
@@ -396,14 +455,15 @@ function Story() {
                       e.target.src =
                         "https://via.placeholder.com/800x600?text=Story+Image"
                     }}
+
                     className="
-                              w-full
-                              h-full
-                              object-cover
-                            "
+                      w-full
+                      h-full
+                      object-cover
+                    "
                   />
 
-                  <div className="absolute inset-0 bg-black/35"></div>
+                  <div className="absolute inset-0 bg-black/35" />
 
                   <div
                     className="
@@ -447,6 +507,7 @@ function Story() {
                       onClick={() =>
                         navigate(`/stories/${story._id}`)
                       }
+
                       className="
                         bg-white/20
                         backdrop-blur-md
@@ -488,8 +549,21 @@ function Story() {
             >
 
               <img
-                src={`https://prarambha-backend.onrender.com${tallStory.image}`}
+                src={
+                  tallStory.image ||
+                  "https://via.placeholder.com/1200x800?text=Story+Image"
+                }
+
                 alt={tallStory.title}
+
+                onError={(e) => {
+
+                  e.target.onerror = null
+
+                  e.target.src =
+                    "https://via.placeholder.com/1200x800?text=Story+Image"
+                }}
+
                 className="
                   w-full
                   h-full
@@ -497,7 +571,7 @@ function Story() {
                 "
               />
 
-              <div className="absolute inset-0 bg-black/35"></div>
+              <div className="absolute inset-0 bg-black/35" />
 
               <div
                 className="
@@ -552,6 +626,7 @@ function Story() {
                   onClick={() =>
                     navigate(`/stories/${tallStory._id}`)
                   }
+
                   className="
                     bg-[#E63946]
                     hover:bg-red-600
