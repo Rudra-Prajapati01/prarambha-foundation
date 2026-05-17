@@ -97,12 +97,20 @@ function Stories() {
     const getImageUrl = (image) => {
 
         if (!image) {
+
             return "https://via.placeholder.com/800x600?text=Story+Image"
         }
 
-        return image.startsWith("http")
-            ? image
-            : `https://prarambha-backend.onrender.com${image}`
+        /* CLOUDINARY */
+
+        if (image.startsWith("http")) {
+
+            return image
+        }
+
+        /* OLD UPLOADS */
+
+        return `https://prarambha-backend.onrender.com${image}`
     }
 
     const handleImageError = (e) => {
@@ -117,7 +125,7 @@ function Stories() {
 
         <div className="bg-[#FFFDFB] min-h-screen">
 
-              <Navbar />
+            <Navbar />
 
 
             {/* =========================================
@@ -240,14 +248,19 @@ function Stories() {
 
                             <img
                                 src={getImageUrl(featuredStory.image)}
+
                                 alt={featuredStory.title}
+
+                                loading="lazy"
+
                                 onError={handleImageError}
+
                                 className="
-                                    w-full
-                                    h-[350px]
-                                    lg:h-[500px]
-                                    object-cover
-                                "
+                                        w-full
+                                        h-[350px]
+                                        lg:h-[500px]
+                                        object-cover
+                                    "
                             />
 
                         </div>
@@ -491,16 +504,21 @@ function Stories() {
 
                                         <img
                                             src={getImageUrl(story.image)}
+
                                             alt={story.title}
+
+                                            loading="lazy"
+
                                             onError={handleImageError}
+
                                             className="
-                                                w-full
-                                                h-[320px]
-                                                object-cover
-                                                transition-transform
-                                                duration-700
-                                                group-hover:scale-110
-                                            "
+                                                        w-full
+                                                        h-[320px]
+                                                        object-cover
+                                                        transition-transform
+                                                        duration-700
+                                                        group-hover:scale-110
+                                                    "
                                         />
 
                                     </div>

@@ -10,6 +10,9 @@ function StoryEditor() {
   const [stories, setStories] =
     useState([])
 
+  const [loading, setLoading] =
+    useState(false)
+
   /* =========================================
       FETCH STORIES
   ========================================= */
@@ -122,6 +125,20 @@ function StoryEditor() {
     setStories(updatedStories)
   }
 
+  /* =========================================
+      IMAGE SUPPORT
+  ========================================= */
+
+  const getImageUrl = (image) => {
+
+    if (!image)
+      return "https://via.placeholder.com/800x600?text=Story+Image"
+
+    return image.startsWith("http")
+      ? image
+      : `https://prarambha-backend.onrender.com${image}`
+  }
+
   return (
 
     <div
@@ -146,19 +163,28 @@ function StoryEditor() {
         "
       >
 
-        <h2
-          className="
-            text-3xl
-            font-bold
-          "
-        >
-          Impact Stories
-        </h2>
+        <div>
+
+          <h2
+            className="
+              text-3xl
+              font-bold
+            "
+          >
+            Impact Stories
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+            Manage NGO success stories.
+          </p>
+
+        </div>
 
         {/* ADD BUTTON */}
 
         <button
           onClick={addStory}
+
           className="
             bg-[#E63946]
             hover:bg-[#d62839]
@@ -217,6 +243,7 @@ function StoryEditor() {
 
           <button
             onClick={addStory}
+
             className="
               bg-black
               text-white
@@ -245,6 +272,7 @@ function StoryEditor() {
 
           <div
             key={story._id}
+
             className="
               border
               border-gray-200
@@ -282,6 +310,8 @@ function StoryEditor() {
 
                     try {
 
+                      setLoading(true)
+
                       await axios.put(
                         `https://prarambha-backend.onrender.com/api/stories/${story._id}`,
                         story
@@ -295,8 +325,12 @@ function StoryEditor() {
 
                       console.log(error)
 
+                    } finally {
+
+                      setLoading(false)
                     }
                   }}
+
                   className="
                     bg-green-100
                     text-green-700
@@ -319,6 +353,7 @@ function StoryEditor() {
                       story._id
                     )
                   }
+
                   className="
                     bg-red-100
                     text-red-600
@@ -341,8 +376,11 @@ function StoryEditor() {
 
             <input
               type="text"
+
               placeholder="Story Title"
+
               value={story.title || ""}
+
               onChange={(e) =>
                 handleChange(
                   index,
@@ -350,6 +388,7 @@ function StoryEditor() {
                   e.target.value
                 )
               }
+
               className="
                 w-full
                 h-[55px]
@@ -365,8 +404,11 @@ function StoryEditor() {
 
             <input
               type="text"
+
               placeholder="Category"
+
               value={story.category || ""}
+
               onChange={(e) =>
                 handleChange(
                   index,
@@ -374,6 +416,7 @@ function StoryEditor() {
                   e.target.value
                 )
               }
+
               className="
                 w-full
                 h-[55px]
@@ -389,8 +432,11 @@ function StoryEditor() {
 
             <textarea
               rows="4"
+
               placeholder="Description"
+
               value={story.desc || ""}
+
               onChange={(e) =>
                 handleChange(
                   index,
@@ -398,6 +444,7 @@ function StoryEditor() {
                   e.target.value
                 )
               }
+
               className="
                 w-full
                 p-5
@@ -425,7 +472,9 @@ function StoryEditor() {
 
               <input
                 type="file"
+
                 accept="image/*"
+
                 onChange={async (e) => {
 
                   const file =
@@ -443,6 +492,8 @@ function StoryEditor() {
 
                   try {
 
+                    setLoading(true)
+
                     const { data } =
                       await axios.post(
                         "https://prarambha-backend.onrender.com/api/upload",
@@ -459,8 +510,12 @@ function StoryEditor() {
 
                     console.log(error)
 
+                  } finally {
+
+                    setLoading(false)
                   }
                 }}
+
                 className="
                   w-full
                   bg-[#F3F4F6]
@@ -470,17 +525,30 @@ function StoryEditor() {
                 "
               />
 
+              {/* LOADING */}
+
+              {loading && (
+
+                <p className="mt-3 text-gray-500">
+                  Uploading image...
+                </p>
+
+              )}
+
               {/* PREVIEW */}
 
               {story.image && (
 
                 <img
                   src={
-                    story.image ||
-                    "https://via.placeholder.com/800x600?text=Story+Image"
+                    getImageUrl(
+                      story.image
+                    )
                   }
 
                   alt={story.title}
+
+                  loading="lazy"
 
                   onError={(e) => {
 
@@ -491,12 +559,13 @@ function StoryEditor() {
                   }}
 
                   className="
-                            w-full
-                            h-[220px]
-                            object-cover
-                            rounded-2xl
-                            mt-4
-                          "
+                    w-full
+                    h-[220px]
+                    object-cover
+                    rounded-2xl
+                    mt-4
+                    shadow-md
+                  "
                 />
 
               )}
@@ -507,6 +576,7 @@ function StoryEditor() {
 
             <select
               value={story.type || ""}
+
               onChange={(e) =>
                 handleChange(
                   index,
@@ -514,6 +584,7 @@ function StoryEditor() {
                   e.target.value
                 )
               }
+
               className="
                 w-full
                 h-[55px]

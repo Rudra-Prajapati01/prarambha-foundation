@@ -19,10 +19,13 @@ function Footer({ pageData }) {
       DYNAMIC LOGO
   ===================================== */
 
-const dynamicLogo =
+  const dynamicLogo =
 
-  footer?.logo
-    || "/logo.png"
+    footer?.logo
+      ? footer.logo.startsWith("http")
+        ? footer.logo
+        : `https://prarambha-backend.onrender.com${footer.logo}`
+      : "/logo.png"
 
   return (
 
@@ -50,13 +53,24 @@ const dynamicLogo =
             {/* LOGO */}
             <img
               src={dynamicLogo}
+
               alt="Prarambha Foundation"
+
+              loading="lazy"
+
+              onError={(e) => {
+
+                e.target.onerror = null
+
+                e.target.src = "/logo.png"
+              }}
+
               className="
-                w-48
-                h-[70px]
-                object-contain
-                mb-5
-              "
+                      w-48
+                      h-[70px]
+                      object-contain
+                      mb-5
+                    "
             />
 
             <p

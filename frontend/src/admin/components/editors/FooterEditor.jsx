@@ -121,10 +121,14 @@ function FooterEditor({
 
         const response =
           await fetch(
-            "https://prarambha-backend.onrender.com/api/page/footer",
+            "https://prarambha-backend.onrender.com/api/pages/footer",
             {
 
               method: "PUT",
+
+              headers: {
+                "Content-Type": "application/json",
+              },
 
               body: JSON.stringify({
                 footer,
@@ -234,20 +238,29 @@ function FooterEditor({
             footer.logo && (
 
               <img
-                src={footer.logo}
+                src={
+                  footer.logo?.startsWith("http")
+                    ? footer.logo
+                    : `https://prarambha-backend.onrender.com${footer.logo}`
+                }
+
                 alt="logo preview"
 
+                loading="lazy"
+
                 onError={(e) => {
-                  e.target.src =
-                    "/logo.png"
+
+                  e.target.onerror = null
+
+                  e.target.src = "/logo.png"
                 }}
 
                 className="
-                  mt-4
-                  w-40
-                  h-auto
-                  object-contain
-                "
+                          mt-4
+                          w-40
+                          h-auto
+                          object-contain
+                        "
               />
 
             )
@@ -564,14 +577,28 @@ function FooterEditor({
           footer.logo && (
 
             <img
-              src={footer.logo}
+              src={
+                footer.logo?.startsWith("http")
+                  ? footer.logo
+                  : `https://prarambha-backend.onrender.com${footer.logo}`
+              }
+
               alt="preview"
 
+              loading="lazy"
+
+              onError={(e) => {
+
+                e.target.onerror = null
+
+                e.target.src = "/logo.png"
+              }}
+
               className="
-                w-40
-                object-contain
-                mb-6
-              "
+                        w-40
+                        object-contain
+                        mb-6
+                      "
             />
 
           )

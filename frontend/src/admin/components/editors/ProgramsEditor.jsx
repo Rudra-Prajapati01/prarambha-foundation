@@ -9,6 +9,7 @@ function ProgramsEditor({
   /* =====================================
       ADD PROGRAM
   ===================================== */
+
   const addProgram = () => {
 
     const newProgram = {
@@ -36,6 +37,7 @@ function ProgramsEditor({
   /* =====================================
       DELETE PROGRAM
   ===================================== */
+
   const deleteProgram = (index) => {
 
     const updatedPrograms =
@@ -54,6 +56,7 @@ function ProgramsEditor({
   /* =====================================
       PROGRAM CHANGE
   ===================================== */
+
   const handleProgramChange = (
     index,
     field,
@@ -77,6 +80,7 @@ function ProgramsEditor({
   /* =====================================
       POINT CHANGE
   ===================================== */
+
   const handlePointChange = (
     programIndex,
     pointIndex,
@@ -103,6 +107,7 @@ function ProgramsEditor({
   /* =====================================
       ADD POINT
   ===================================== */
+
   const addPoint = (
     programIndex
   ) => {
@@ -125,6 +130,7 @@ function ProgramsEditor({
   /* =====================================
       DELETE POINT
   ===================================== */
+
   const deletePoint = (
     programIndex,
     pointIndex
@@ -154,6 +160,7 @@ function ProgramsEditor({
   /* =====================================
       IMAGE UPLOAD
   ===================================== */
+
   const uploadProgramGalleryImage = async (
     e,
     field
@@ -200,6 +207,20 @@ function ProgramsEditor({
     }
   }
 
+  /* =====================================
+      IMAGE SUPPORT
+  ===================================== */
+
+  const getImageUrl = (image) => {
+
+    if (!image)
+      return "https://via.placeholder.com/600x400?text=Program+Image"
+
+    return image.startsWith("http")
+      ? image
+      : `https://prarambha-backend.onrender.com${image}`
+  }
+
   return (
 
     <div
@@ -212,6 +233,7 @@ function ProgramsEditor({
     >
 
       {/* TOP */}
+
       <div
         className="
           flex
@@ -221,19 +243,29 @@ function ProgramsEditor({
         "
       >
 
-        <h2
-          className="
-            text-3xl
-            font-bold
-            text-[#1F2937]
-          "
-        >
-          Programs Section
-        </h2>
+        <div>
+
+          <h2
+            className="
+              text-3xl
+              font-bold
+              text-[#1F2937]
+            "
+          >
+            Programs Section
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+            Manage programs and gallery images.
+          </p>
+
+        </div>
 
         {/* ADD BUTTON */}
+
         <button
           onClick={addProgram}
+
           className="
             bg-[#E63946]
             hover:bg-[#d62839]
@@ -242,6 +274,7 @@ function ProgramsEditor({
             py-3
             rounded-2xl
             font-semibold
+            transition
           "
         >
 
@@ -252,6 +285,7 @@ function ProgramsEditor({
       </div>
 
       {/* EMPTY */}
+
       {programs.length === 0 && (
 
         <div
@@ -286,6 +320,7 @@ function ProgramsEditor({
 
           <button
             onClick={addProgram}
+
             className="
               bg-black
               text-white
@@ -305,6 +340,7 @@ function ProgramsEditor({
       )}
 
       {/* PROGRAMS */}
+
       <div className="space-y-8">
 
         {programs.map(
@@ -312,6 +348,7 @@ function ProgramsEditor({
 
             <div
               key={index}
+
               className="
                 border
                 border-gray-200
@@ -321,6 +358,7 @@ function ProgramsEditor({
             >
 
               {/* TOP */}
+
               <div
                 className="
                   flex
@@ -343,6 +381,7 @@ function ProgramsEditor({
                   onClick={() =>
                     deleteProgram(index)
                   }
+
                   className="
                     bg-red-100
                     text-red-600
@@ -360,12 +399,16 @@ function ProgramsEditor({
               </div>
 
               {/* TITLE */}
+
               <input
                 type="text"
+
                 placeholder="Program Title"
+
                 value={
                   program.title || ""
                 }
+
                 onChange={(e) =>
                   handleProgramChange(
                     index,
@@ -373,6 +416,7 @@ function ProgramsEditor({
                     e.target.value
                   )
                 }
+
                 className="
                   w-full
                   h-[60px]
@@ -385,6 +429,7 @@ function ProgramsEditor({
               />
 
               {/* COLOR */}
+
               <div className="mb-6">
 
                 <p
@@ -398,10 +443,12 @@ function ProgramsEditor({
 
                 <input
                   type="color"
+
                   value={
                     program.color ||
                     "#E63946"
                   }
+
                   onChange={(e) =>
                     handleProgramChange(
                       index,
@@ -409,6 +456,7 @@ function ProgramsEditor({
                       e.target.value
                     )
                   }
+
                   className="
                     w-[90px]
                     h-[55px]
@@ -421,6 +469,7 @@ function ProgramsEditor({
               </div>
 
               {/* POINTS */}
+
               <div className="space-y-4">
 
                 {(program.points || []).map(
@@ -431,6 +480,7 @@ function ProgramsEditor({
 
                     <div
                       key={pointIndex}
+
                       className="
                         flex
                         gap-3
@@ -439,10 +489,13 @@ function ProgramsEditor({
 
                       <input
                         type="text"
+
                         placeholder={`Point ${
                           pointIndex + 1
                         }`}
+
                         value={point}
+
                         onChange={(e) =>
                           handlePointChange(
                             index,
@@ -450,6 +503,7 @@ function ProgramsEditor({
                             e.target.value
                           )
                         }
+
                         className="
                           flex-1
                           h-[55px]
@@ -467,6 +521,7 @@ function ProgramsEditor({
                             pointIndex
                           )
                         }
+
                         className="
                           bg-red-100
                           text-red-600
@@ -488,10 +543,12 @@ function ProgramsEditor({
               </div>
 
               {/* ADD POINT */}
+
               <button
                 onClick={() =>
                   addPoint(index)
                 }
+
                 className="
                   mt-5
                   bg-black
@@ -517,6 +574,7 @@ function ProgramsEditor({
       {/* =====================================
           PROGRAM GALLERY IMAGES
       ===================================== */}
+
       <div
         className="
           mt-10
@@ -537,33 +595,71 @@ function ProgramsEditor({
           Programs Gallery Images
         </h3>
 
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
           {/* IMAGE 1 */}
+
           <div>
+
+            <label
+              className="
+                block
+                mb-3
+                font-semibold
+              "
+            >
+              Image 1
+            </label>
 
             <input
               type="file"
+
               accept="image/*"
+
               onChange={(e) =>
                 uploadProgramGalleryImage(
                   e,
                   "programImage1"
                 )
               }
+
+              className="
+                w-full
+                bg-[#F3F4F6]
+                p-4
+                rounded-2xl
+                cursor-pointer
+              "
             />
 
             {pageData.programImage1 && (
 
               <img
-                src={`https://prarambha-backend.onrender.com${pageData.programImage1}`}
-                alt=""
+                src={
+                  getImageUrl(
+                    pageData.programImage1
+                  )
+                }
+
+                alt="Program"
+
+                loading="lazy"
+
+                onError={(e) => {
+
+                  e.target.onerror = null
+
+                  e.target.src =
+                    "https://via.placeholder.com/600x400?text=Program+Image"
+                }}
+
                 className="
                   w-full
                   h-[180px]
                   object-cover
                   rounded-2xl
                   mt-3
+                  shadow-md
                 "
               />
 
@@ -572,30 +668,68 @@ function ProgramsEditor({
           </div>
 
           {/* IMAGE 2 */}
+
           <div>
+
+            <label
+              className="
+                block
+                mb-3
+                font-semibold
+              "
+            >
+              Image 2
+            </label>
 
             <input
               type="file"
+
               accept="image/*"
+
               onChange={(e) =>
                 uploadProgramGalleryImage(
                   e,
                   "programImage2"
                 )
               }
+
+              className="
+                w-full
+                bg-[#F3F4F6]
+                p-4
+                rounded-2xl
+                cursor-pointer
+              "
             />
 
             {pageData.programImage2 && (
 
               <img
-                src={`https://prarambha-backend.onrender.com${pageData.programImage2}`}
-                alt=""
+                src={
+                  getImageUrl(
+                    pageData.programImage2
+                  )
+                }
+
+                alt="Program"
+
+                loading="lazy"
+
+                onError={(e) => {
+
+                  e.target.onerror = null
+
+                  e.target.src =
+                    "https://via.placeholder.com/600x400?text=Program+Image"
+                }}
+
                 className="
                   w-full
                   h-[180px]
                   object-cover
                   rounded-2xl
                   mt-3
+                  shadow-md
                 "
               />
 
@@ -604,30 +738,68 @@ function ProgramsEditor({
           </div>
 
           {/* IMAGE 3 */}
+
           <div>
+
+            <label
+              className="
+                block
+                mb-3
+                font-semibold
+              "
+            >
+              Image 3
+            </label>
 
             <input
               type="file"
+
               accept="image/*"
+
               onChange={(e) =>
                 uploadProgramGalleryImage(
                   e,
                   "programImage3"
                 )
               }
+
+              className="
+                w-full
+                bg-[#F3F4F6]
+                p-4
+                rounded-2xl
+                cursor-pointer
+              "
             />
 
             {pageData.programImage3 && (
 
               <img
-                src={`https://prarambha-backend.onrender.com${pageData.programImage3}`}
-                alt=""
+                src={
+                  getImageUrl(
+                    pageData.programImage3
+                  )
+                }
+
+                alt="Program"
+
+                loading="lazy"
+
+                onError={(e) => {
+
+                  e.target.onerror = null
+
+                  e.target.src =
+                    "https://via.placeholder.com/600x400?text=Program+Image"
+                }}
+
                 className="
                   w-full
                   h-[180px]
                   object-cover
                   rounded-2xl
                   mt-3
+                  shadow-md
                 "
               />
 

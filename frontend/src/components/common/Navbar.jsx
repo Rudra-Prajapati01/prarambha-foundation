@@ -31,8 +31,10 @@ function Navbar({ pageData }) {
   const dynamicLogo =
 
     footer?.logo
-    || "/logo.png"
-
+      ? footer.logo.startsWith("http")
+        ? footer.logo
+        : `https://prarambha-backend.onrender.com${footer.logo}`
+      : "/logo.png"
   /* =========================================
      PREVENT BODY SCROLL
   ========================================= */
@@ -218,13 +220,23 @@ function Navbar({ pageData }) {
 
               <img
                 src={dynamicLogo}
+
                 alt="logo"
+
+                loading="lazy"
+
+                onError={(e) => {
+
+                  e.target.onerror = null
+
+                  e.target.src = "/logo.png"
+                }}
+
                 className="
-                  w-32
-                  sm:w-40
-                  h-[60px]
-                  object-contain
-                "
+                        w-28
+                        h-[55px]
+                        object-contain
+                      "
               />
 
             </Link>
@@ -459,12 +471,23 @@ function Navbar({ pageData }) {
 
             <img
               src={dynamicLogo}
+
               alt="logo"
+
+              loading="lazy"
+
+              onError={(e) => {
+
+                e.target.onerror = null
+
+                e.target.src = "/logo.png"
+              }}
+
               className="
-                w-28
-                h-[55px]
-                object-contain
-              "
+                      w-28
+                      h-[55px]
+                      object-contain
+                    "
             />
 
             <button
