@@ -8,8 +8,16 @@ function Programs({ pageData }) {
   ===================================== */
 
   const firstProgram =
-    programList[0] || {}
+  {
+    image1:
+      pageData?.programImage1,
 
+    image2:
+      pageData?.programImage2,
+
+    image3:
+      pageData?.programImage3,
+  }
   return (
 
     <section className="bg-white py-14 lg:py-24 overflow-hidden">
@@ -235,7 +243,11 @@ function Programs({ pageData }) {
               {firstProgram.image1 && (
 
                 <img
-                  src={firstProgram.image1}
+                  src={
+                    firstProgram.image1?.startsWith("http")
+                      ? firstProgram.image1
+                      : `https://prarambha-backend.onrender.com${firstProgram.image1}`
+                  }
 
                   alt="Program"
 
@@ -262,7 +274,11 @@ function Programs({ pageData }) {
               {firstProgram.image2 && (
 
                 <img
-                  src={firstProgram.image2}
+                  src={
+                    firstProgram.image2?.startsWith("http")
+                      ? firstProgram.image2
+                      : `https://prarambha-backend.onrender.com${firstProgram.image2}`
+                  }
 
                   alt="Program"
 
@@ -290,7 +306,11 @@ function Programs({ pageData }) {
               {firstProgram.image3 && (
 
                 <img
-                  src={firstProgram.image3}
+                  src={
+                    firstProgram.image3?.startsWith("http")
+                      ? firstProgram.image3
+                      : `https://prarambha-backend.onrender.com${firstProgram.image3}`
+                  }
 
                   alt="Program"
 
@@ -348,7 +368,11 @@ function Programs({ pageData }) {
                 >
 
                   <img
-                    src={firstProgram.image1}
+                    src={
+                      firstProgram.image1?.startsWith("http")
+                        ? firstProgram.image1
+                        : `https://prarambha-backend.onrender.com${firstProgram.image1}`
+                    }
 
                     alt="Program"
 
@@ -393,7 +417,11 @@ function Programs({ pageData }) {
                 >
 
                   <img
-                    src={firstProgram.image2}
+                    src={
+                      firstProgram.image2?.startsWith("http")
+                        ? firstProgram.image2
+                        : `https://prarambha-backend.onrender.com${firstProgram.image2}`
+                    }
 
                     alt="Program"
 
@@ -438,7 +466,11 @@ function Programs({ pageData }) {
                 >
 
                   <img
-                    src={firstProgram.image3}
+                    src={
+                      firstProgram.image3?.startsWith("http")
+                        ? firstProgram.image3
+                        : `https://prarambha-backend.onrender.com${firstProgram.image3}`
+                    }
 
                     alt="Program"
 
