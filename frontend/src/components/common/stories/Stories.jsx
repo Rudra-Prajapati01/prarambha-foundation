@@ -6,6 +6,9 @@ import { FaArrowRight } from "react-icons/fa"
 
 import StoriesCTA from "./StoriesCTA"
 
+import Navbar from "../Navbar"
+import Footer from "../Footer"
+
 function Stories() {
 
     const navigate = useNavigate()
@@ -113,6 +116,8 @@ function Stories() {
     return (
 
         <div className="bg-[#FFFDFB] min-h-screen">
+
+              <Navbar />
 
             {/* =========================================
                 HERO SECTION
@@ -583,9 +588,7 @@ function Stories() {
 
             </section>
 
-            {/* CTA SECTION */}
-            <StoriesCTA />
-
+                    <Footer />
         </div>
     )
 }

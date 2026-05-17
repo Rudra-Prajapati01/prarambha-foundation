@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import axios from "axios"
 
@@ -18,10 +18,6 @@ function Messages() {
 
   const [loading, setLoading] =
     useState(true)
-
-  /* =========================================
-      FETCH MESSAGES
-  ========================================= */
 
   useEffect(() => {
 
@@ -56,8 +52,6 @@ function Messages() {
 
       <div className="p-8 bg-[#F8FAFC] min-h-screen">
 
-        {/* HEADER */}
-
         <div className="mb-10">
 
           <h1
@@ -81,8 +75,6 @@ function Messages() {
           </p>
 
         </div>
-
-        {/* LOADING */}
 
         {loading ? (
 
@@ -108,8 +100,6 @@ function Messages() {
           </div>
 
         ) : messages.length === 0 ? (
-
-          /* EMPTY */
 
           <div
             className="
@@ -163,8 +153,6 @@ function Messages() {
 
         ) : (
 
-          /* MESSAGE LIST */
-
           <div
             className="
               grid
@@ -190,8 +178,6 @@ function Messages() {
                   border-gray-100
                 "
               >
-
-                {/* TOP */}
 
                 <div
                   className="
@@ -251,23 +237,7 @@ function Messages() {
 
                   </div>
 
-                  <div
-                    className="
-                      bg-[#FFF4E5]
-                      text-[#F59E0B]
-                      px-4
-                      py-2
-                      rounded-full
-                      text-sm
-                      font-bold
-                    "
-                  >
-                    New
-                  </div>
-
                 </div>
-
-                {/* SUBJECT */}
 
                 <div className="mb-6">
 
@@ -300,15 +270,12 @@ function Messages() {
                       p-5
                       rounded-2xl
                       text-gray-700
-                      leading-[1.8]
                     "
                   >
                     {msg.subject}
                   </div>
 
                 </div>
-
-                {/* MESSAGE */}
 
                 <div className="mb-6">
 
@@ -348,8 +315,6 @@ function Messages() {
                   </div>
 
                 </div>
-
-                {/* DATE */}
 
                 <div
                   className="

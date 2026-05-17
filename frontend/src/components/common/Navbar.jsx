@@ -5,9 +5,6 @@ import {
   FaHeart,
   FaBars,
   FaTimes,
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
   FaChevronDown,
 } from "react-icons/fa"
 
@@ -15,7 +12,11 @@ import logo from "../../assets/logo/logo.png"
 
 function Navbar() {
 
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] =
+    useState(false)
+
+  const [activeDropdown, setActiveDropdown] =
+    useState(null)
 
   /* =========================================
      PREVENT BODY SCROLL
@@ -52,10 +53,6 @@ function Navbar() {
       path: "/",
     },
 
-    /* =====================================
-        WHO WE ARE
-    ===================================== */
-
     {
       name: "Who We Are",
 
@@ -72,11 +69,6 @@ function Navbar() {
         },
 
         {
-          name: "Our Stories",
-          path: "/stories",
-        },
-
-        {
           name: "Documents",
           path: "/documents",
         },
@@ -84,22 +76,18 @@ function Navbar() {
       ],
     },
 
-    /* =====================================
-        WHAT WE DO
-    ===================================== */
-
     {
       name: "What We Do",
 
       dropdown: [
 
         {
-          name: "Early Intervention & Child Development",
+          name: "Early Intervention",
           path: "/programs/early-intervention",
         },
 
         {
-          name: "Therapy & Development Support",
+          name: "Therapy Support",
           path: "/programs/therapy-support",
         },
 
@@ -109,87 +97,22 @@ function Navbar() {
         },
 
         {
-          name: "Family & Community Support",
+          name: "Community Support",
           path: "/programs/community-support",
         },
 
       ],
     },
 
-    /* =====================================
-        INSIGHT
-    ===================================== */
-
     {
-      name: "Insight",
-
-      dropdown: [
-
-        {
-          name: "The Change We Aim",
-          path: "/change-we-aim",
-        },
-
-        {
-          name: "Our Impact",
-          path: "/impact",
-        },
-
-      ],
+      name: "Gallery",
+      path: "/gallery",
     },
 
-    /* =====================================
-        COLLABORATION
-    ===================================== */
-
     {
-      name: "Collaboration",
-
-      dropdown: [
-
-        {
-          name: "Doctors",
-          path: "/collaboration/doctors",
-        },
-
-        {
-          name: "Schools",
-          path: "/collaboration/schools",
-        },
-
-      ],
+      name: "Blog",
+      path: "/stories",
     },
-
-    /* =====================================
-        UPDATES
-    ===================================== */
-
-    {
-      name: "Updates",
-
-      dropdown: [
-
-        {
-          name: "Our Stories",
-          path: "/stories",
-        },
-
-        {
-          name: "Gallery",
-          path: "/gallery",
-        },
-
-        {
-          name: "Blog",
-          path: "/blog",
-        },
-
-      ],
-    },
-
-    /* =====================================
-        CONTACT
-    ===================================== */
 
     {
       name: "Contact",
@@ -206,7 +129,19 @@ function Navbar() {
           TOP BAR
       ========================================= */}
 
-      <div className="hidden lg:flex items-center justify-between bg-[#0B1B4D] text-white px-10 xl:px-16 py-3 text-sm">
+      <div
+        className="
+          hidden lg:flex
+          items-center
+          justify-between
+          bg-[#0B1B4D]
+          text-white
+          px-10
+          xl:px-16
+          py-3
+          text-sm
+        "
+      >
 
         <p className="font-medium tracking-wide">
 
@@ -229,31 +164,52 @@ function Navbar() {
       </div>
 
       {/* =========================================
-          MAIN NAVBAR
+          NAVBAR
       ========================================= */}
 
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+      <nav
+        className="
+          sticky
+          top-0
+          z-50
+          bg-white
+          border-b
+          border-gray-100
+          shadow-sm
+        "
+      >
 
-        <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-16">
+        <div
+          className="
+            w-full
+            px-4
+            sm:px-6
+            lg:px-10
+            xl:px-16
+          "
+        >
 
-          <div className="flex items-center justify-between h-[85px]">
+          <div
+            className="
+              flex
+              items-center
+              justify-between
+              h-[85px]
+            "
+          >
 
             {/* =====================================
                 LOGO
             ===================================== */}
 
-            <Link
-              to="/"
-              className="flex-shrink-0"
-            >
+            <Link to="/">
 
               <img
                 src={logo}
-                alt="Prarambha Foundation"
+                alt="logo"
                 className="
                   w-32
                   sm:w-40
-                  lg:w-48
                   object-contain
                 "
               />
@@ -264,7 +220,14 @@ function Navbar() {
                 DESKTOP MENU
             ===================================== */}
 
-            <ul className="hidden lg:flex items-center gap-7 xl:gap-9">
+            <ul
+              className="
+                hidden
+                lg:flex
+                items-center
+                gap-8
+              "
+            >
 
               {navLinks.map((link, index) => (
 
@@ -273,28 +236,15 @@ function Navbar() {
                   className="relative group"
                 >
 
-                  {/* SIMPLE LINK */}
-
                   {!link.dropdown ? (
 
                     <Link
                       to={link.path}
                       className="
-                        relative
                         text-[#1F2937]
                         font-semibold
                         hover:text-[#E63946]
                         transition
-                        duration-300
-                        after:absolute
-                        after:left-0
-                        after:-bottom-2
-                        after:w-0
-                        after:h-[2px]
-                        after:bg-[#E63946]
-                        after:transition-all
-                        after:duration-300
-                        hover:after:w-full
                       "
                     >
 
@@ -306,17 +256,15 @@ function Navbar() {
 
                     <>
 
-                      {/* DROPDOWN BUTTON */}
-
                       <button
                         className="
-                          flex items-center gap-2
-                          relative
+                          flex
+                          items-center
+                          gap-2
                           text-[#1F2937]
                           font-semibold
                           hover:text-[#E63946]
                           transition
-                          duration-300
                         "
                       >
 
@@ -327,24 +275,24 @@ function Navbar() {
                             text-[12px]
                             group-hover:rotate-180
                             transition
-                            duration-300
                           "
                         />
 
                       </button>
 
-                      {/* DROPDOWN */}
+                      {/* DESKTOP DROPDOWN */}
 
                       <div
                         className="
                           absolute
                           left-0
-                          top-[55px]
-                          w-[320px]
+                          top-[50px]
+                          w-[280px]
                           bg-white
-                          rounded-3xl
-                          border border-gray-100
-                          shadow-[0_20px_60px_rgba(0,0,0,0.12)]
+                          rounded-2xl
+                          shadow-xl
+                          border
+                          border-gray-100
                           opacity-0
                           invisible
                           translate-y-3
@@ -367,7 +315,7 @@ function Navbar() {
                               block
                               px-6
                               py-4
-                              text-[15px]
+                              text-sm
                               font-medium
                               text-[#1F2937]
                               hover:bg-[#FFF5F5]
@@ -406,20 +354,17 @@ function Navbar() {
 
               <button
                 className="
-                  hidden sm:flex
-                  items-center gap-2
-                  bg-[#E63946]
-                  hover:bg-[#d62839]
+                  hidden md:flex
+                  items-center
+                  gap-2
+                  bg-[#EF4444]
+                  hover:bg-[#DC2626]
                   text-white
                   px-6
                   py-3
                   rounded-full
                   font-semibold
-                  shadow-md
-                  hover:scale-[1.03]
-                  active:scale-[0.98]
                   transition
-                  duration-300
                 "
               >
 
@@ -429,24 +374,29 @@ function Navbar() {
 
               </button>
 
-              {/* MOBILE BUTTON */}
+              {/* MOBILE MENU BUTTON */}
 
               <button
-                onClick={() => setMenuOpen(true)}
+                onClick={() =>
+                  setMenuOpen(!menuOpen)
+                }
                 className="
                   lg:hidden
-                  w-11
-                  h-11
+                  w-12
+                  h-12
                   rounded-xl
+                  bg-gray-100
                   flex
                   items-center
                   justify-center
-                  hover:bg-gray-100
-                  transition
                 "
               >
 
-                <FaBars className="text-2xl text-[#1F2937]" />
+                {
+                  menuOpen
+                    ? <FaTimes className="text-2xl" />
+                    : <FaBars className="text-2xl" />
+                }
 
               </button>
 
@@ -455,6 +405,236 @@ function Navbar() {
           </div>
 
         </div>
+
+        {/* =========================================
+            MOBILE MENU
+        ========================================= */}
+
+        <div
+          className={`
+            lg:hidden
+            fixed
+            top-0
+            right-0
+            h-screen
+            w-[85%]
+            bg-white
+            shadow-2xl
+            z-[999]
+            transition-all
+            duration-300
+            overflow-y-auto
+            ${menuOpen
+              ? "translate-x-0"
+              : "translate-x-full"
+            }
+          `}
+        >
+
+          {/* HEADER */}
+
+          <div
+            className="
+              flex
+              items-center
+              justify-between
+              p-5
+              border-b
+            "
+          >
+
+            <img
+              src={logo}
+              alt="logo"
+              className="w-28"
+            />
+
+            <button
+              onClick={() =>
+                setMenuOpen(false)
+              }
+            >
+
+              <FaTimes className="text-3xl text-[#1F2937]" />
+
+            </button>
+
+          </div>
+
+          {/* MOBILE LINKS */}
+
+          <div className="p-5">
+
+            {navLinks.map((link, index) => (
+
+              <div
+                key={index}
+                className="mb-3"
+              >
+
+                {!link.dropdown ? (
+
+                  <Link
+                    to={link.path}
+                    onClick={() =>
+                      setMenuOpen(false)
+                    }
+                    className="
+                      block
+                      py-4
+                      px-4
+                      rounded-xl
+                      font-semibold
+                      text-[#1F2937]
+                      hover:bg-gray-100
+                    "
+                  >
+
+                    {link.name}
+
+                  </Link>
+
+                ) : (
+
+                  <>
+
+                    <button
+                      onClick={() =>
+                        setActiveDropdown(
+                          activeDropdown === index
+                            ? null
+                            : index
+                        )
+                      }
+                      className="
+                        w-full
+                        flex
+                        items-center
+                        justify-between
+                        py-4
+                        px-4
+                        rounded-xl
+                        font-semibold
+                        text-[#1F2937]
+                        hover:bg-gray-100
+                      "
+                    >
+
+                      {link.name}
+
+                      <FaChevronDown
+                        className={`
+                          transition
+                          ${activeDropdown === index
+                            ? "rotate-180"
+                            : ""
+                          }
+                        `}
+                      />
+
+                    </button>
+
+                    {/* MOBILE DROPDOWN */}
+
+                    {
+                      activeDropdown === index && (
+
+                        <div
+                          className="
+                            ml-4
+                            mt-2
+                            border-l-2
+                            border-[#EF4444]
+                          "
+                        >
+
+                          {link.dropdown.map((item, idx) => (
+
+                            <Link
+                              key={idx}
+                              to={item.path}
+                              onClick={() =>
+                                setMenuOpen(false)
+                              }
+                              className="
+                                block
+                                py-3
+                                px-4
+                                text-sm
+                                text-gray-700
+                                hover:text-[#EF4444]
+                              "
+                            >
+
+                              {item.name}
+
+                            </Link>
+
+                          ))}
+
+                        </div>
+
+                      )
+                    }
+
+                  </>
+
+                )}
+
+              </div>
+
+            ))}
+
+            {/* MOBILE DONATE BUTTON */}
+
+            <button
+              className="
+                w-full
+                mt-6
+                bg-[#EF4444]
+                hover:bg-[#DC2626]
+                text-white
+                py-4
+                rounded-full
+                font-semibold
+                flex
+                items-center
+                justify-center
+                gap-2
+                transition
+              "
+            >
+
+              <FaHeart />
+
+              Donate Now
+
+            </button>
+
+          </div>
+
+        </div>
+
+        {/* OVERLAY */}
+
+        {
+          menuOpen && (
+
+            <div
+              onClick={() =>
+                setMenuOpen(false)
+              }
+              className="
+                lg:hidden
+                fixed
+                inset-0
+                bg-black/40
+                z-[998]
+              "
+            />
+
+          )
+        }
 
       </nav>
 

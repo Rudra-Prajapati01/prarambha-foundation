@@ -21,6 +21,20 @@ import Stories from "./components/common/stories/Stories"
 
 import StoriesAdmin from "./admin/pages/StoriesAdmin"
 
+import Chairperson from "./pages/Chairperson"
+
+
+import EarlyIntervention from "./pages/programs/EarlyIntervention"
+import TherapySupport from "./pages/programs/TherapySupport"
+import InclusiveEducation from "./pages/programs/InclusiveEducation"
+import CommunitySupport from "./pages/programs/CommunitySupport"
+
+/* =========================
+   ADD THIS IMPORT
+========================= */
+
+import Messages from "./admin/pages/Messages"
+
 function App() {
 
   return (
@@ -69,6 +83,27 @@ function App() {
           <Route
             path="/contact"
             element={<Contact />}
+          />
+
+
+          <Route
+            path="/programs/early-intervention"
+            element={<EarlyIntervention />}
+          />
+
+          <Route
+            path="/programs/therapy-support"
+            element={<TherapySupport />}
+          />
+
+          <Route
+            path="/programs/inclusive-education"
+            element={<InclusiveEducation />}
+          />
+
+          <Route
+            path="/programs/community-support"
+            element={<CommunitySupport />}
           />
 
           {/* =====================================
@@ -133,13 +168,37 @@ function App() {
             }
           />
 
+          {/* STORIES ADMIN */}
           <Route
             path="/admin/stories"
             element={
               <ProtectedRoute>
+
                 <StoriesAdmin />
+
               </ProtectedRoute>
             }
+          />
+
+          {/* =====================================
+              MESSAGES ADMIN
+          ===================================== */}
+
+          <Route
+            path="/admin/messages"
+            element={
+              <ProtectedRoute>
+
+                <Messages />
+
+              </ProtectedRoute>
+            }
+          />
+
+
+          <Route
+            path="/chairperson"
+            element={<Chairperson />}
           />
 
         </Routes>

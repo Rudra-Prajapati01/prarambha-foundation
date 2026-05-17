@@ -1,4 +1,6 @@
-  // src/pages/Gallery.jsx
+import Navbar from "../components/common/Navbar"
+import Footer from "../components/common/Footer"
+
   import { useEffect, useState, useCallback } from "react"
   import axios from "axios"
 
@@ -706,6 +708,8 @@
 
         <div className="gp">
 
+            <Navbar />
+
           {/* ══════════ HERO ══════════ */}
           <section className="gp-hero">
             <div className="gp-noise" />
@@ -850,12 +854,6 @@
             </div>
           </section>
 
-          {/* ══════════ CTA ══════════ */}
-          <section className="gp-cta">
-            <h2 className="gp-cta-t">Be Part of These Moments 💛</h2>
-            <p className="gp-cta-d">Volunteer, donate or sponsor a child — and help us create more stories of hope.</p>
-            <button className="gp-cta-btn">❤️ Get Involved</button>
-          </section>
 
           {/* ══════════════════════════════
               LIGHTBOX
@@ -975,6 +973,8 @@
 
             </div>
           )}
+        
+        <Footer />
 
         </div>
       </>

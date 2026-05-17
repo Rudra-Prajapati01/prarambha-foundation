@@ -65,11 +65,11 @@ function Home() {
 
       <Hero pageData={pageData} />
 
-      <Story pageData={pageData} />
-
       <Programs pageData={pageData} />
 
       <Stats pageData={pageData} />
+
+      <Story pageData={pageData} />
 
       <Footer pageData={pageData} />
 
