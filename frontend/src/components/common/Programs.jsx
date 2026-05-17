@@ -6,6 +6,7 @@ function Programs({ pageData }) {
   /* =====================================
       FIRST PROGRAM IMAGES
   ===================================== */
+
   const firstProgram =
     programList[0] || {}
 
@@ -27,9 +28,11 @@ function Programs({ pageData }) {
         >
 
           {/* LEFT CONTENT */}
+
           <div>
 
             {/* TAG */}
+
             <p
               className="
                 text-[#E63946]
@@ -44,6 +47,7 @@ function Programs({ pageData }) {
             </p>
 
             {/* HEADING */}
+
             <h2
               className="
                 text-[36px]
@@ -65,6 +69,7 @@ function Programs({ pageData }) {
             </h2>
 
             {/* DESCRIPTION */}
+
             <p
               className="
                 text-gray-600
@@ -85,12 +90,14 @@ function Programs({ pageData }) {
             </p>
 
             {/* PROGRAM LIST */}
+
             <div className="space-y-5 lg:space-y-7">
 
               {programList.map((program, index) => (
 
                 <div
                   key={index}
+
                   className="
                     bg-[#F8FAFC]
                     rounded-[24px]
@@ -102,6 +109,7 @@ function Programs({ pageData }) {
                     transition
                     hover:-translate-y-1
                   "
+
                   style={{
                     borderLeft:
                       `5px solid ${program.color}`,
@@ -109,6 +117,7 @@ function Programs({ pageData }) {
                 >
 
                   {/* TITLE */}
+
                   <h3
                     className="
                       text-[18px]
@@ -123,6 +132,7 @@ function Programs({ pageData }) {
                   </h3>
 
                   {/* POINTS */}
+
                   <ul className="space-y-2.5">
 
                     {(program.points || []).map(
@@ -130,6 +140,7 @@ function Programs({ pageData }) {
 
                         <li
                           key={idx}
+
                           className="
                             text-gray-600
                             text-sm
@@ -147,11 +158,12 @@ function Programs({ pageData }) {
                               rounded-full
                               flex-shrink-0
                             "
+
                             style={{
                               background:
                                 program.color,
                             }}
-                          ></span>
+                          />
 
                           {item}
 
@@ -163,6 +175,7 @@ function Programs({ pageData }) {
                   </ul>
 
                   {/* BUTTON */}
+
                   <button
                     className="
                       mt-5
@@ -174,6 +187,7 @@ function Programs({ pageData }) {
                       transition
                       hover:translate-x-1
                     "
+
                     style={{
                       color:
                         program.color,
@@ -193,6 +207,7 @@ function Programs({ pageData }) {
           </div>
 
           {/* RIGHT IMAGES */}
+
           <div
             className="
               relative
@@ -203,6 +218,7 @@ function Programs({ pageData }) {
           >
 
             {/* MOBILE */}
+
             <div
               className="
                 flex
@@ -214,11 +230,23 @@ function Programs({ pageData }) {
               "
             >
 
+              {/* IMAGE 1 */}
+
               {firstProgram.image1 && (
 
                 <img
-                  src={`https://prarambha-backend.onrender.com${firstProgram.image1}`}
-                  alt=""
+                  src={firstProgram.image1}
+
+                  alt="Program"
+
+                  onError={(e) => {
+
+                    e.target.onerror = null
+
+                    e.target.src =
+                      "https://via.placeholder.com/600x600?text=Program+Image"
+                  }}
+
                   className="
                     w-[220px]
                     rounded-[28px]
@@ -229,11 +257,23 @@ function Programs({ pageData }) {
 
               )}
 
+              {/* IMAGE 2 */}
+
               {firstProgram.image2 && (
 
                 <img
-                  src={`https://prarambha-backend.onrender.com${firstProgram.image2}`}
-                  alt=""
+                  src={firstProgram.image2}
+
+                  alt="Program"
+
+                  onError={(e) => {
+
+                    e.target.onerror = null
+
+                    e.target.src =
+                      "https://via.placeholder.com/600x600?text=Program+Image"
+                  }}
+
                   className="
                     w-[280px]
                     rounded-[30px]
@@ -245,11 +285,23 @@ function Programs({ pageData }) {
 
               )}
 
+              {/* IMAGE 3 */}
+
               {firstProgram.image3 && (
 
                 <img
-                  src={`https://prarambha-backend.onrender.com${firstProgram.image3}`}
-                  alt=""
+                  src={firstProgram.image3}
+
+                  alt="Program"
+
+                  onError={(e) => {
+
+                    e.target.onerror = null
+
+                    e.target.src =
+                      "https://via.placeholder.com/600x600?text=Program+Image"
+                  }}
+
                   className="
                     w-[230px]
                     rounded-[28px]
@@ -263,6 +315,7 @@ function Programs({ pageData }) {
             </div>
 
             {/* DESKTOP */}
+
             <div
               className="
                 hidden
@@ -274,6 +327,7 @@ function Programs({ pageData }) {
             >
 
               {/* IMAGE 1 */}
+
               {firstProgram.image1 && (
 
                 <div
@@ -294,8 +348,18 @@ function Programs({ pageData }) {
                 >
 
                   <img
-                    src={`https://prarambha-backend.onrender.com${firstProgram.image1}`}
-                    alt=""
+                    src={firstProgram.image1}
+
+                    alt="Program"
+
+                    onError={(e) => {
+
+                      e.target.onerror = null
+
+                      e.target.src =
+                        "https://via.placeholder.com/600x600?text=Program+Image"
+                    }}
+
                     className="
                       w-full
                       h-[200px]
@@ -308,6 +372,7 @@ function Programs({ pageData }) {
               )}
 
               {/* IMAGE 2 */}
+
               {firstProgram.image2 && (
 
                 <div
@@ -328,8 +393,18 @@ function Programs({ pageData }) {
                 >
 
                   <img
-                    src={`https://prarambha-backend.onrender.com${firstProgram.image2}`}
-                    alt=""
+                    src={firstProgram.image2}
+
+                    alt="Program"
+
+                    onError={(e) => {
+
+                      e.target.onerror = null
+
+                      e.target.src =
+                        "https://via.placeholder.com/600x600?text=Program+Image"
+                    }}
+
                     className="
                       w-full
                       h-[300px]
@@ -342,6 +417,7 @@ function Programs({ pageData }) {
               )}
 
               {/* IMAGE 3 */}
+
               {firstProgram.image3 && (
 
                 <div
@@ -362,8 +438,18 @@ function Programs({ pageData }) {
                 >
 
                   <img
-                    src={`https://prarambha-backend.onrender.com${firstProgram.image3}`}
-                    alt=""
+                    src={firstProgram.image3}
+
+                    alt="Program"
+
+                    onError={(e) => {
+
+                      e.target.onerror = null
+
+                      e.target.src =
+                        "https://via.placeholder.com/600x600?text=Program+Image"
+                    }}
+
                     className="
                       w-full
                       h-[220px]
