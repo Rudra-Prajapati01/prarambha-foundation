@@ -1,22 +1,20 @@
 import express from "express"
-
 import multer from "multer"
 
 import Page from "../models/Page.js"
 
-import {
-  storage
-}
-from "../config/cloudinary.js"
+import { storage } from "../config/cloudinary.js"
 
-const router =
-  express.Router()
+const router = express.Router()
 
 const upload =
   multer({ storage })
 
-router.put(
+/* =====================================
+   UPLOAD FOOTER LOGO
+===================================== */
 
+router.post(
   "/footer-logo",
 
   upload.single("logo"),
@@ -25,28 +23,74 @@ router.put(
 
     try {
 
-      const pages =
-        await Page.find()
+      console.log("FILE:", req.file)
 
-      for (const page of pages) {
+      if (!req.file) {
 
-        if (!page.footer) {
+        return res.status(400).json({
 
-          page.footer = {}
-        }
+          success: false,
 
-        page.footer.logo =
-          req.file.path
-
-        await page.save()
+          message: "No file uploaded",
+        })
       }
 
-      res.json({
+      /* =====================================
+          CLOUDINARY IMAGE URL
+      ===================================== */
+
+      const logoUrl =
+        req.file.path
+
+      console.log(
+        "LOGO URL:",
+        logoUrl
+      )
+
+      /* =====================================
+          FIND PAGE
+      ===================================== */
+
+      let page =
+        await Page.findOne()
+
+      /* =====================================
+          CREATE PAGE IF NOT EXISTS
+      ===================================== */
+
+      if (!page) {
+
+        page = new Page({
+
+          footer: {},
+        })
+      }
+
+      /* =====================================
+          SAVE LOGO
+      ===================================== */
+
+      page.footer.logo =
+        logoUrl
+
+      await page.save()
+
+      console.log(
+        "SAVED:",
+        page.footer.logo
+      )
+
+      /* =====================================
+          RESPONSE
+      ===================================== */
+
+      res.status(200).json({
 
         success: true,
 
-        logo:
-          req.file.path,
+        logo: logoUrl,
+
+        footer: page.footer,
       })
 
     } catch (error) {
@@ -55,8 +99,12 @@ router.put(
 
       res.status(500).json({
 
-        error:
-          error.message
+        success: false,
+
+        message:
+          "Logo upload failed",
+
+        error: error.message,
       })
     }
   }

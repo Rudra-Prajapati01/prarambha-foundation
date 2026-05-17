@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 function FooterEditor({
   pageData,
   setPageData,
@@ -5,6 +7,9 @@ function FooterEditor({
 
   const footer =
     pageData?.footer || {}
+
+  const [loading, setLoading] =
+    useState(false)
 
   /* =====================================
       HANDLE CHANGE
@@ -30,32 +35,165 @@ function FooterEditor({
   }
 
   /* =====================================
-      HANDLE LOGO
+      HANDLE LOGO UPLOAD
   ===================================== */
-  const handleLogoChange = (e) => {
+  const handleLogoChange = async (e) => {
 
     const file =
       e.target.files[0]
 
     if (!file) return
 
-    const imageUrl =
-      URL.createObjectURL(file)
+    try {
 
-    setPageData((prev) => ({
+      setLoading(true)
 
-      ...prev,
+      const formData =
+        new FormData()
 
-      footer: {
+      formData.append(
+        "logo",
+        file
+      )
 
-        ...(prev.footer || {}),
+      /* =====================================
+          CLOUDINARY UPLOAD API
+      ===================================== */
 
-        logo: imageUrl,
+      const response =
+        await fetch(
+          "https://prarambha-backend.onrender.com/api/logo/footer-logo",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
 
-        logoFile: file,
-      },
-    }))
+      console.log(response)
+
+      const data =
+        await response.json()
+
+      console.log(data)
+
+      const data =
+        await response.json()
+
+      console.log(
+        "UPLOAD RESPONSE:",
+        data
+      )
+
+      if (!response.ok) {
+
+        alert(
+          data.message ||
+          "Logo upload failed"
+        )
+
+        return
+      }
+
+      /* =====================================
+          UPDATE REACT STATE
+      ===================================== */
+
+      setPageData((prev) => ({
+
+        ...prev,
+
+        footer: {
+
+          ...(prev.footer || {}),
+
+          logo:
+            data?.footer?.logo ||
+            data?.logo ||
+            "",
+        },
+      }))
+
+      alert(
+        "Logo uploaded successfully"
+      )
+
+    } catch (error) {
+
+      console.log(error)
+
+      alert(
+        "Something went wrong"
+      )
+
+    } finally {
+
+      setLoading(false)
+    }
   }
+
+  /* =====================================
+      SAVE FOOTER DATA
+  ===================================== */
+  const handleSaveFooter =
+    async () => {
+
+      try {
+
+        setLoading(true)
+
+        const response =
+          await fetch(
+            "https://prarambha-backend.onrender.com/api/page/footer",
+            {
+
+              method: "PUT",
+
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+
+              body: JSON.stringify({
+                footer,
+              }),
+            }
+          )
+
+        const data =
+          await response.json()
+
+        console.log(
+          "SAVE RESPONSE:",
+          data
+        )
+
+        if (!response.ok) {
+
+          alert(
+            data.message ||
+            "Failed to save footer"
+          )
+
+          return
+        }
+
+        alert(
+          "Footer updated successfully"
+        )
+
+      } catch (error) {
+
+        console.log(error)
+
+        alert(
+          "Save failed"
+        )
+
+      } finally {
+
+        setLoading(false)
+      }
+    }
 
   return (
 
@@ -125,6 +263,12 @@ function FooterEditor({
               <img
                 src={footer.logo}
                 alt="logo preview"
+
+                onError={(e) => {
+                  e.target.src =
+                    "/logo.png"
+                }}
+
                 className="
                   mt-4
                   w-40
@@ -392,6 +536,34 @@ function FooterEditor({
 
       </div>
 
+      {/* SAVE BUTTON */}
+      <button
+        onClick={handleSaveFooter}
+
+        disabled={loading}
+
+        className="
+          mt-8
+          bg-[#E63946]
+          hover:bg-red-600
+          text-white
+          px-8
+          py-4
+          rounded-2xl
+          font-semibold
+          transition
+          disabled:opacity-50
+        "
+      >
+
+        {
+          loading
+            ? "Saving..."
+            : "Save Footer"
+        }
+
+      </button>
+
       {/* PREVIEW */}
       <div
         className="
@@ -415,13 +587,13 @@ function FooterEditor({
           Live Preview
         </h3>
 
-        {/* LOGO */}
         {
           footer.logo && (
 
             <img
               src={footer.logo}
               alt="preview"
+
               className="
                 w-40
                 object-contain
@@ -431,136 +603,6 @@ function FooterEditor({
 
           )
         }
-
-        {/* DESC */}
-        <div className="mb-6">
-
-          <p
-            className="
-              text-gray-600
-              leading-relaxed
-            "
-          >
-
-            {footer.description ||
-              "Footer description preview"}
-
-          </p>
-
-        </div>
-
-        {/* CONTACTS */}
-        <div className="space-y-4">
-
-          <div>
-
-            <span
-              className="
-                font-bold
-                text-[#111827]
-              "
-            >
-              Phone:
-            </span>
-
-            <span className="ml-2 text-gray-600">
-              {footer.phone ||
-                "+91 9876543210"}
-            </span>
-
-          </div>
-
-          <div>
-
-            <span
-              className="
-                font-bold
-                text-[#111827]
-              "
-            >
-              Email:
-            </span>
-
-            <span className="ml-2 text-gray-600">
-              {footer.email ||
-                "example@email.com"}
-            </span>
-
-          </div>
-
-          <div>
-
-            <span
-              className="
-                font-bold
-                text-[#111827]
-              "
-            >
-              Address:
-            </span>
-
-            <span className="ml-2 text-gray-600">
-              {footer.address ||
-                "Your address preview"}
-            </span>
-
-          </div>
-
-          <div>
-
-            <span
-              className="
-                font-bold
-                text-[#111827]
-              "
-            >
-              Facebook:
-            </span>
-
-            <span className="ml-2 text-gray-600">
-              {footer.facebook ||
-                "facebook.com"}
-            </span>
-
-          </div>
-
-          <div>
-
-            <span
-              className="
-                font-bold
-                text-[#111827]
-              "
-            >
-              Instagram:
-            </span>
-
-            <span className="ml-2 text-gray-600">
-              {footer.instagram ||
-                "instagram.com"}
-            </span>
-
-          </div>
-
-          <div>
-
-            <span
-              className="
-                font-bold
-                text-[#111827]
-              "
-            >
-              YouTube:
-            </span>
-
-            <span className="ml-2 text-gray-600">
-              {footer.youtube ||
-                "youtube.com"}
-            </span>
-
-          </div>
-
-        </div>
 
       </div>
 
