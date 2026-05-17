@@ -294,7 +294,8 @@ export default function InclusiveEducation() {
 
       <div className="edu-page">
 
-        <Navbar />
+        <Navbar pageData={pageData} />
+
 
         {/* HERO */}
 
@@ -391,8 +392,8 @@ export default function InclusiveEducation() {
 
         </section>
 
-        
-        <Footer />
+
+        <Footer pageData={pageData} />
 
       </div>
     </>

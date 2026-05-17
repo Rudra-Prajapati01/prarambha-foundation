@@ -29,6 +29,34 @@ function FooterEditor({
     }))
   }
 
+  /* =====================================
+      HANDLE LOGO
+  ===================================== */
+  const handleLogoChange = (e) => {
+
+    const file =
+      e.target.files[0]
+
+    if (!file) return
+
+    const imageUrl =
+      URL.createObjectURL(file)
+
+    setPageData((prev) => ({
+
+      ...prev,
+
+      footer: {
+
+        ...(prev.footer || {}),
+
+        logo: imageUrl,
+
+        logoFile: file,
+      },
+    }))
+  }
+
   return (
 
     <div
@@ -56,14 +84,59 @@ function FooterEditor({
 
         <p className="text-gray-500">
           Edit footer information,
-          contact details and
-          organization description.
+          logo, contact details,
+          and social links.
         </p>
 
       </div>
 
       {/* FORM */}
       <div className="space-y-6">
+
+        {/* LOGO */}
+        <div>
+
+          <label
+            className="
+              block
+              font-semibold
+              mb-3
+              text-[#111827]
+            "
+          >
+            Website Logo
+          </label>
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleLogoChange}
+            className="
+              w-full
+              p-4
+              rounded-2xl
+              bg-[#F3F4F6]
+            "
+          />
+
+          {
+            footer.logo && (
+
+              <img
+                src={footer.logo}
+                alt="logo preview"
+                className="
+                  mt-4
+                  w-40
+                  h-auto
+                  object-contain
+                "
+              />
+
+            )
+          }
+
+        </div>
 
         {/* DESCRIPTION */}
         <div>
@@ -209,6 +282,114 @@ function FooterEditor({
 
         </div>
 
+        {/* FACEBOOK */}
+        <div>
+
+          <label
+            className="
+              block
+              font-semibold
+              mb-3
+              text-[#111827]
+            "
+          >
+            Facebook Link
+          </label>
+
+          <input
+            type="text"
+            name="facebook"
+            placeholder="Facebook URL"
+            value={
+              footer.facebook || ""
+            }
+            onChange={
+              handleFooterChange
+            }
+            className="
+              w-full
+              h-[60px]
+              px-5
+              rounded-2xl
+              bg-[#F3F4F6]
+              outline-none
+            "
+          />
+
+        </div>
+
+        {/* INSTAGRAM */}
+        <div>
+
+          <label
+            className="
+              block
+              font-semibold
+              mb-3
+              text-[#111827]
+            "
+          >
+            Instagram Link
+          </label>
+
+          <input
+            type="text"
+            name="instagram"
+            placeholder="Instagram URL"
+            value={
+              footer.instagram || ""
+            }
+            onChange={
+              handleFooterChange
+            }
+            className="
+              w-full
+              h-[60px]
+              px-5
+              rounded-2xl
+              bg-[#F3F4F6]
+              outline-none
+            "
+          />
+
+        </div>
+
+        {/* YOUTUBE */}
+        <div>
+
+          <label
+            className="
+              block
+              font-semibold
+              mb-3
+              text-[#111827]
+            "
+          >
+            YouTube Link
+          </label>
+
+          <input
+            type="text"
+            name="youtube"
+            placeholder="YouTube URL"
+            value={
+              footer.youtube || ""
+            }
+            onChange={
+              handleFooterChange
+            }
+            className="
+              w-full
+              h-[60px]
+              px-5
+              rounded-2xl
+              bg-[#F3F4F6]
+              outline-none
+            "
+          />
+
+        </div>
+
       </div>
 
       {/* PREVIEW */}
@@ -233,6 +414,23 @@ function FooterEditor({
         >
           Live Preview
         </h3>
+
+        {/* LOGO */}
+        {
+          footer.logo && (
+
+            <img
+              src={footer.logo}
+              alt="preview"
+              className="
+                w-40
+                object-contain
+                mb-6
+              "
+            />
+
+          )
+        }
 
         {/* DESC */}
         <div className="mb-6">
@@ -304,6 +502,60 @@ function FooterEditor({
             <span className="ml-2 text-gray-600">
               {footer.address ||
                 "Your address preview"}
+            </span>
+
+          </div>
+
+          <div>
+
+            <span
+              className="
+                font-bold
+                text-[#111827]
+              "
+            >
+              Facebook:
+            </span>
+
+            <span className="ml-2 text-gray-600">
+              {footer.facebook ||
+                "facebook.com"}
+            </span>
+
+          </div>
+
+          <div>
+
+            <span
+              className="
+                font-bold
+                text-[#111827]
+              "
+            >
+              Instagram:
+            </span>
+
+            <span className="ml-2 text-gray-600">
+              {footer.instagram ||
+                "instagram.com"}
+            </span>
+
+          </div>
+
+          <div>
+
+            <span
+              className="
+                font-bold
+                text-[#111827]
+              "
+            >
+              YouTube:
+            </span>
+
+            <span className="ml-2 text-gray-600">
+              {footer.youtube ||
+                "youtube.com"}
             </span>
 
           </div>

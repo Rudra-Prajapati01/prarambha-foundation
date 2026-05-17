@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+
 import { Link } from "react-router-dom"
 
 import {
@@ -8,15 +9,31 @@ import {
   FaChevronDown,
 } from "react-icons/fa"
 
-import logo from "../../assets/logo/logo.png"
-
-function Navbar() {
+function Navbar({ pageData }) {
 
   const [menuOpen, setMenuOpen] =
     useState(false)
 
   const [activeDropdown, setActiveDropdown] =
     useState(null)
+
+  /* =========================================
+     DYNAMIC FOOTER DATA
+  ========================================= */
+
+  const footer =
+    pageData?.footer || {}
+
+  /* =========================================
+     DYNAMIC LOGO
+  ========================================= */
+
+  const dynamicLogo =
+    footer.logo
+      ? footer.logo.startsWith("http")
+        ? footer.logo
+        : `https://prarambha-backend.onrender.com${footer.logo}`
+      : "/logo.png"
 
   /* =========================================
      PREVENT BODY SCROLL
@@ -43,7 +60,7 @@ function Navbar() {
   }, [menuOpen])
 
   /* =========================================
-     NAVBAR LINKS
+     NAV LINKS
   ========================================= */
 
   const navLinks = [
@@ -66,11 +83,6 @@ function Navbar() {
         {
           name: "Our Chairperson",
           path: "/chairperson",
-        },
-
-        {
-          name: "Documents",
-          path: "/documents",
         },
 
       ],
@@ -152,11 +164,13 @@ function Navbar() {
         <div className="flex items-center gap-8">
 
           <p>
-            foundationprarambha@gmail.com
+            {footer.email ||
+              "foundationprarambha@gmail.com"}
           </p>
 
           <p>
-            +91 940 911 8461
+            {footer.phone ||
+              "+91 940 911 8461"}
           </p>
 
         </div>
@@ -194,7 +208,7 @@ function Navbar() {
               flex
               items-center
               justify-between
-              h-[85px]
+              h-[78px]
             "
           >
 
@@ -205,11 +219,12 @@ function Navbar() {
             <Link to="/">
 
               <img
-                src={logo}
+                src={dynamicLogo}
                 alt="logo"
                 className="
                   w-32
                   sm:w-40
+                  h-[60px]
                   object-contain
                 "
               />
@@ -352,7 +367,8 @@ function Navbar() {
 
               {/* DONATE BUTTON */}
 
-              <button
+              <Link
+                to="/donate"
                 className="
                   hidden md:flex
                   items-center
@@ -372,7 +388,7 @@ function Navbar() {
 
                 Donate Now
 
-              </button>
+              </Link>
 
               {/* MOBILE MENU BUTTON */}
 
@@ -444,9 +460,13 @@ function Navbar() {
           >
 
             <img
-              src={logo}
+              src={dynamicLogo}
               alt="logo"
-              className="w-28"
+              className="
+                w-28
+                h-[55px]
+                object-contain
+              "
             />
 
             <button
@@ -534,8 +554,6 @@ function Navbar() {
 
                     </button>
 
-                    {/* MOBILE DROPDOWN */}
-
                     {
                       activeDropdown === index && (
 
@@ -585,9 +603,41 @@ function Navbar() {
 
             ))}
 
+            {/* CONTACT INFO */}
+
+            <div
+              className="
+                mt-8
+                pt-6
+                border-t
+                border-gray-200
+                space-y-4
+              "
+            >
+
+              <p className="text-sm text-gray-600">
+
+                {footer.email ||
+                  "foundationprarambha@gmail.com"}
+
+              </p>
+
+              <p className="text-sm text-gray-600">
+
+                {footer.phone ||
+                  "+91 940 911 8461"}
+
+              </p>
+
+            </div>
+
             {/* MOBILE DONATE BUTTON */}
 
-            <button
+            <Link
+              to="/donate"
+              onClick={() =>
+                setMenuOpen(false)
+              }
               className="
                 w-full
                 mt-6
@@ -609,7 +659,7 @@ function Navbar() {
 
               Donate Now
 
-            </button>
+            </Link>
 
           </div>
 

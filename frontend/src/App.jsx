@@ -23,6 +23,8 @@ import StoriesAdmin from "./admin/pages/StoriesAdmin"
 
 import Messages from "./admin/pages/Messages"
 
+import DonateNow from "./pages/DonateNow"
+
 /* =====================================
    CHAIRPERSON
 ===================================== */
@@ -83,6 +85,11 @@ function App() {
           <Route
             path="/contact"
             element={<Contact />}
+          />
+
+          <Route
+            path="/donate"
+            element={<DonateNow />}
           />
 
           {/* =====================================

@@ -708,7 +708,8 @@ import Footer from "../components/common/Footer"
 
         <div className="gp">
 
-            <Navbar />
+            <Navbar pageData={pageData} />
+
 
           {/* ══════════ HERO ══════════ */}
           <section className="gp-hero">
@@ -974,7 +975,7 @@ import Footer from "../components/common/Footer"
             </div>
           )}
         
-        <Footer />
+        <Footer pageData={pageData} />
 
         </div>
       </>

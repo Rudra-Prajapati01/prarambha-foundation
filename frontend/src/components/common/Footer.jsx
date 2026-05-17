@@ -1,19 +1,30 @@
 import {
   FaFacebookF,
   FaInstagram,
-  FaLinkedinIn,
+  FaYoutube,
   FaPhoneAlt,
   FaEnvelope,
   FaMapMarkerAlt,
   FaHeart,
 } from "react-icons/fa"
 
-import logo from "../../assets/logo/logo.png"
+import { Link } from "react-router-dom"
 
 function Footer({ pageData }) {
 
   const footer =
     pageData?.footer || {}
+
+  /* =====================================
+      DYNAMIC LOGO
+  ===================================== */
+
+  const dynamicLogo =
+    footer.logo
+      ? footer.logo.startsWith("http")
+        ? footer.logo
+        : `https://prarambha-backend.onrender.com${footer.logo}`
+      : "/logo.png"
 
   return (
 
@@ -40,9 +51,14 @@ function Footer({ pageData }) {
 
             {/* LOGO */}
             <img
-              src={logo}
+              src={dynamicLogo}
               alt="Prarambha Foundation"
-              className="w-48 mb-5"
+              className="
+                w-48
+                h-[70px]
+                object-contain
+                mb-5
+              "
             />
 
             <p
@@ -62,7 +78,10 @@ function Footer({ pageData }) {
             <div className="flex items-center gap-3 mt-6">
 
               {/* FACEBOOK */}
-              <div
+              <a
+                href={footer.facebook || "#"}
+                target="_blank"
+                rel="noreferrer"
                 className="
                   w-10 h-10 rounded-full
                   bg-[#F3F4F6]
@@ -77,10 +96,13 @@ function Footer({ pageData }) {
 
                 <FaFacebookF />
 
-              </div>
+              </a>
 
               {/* INSTAGRAM */}
-              <div
+              <a
+                href={footer.instagram || "#"}
+                target="_blank"
+                rel="noreferrer"
                 className="
                   w-10 h-10 rounded-full
                   bg-[#F3F4F6]
@@ -95,10 +117,13 @@ function Footer({ pageData }) {
 
                 <FaInstagram />
 
-              </div>
+              </a>
 
-              {/* LINKEDIN */}
-              <div
+              {/* YOUTUBE */}
+              <a
+                href={footer.youtube || "#"}
+                target="_blank"
+                rel="noreferrer"
                 className="
                   w-10 h-10 rounded-full
                   bg-[#F3F4F6]
@@ -111,9 +136,9 @@ function Footer({ pageData }) {
                 "
               >
 
-                <FaLinkedinIn />
+                <FaYoutube />
 
-              </div>
+              </a>
 
             </div>
 
@@ -143,32 +168,49 @@ function Footer({ pageData }) {
               "
             >
 
-              <li className="hover:text-[#E63946] transition cursor-pointer">
-                Home
+              <li>
+                <Link
+                  to="/"
+                  className="hover:text-[#E63946] transition"
+                >
+                  Home
+                </Link>
               </li>
 
-              <li className="hover:text-[#E63946] transition cursor-pointer">
-                About Us
+              <li>
+                <Link
+                  to="/about"
+                  className="hover:text-[#E63946] transition"
+                >
+                  About Us
+                </Link>
               </li>
 
-              <li className="hover:text-[#E63946] transition cursor-pointer">
-                Services
+              <li>
+                <Link
+                  to="/gallery"
+                  className="hover:text-[#E63946] transition"
+                >
+                  Gallery
+                </Link>
               </li>
 
-              <li className="hover:text-[#E63946] transition cursor-pointer">
-                Impact
+              <li>
+                <Link
+                  to="/stories"
+                  className="hover:text-[#E63946] transition"
+                >
+                  Blog
+                </Link>
               </li>
 
-              <li className="hover:text-[#E63946] transition cursor-pointer">
-                Collaborations
-              </li>
-
-              <li className="hover:text-[#E63946] transition cursor-pointer">
-                Updates
-              </li>
-
-              <li className="hover:text-[#E63946] transition cursor-pointer">
-                Contact
+              <li>
+                <Link
+                  to="/contact"
+                  className="hover:text-[#E63946] transition"
+                >
+                  Contact
+                </Link>
               </li>
 
             </ul>
@@ -199,15 +241,41 @@ function Footer({ pageData }) {
               "
             >
 
-              <li>Early Intervention</li>
+              <li>
+                <Link
+                  to="/programs/early-intervention"
+                  className="hover:text-[#E63946] transition"
+                >
+                  Early Intervention
+                </Link>
+              </li>
 
-              <li>Therapy Support</li>
+              <li>
+                <Link
+                  to="/programs/therapy-support"
+                  className="hover:text-[#E63946] transition"
+                >
+                  Therapy Support
+                </Link>
+              </li>
 
-              <li>Inclusive Education</li>
+              <li>
+                <Link
+                  to="/programs/inclusive-education"
+                  className="hover:text-[#E63946] transition"
+                >
+                  Inclusive Education
+                </Link>
+              </li>
 
-              <li>Sensory Learning</li>
-
-              <li>Family Support</li>
+              <li>
+                <Link
+                  to="/programs/community-support"
+                  className="hover:text-[#E63946] transition"
+                >
+                  Community Support
+                </Link>
+              </li>
 
             </ul>
 
@@ -276,10 +344,12 @@ function Footer({ pageData }) {
             </div>
 
             {/* DONATE BUTTON */}
-            <button
+            <Link
+              to="/donate"
               className="
                 mt-6
-                flex items-center gap-2
+                inline-flex
+                items-center gap-2
                 bg-[#E63946]
                 hover:bg-red-600
                 text-white
@@ -295,7 +365,7 @@ function Footer({ pageData }) {
 
               Donate Now
 
-            </button>
+            </Link>
 
           </div>
 

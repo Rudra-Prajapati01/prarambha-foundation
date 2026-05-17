@@ -61,7 +61,8 @@ function Home() {
 
     <div className="w-full overflow-x-hidden bg-white">
 
-      <Navbar />
+      <Navbar pageData={pageData} />
+
 
       <Hero pageData={pageData} />
 

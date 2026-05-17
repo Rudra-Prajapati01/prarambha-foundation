@@ -117,7 +117,8 @@ function Stories() {
 
         <div className="bg-[#FFFDFB] min-h-screen">
 
-              <Navbar />
+              <Navbar pageData={pageData} />
+
 
             {/* =========================================
                 HERO SECTION
@@ -588,7 +589,7 @@ function Stories() {
 
             </section>
 
-                    <Footer />
+            <Footer pageData={pageData} />
         </div>
     )
 }
