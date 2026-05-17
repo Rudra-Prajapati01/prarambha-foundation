@@ -1,5 +1,16 @@
 export default function MissionSection({ data }) {
 
+  /* =====================================
+      IMAGE SUPPORT
+  ===================================== */
+
+  const missionImage =
+    data?.image
+      ? data.image.startsWith("http")
+        ? data.image
+        : `https://prarambha-backend.onrender.com${data.image}`
+      : "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80"
+
   return (
     <>
       <style>{`
@@ -24,6 +35,11 @@ export default function MissionSection({ data }) {
           object-fit: cover;
           border-radius: 24px;
           box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+          transition: 0.4s ease;
+        }
+
+        .mission-img-wrap img:hover {
+          transform: scale(1.02);
         }
 
         .mission-badge-float {
@@ -109,6 +125,7 @@ export default function MissionSection({ data }) {
         }
 
         @media (max-width: 900px) {
+
           .mission-section {
             flex-direction: column;
             padding: 40px 20px;
@@ -116,6 +133,11 @@ export default function MissionSection({ data }) {
 
           .mission-img-wrap img {
             height: 350px;
+          }
+
+          .mission-badge-float {
+            left: 10px;
+            bottom: 10px;
           }
         }
       `}</style>
@@ -125,23 +147,37 @@ export default function MissionSection({ data }) {
         className="mission-section"
       >
 
+        {/* IMAGE */}
+
         <div className="mission-img-wrap">
 
           <img
-            src={
-              data?.image
-                ? `https://prarambha-backend.onrender.com${data.image}`
-                : "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80"
-            }
+            src={missionImage}
+
             alt="mission"
+
+            loading="lazy"
+
+            onError={(e) => {
+
+              e.target.onerror = null
+
+              e.target.src =
+                "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80"
+            }}
           />
 
           <div className="mission-badge-float">
+
             <strong>14+</strong>
+
             Years of Impact
+
           </div>
 
         </div>
+
+        {/* CONTENT */}
 
         <div className="mission-content">
 
@@ -150,7 +186,10 @@ export default function MissionSection({ data }) {
           </p>
 
           <h2 className="section-title">
-            {data?.title || "A Journey of Love & Purpose"}
+            {
+              data?.title ||
+              "A Journey of Love & Purpose"
+            }
           </h2>
 
           <p className="section-desc">

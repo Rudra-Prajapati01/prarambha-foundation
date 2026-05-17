@@ -28,9 +28,10 @@ export default function Chairperson() {
 
       try {
 
-        const response = await fetch(
-          "https://prarambha-backend.onrender.com/api/pages/about"
-        )
+        const response =
+          await fetch(
+            "https://prarambha-backend.onrender.com/api/pages/about"
+          )
 
         const data =
           await response.json()
@@ -38,9 +39,11 @@ export default function Chairperson() {
         console.log(data)
 
         /* FULL PAGE DATA */
+
         setPageData(data)
 
         /* ONLY CHAIRPERSON */
+
         setChairData(
           data?.chairperson
         )
@@ -58,6 +61,17 @@ export default function Chairperson() {
     fetchChairperson()
 
   }, [])
+
+  /* =========================================
+     IMAGE SUPPORT
+  ========================================= */
+
+  const chairImage =
+    chairData?.image
+      ? chairData.image.startsWith("http")
+        ? chairData.image
+        : `https://prarambha-backend.onrender.com${chairData.image}`
+      : "https://i.pravatar.cc/500?img=47"
 
   /* =========================================
      LOADING
@@ -120,6 +134,11 @@ export default function Chairperson() {
           position: relative;
           z-index: 2;
           box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+          transition: 0.4s ease;
+        }
+
+        .chair-img:hover {
+          transform: scale(1.03);
         }
 
         .chair-blob {
@@ -232,55 +251,89 @@ export default function Chairperson() {
       <div className="chair-page">
 
         {/* NAVBAR */}
-        <Navbar/>
+
+        <Navbar />
 
         {/* CHAIRPERSON SECTION */}
+
         <section className="chair-section">
 
           <div className="chair-inner">
 
             {/* IMAGE */}
+
             <div className="chair-img-wrap">
 
               <div className="chair-blob"></div>
 
               <img
                 className="chair-img"
-                src={
-                  chairData?.image
-                    ? `https://prarambha-backend.onrender.com${chairData.image}`
-                    : "https://i.pravatar.cc/500?img=47"
-                }
+
+                src={chairImage}
+
                 alt="Chairperson"
+
+                loading="lazy"
+
+                onError={(e) => {
+
+                  e.target.onerror = null
+
+                  e.target.src =
+                    "https://i.pravatar.cc/500?img=47"
+                }}
               />
 
             </div>
 
             {/* CONTENT */}
+
             <div className="chair-content">
 
               <p className="section-tag">
-                Message from the Chairperson
+                {
+                  chairData?.heading ||
+                  "Message from the Chairperson"
+                }
               </p>
 
               <h1 className="section-title">
-                Leading with <span>Heart</span>
+
+                {
+                  chairData?.title ||
+                  <>
+                    Leading with <span>Heart</span>
+                  </>
+                }
+
               </h1>
 
               <blockquote className="chair-quote">
-                {chairData?.quote}
+                {
+                  chairData?.quote ||
+                  "Every child deserves equal opportunities, compassion, and support."
+                }
               </blockquote>
 
               <p className="section-desc">
-                {chairData?.description}
+                {
+                  chairData?.description ||
+                  "We are dedicated to building an inclusive environment where children can thrive with dignity, confidence, and care."
+                }
               </p>
 
               <div className="chair-name">
-                {chairData?.name}
+                {
+                  chairData?.name ||
+                  "Chairperson Name"
+                }
               </div>
 
               <div className="chair-role">
-                {chairData?.role}
+                {
+                  chairData?.role ||
+                  "Founder & Chairperson"
+                }
               </div>
 
             </div>
@@ -290,6 +343,7 @@ export default function Chairperson() {
         </section>
 
         {/* FOOTER */}
+
         <Footer />
 
       </div>

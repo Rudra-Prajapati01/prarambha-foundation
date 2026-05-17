@@ -1,5 +1,16 @@
 export default function ChairpersonSection({ data }) {
 
+  /* =====================================
+      IMAGE SUPPORT
+  ===================================== */
+
+  const chairImage =
+    data?.image
+      ? data.image.startsWith("http")
+        ? data.image
+        : `https://prarambha-backend.onrender.com${data.image}`
+      : "https://i.pravatar.cc/500?img=47"
+
   return (
     <>
       <style>{`
@@ -29,6 +40,11 @@ export default function ChairpersonSection({ data }) {
           position: relative;
           z-index: 2;
           box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+          transition: 0.4s ease;
+        }
+
+        .chair-img-wrap img:hover {
+          transform: scale(1.03);
         }
 
         .chair-blob {
@@ -91,6 +107,7 @@ export default function ChairpersonSection({ data }) {
         }
 
         @media (max-width: 900px) {
+
           .chair-inner {
             flex-direction: column;
             text-align: center;
@@ -111,6 +128,7 @@ export default function ChairpersonSection({ data }) {
         }
 
         @media (max-width: 600px) {
+
           .chair-section {
             padding: 60px 20px;
           }
@@ -121,45 +139,72 @@ export default function ChairpersonSection({ data }) {
 
         <div className="chair-inner">
 
+          {/* IMAGE */}
+
           <div className="chair-img-wrap">
 
             <div className="chair-blob"></div>
 
             <img
-              src={
-                data?.image
-                  ? `https://prarambha-backend.onrender.com${data.image}`
-                  : "https://i.pravatar.cc/500?img=47"
-              }
+              src={chairImage}
+
               alt="Chairperson"
+
+              loading="lazy"
+
+              onError={(e) => {
+
+                e.target.onerror = null
+
+                e.target.src =
+                  "https://i.pravatar.cc/500?img=47"
+              }}
             />
 
           </div>
 
+          {/* CONTENT */}
+
           <div className="chair-content">
 
             <p className="section-tag">
-              Message from the Chairperson
+              {
+                data?.heading ||
+                "Message from the Chairperson"
+              }
             </p>
 
             <h2 className="section-title">
-              Leading with <span>Heart</span>
+
+              {
+                data?.title ||
+                <>
+                  Leading with <span>Heart</span>
+                </>
+              }
+
             </h2>
 
             <blockquote className="chair-quote">
-              {data?.quote}
+              {
+                data?.quote ||
+                "Every child deserves dignity, opportunity, and unconditional support."
+              }
             </blockquote>
 
             <p className="section-desc">
-              {data?.description}
+              {
+                data?.description ||
+                "Our mission is to build a compassionate and inclusive future where every child can grow, learn, and shine with confidence."
+              }
             </p>
 
             <div className="chair-name">
-              {data?.name}
+              {data?.name || "Chairperson Name"}
             </div>
 
             <div className="chair-role">
-              {data?.role}
+              {data?.role || "Founder & Chairperson"}
             </div>
 
           </div>

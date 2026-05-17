@@ -5,9 +5,10 @@ function MissionEditor({
   setPageData,
 }) {
 
-  /* =========================
+  /* =====================================
       HANDLE CHANGE
-  ========================= */
+  ===================================== */
+
   const handleChange = (
     field,
     value
@@ -26,9 +27,10 @@ function MissionEditor({
     }))
   }
 
-  /* =========================
+  /* =====================================
       IMAGE UPLOAD
-  ========================= */
+  ===================================== */
+
   const uploadImage = async (e) => {
 
     const file =
@@ -49,13 +51,7 @@ function MissionEditor({
       const { data } =
         await axios.post(
           "https://prarambha-backend.onrender.com/api/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type":
-                "multipart/form-data",
-            },
-          }
+          formData
         )
 
       handleChange(
@@ -69,6 +65,17 @@ function MissionEditor({
     }
   }
 
+  /* =====================================
+      IMAGE SUPPORT
+  ===================================== */
+
+  const missionImage =
+    pageData.mission?.image
+      ? pageData.mission.image.startsWith("http")
+        ? pageData.mission.image
+        : `https://prarambha-backend.onrender.com${pageData.mission.image}`
+      : "https://via.placeholder.com/1200x700?text=Mission+Image"
+
   return (
 
     <div
@@ -81,6 +88,7 @@ function MissionEditor({
     >
 
       {/* HEADER */}
+
       <div className="mb-8">
 
         <h2
@@ -104,9 +112,11 @@ function MissionEditor({
       </div>
 
       {/* FORM */}
+
       <div className="space-y-6">
 
         {/* HEADING */}
+
         <div>
 
           <label
@@ -122,16 +132,63 @@ function MissionEditor({
 
           <input
             type="text"
+
             placeholder="Enter heading"
+
             value={
               pageData.mission?.heading || ""
             }
+
             onChange={(e) =>
               handleChange(
                 "heading",
                 e.target.value
               )
             }
+
+            className="
+              w-full
+              h-[58px]
+              px-5
+              rounded-2xl
+              bg-[#F3F4F6]
+              outline-none
+            "
+          />
+
+        </div>
+
+        {/* TITLE */}
+
+        <div>
+
+          <label
+            className="
+              block
+              font-semibold
+              mb-3
+              text-[#111827]
+            "
+          >
+            Mission Title
+          </label>
+
+          <input
+            type="text"
+
+            placeholder="Enter title"
+
+            value={
+              pageData.mission?.title || ""
+            }
+
+            onChange={(e) =>
+              handleChange(
+                "title",
+                e.target.value
+              )
+            }
+
             className="
               w-full
               h-[58px]
@@ -145,6 +202,7 @@ function MissionEditor({
         </div>
 
         {/* CONTENT */}
+
         <div>
 
           <label
@@ -160,16 +218,20 @@ function MissionEditor({
 
           <textarea
             rows="6"
+
             placeholder="Enter description"
+
             value={
               pageData.mission?.content || ""
             }
+
             onChange={(e) =>
               handleChange(
                 "content",
                 e.target.value
               )
             }
+
             className="
               w-full
               p-5
@@ -183,6 +245,7 @@ function MissionEditor({
         </div>
 
         {/* IMAGE */}
+
         <div>
 
           <label
@@ -198,8 +261,11 @@ function MissionEditor({
 
           <input
             type="file"
+
             accept="image/*"
+
             onChange={uploadImage}
+
             className="
               w-full
               bg-[#F3F4F6]
@@ -211,19 +277,47 @@ function MissionEditor({
 
         </div>
 
-        {/* PREVIEW */}
+        {/* IMAGE PREVIEW */}
+
         {pageData.mission?.image && (
 
-          <img
-            src={`https://prarambha-backend.onrender.com${pageData.mission.image}`}
-            alt=""
-            className="
-              w-full
-              h-[320px]
-              object-cover
-              rounded-[30px]
-            "
-          />
+          <div>
+
+            <p
+              className="
+                mb-3
+                font-semibold
+                text-gray-700
+              "
+            >
+              Image Preview
+            </p>
+
+            <img
+              src={missionImage}
+
+              alt="Mission"
+
+              loading="lazy"
+
+              onError={(e) => {
+
+                e.target.onerror = null
+
+                e.target.src =
+                  "https://via.placeholder.com/1200x700?text=Mission+Image"
+              }}
+
+              className="
+                w-full
+                h-[320px]
+                object-cover
+                rounded-[30px]
+                shadow-lg
+              "
+            />
+
+          </div>
 
         )}
 

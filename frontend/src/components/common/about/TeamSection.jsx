@@ -1,22 +1,48 @@
-function TeamCard({ name, role, image, color }) {
+function TeamCard({
+  name,
+  role,
+  image,
+  color,
+}) {
+
+  /* =====================================
+      IMAGE SUPPORT
+  ===================================== */
+
+  const teamImage =
+    image
+      ? image.startsWith("http")
+        ? image
+        : `https://prarambha-backend.onrender.com${image}`
+      : "https://i.pravatar.cc/300"
 
   return (
+
     <div className="team-card">
 
       <div
         className="team-avatar"
+
         style={{
-          borderColor: color || "#E63946",
+          borderColor:
+            color || "#E63946",
         }}
       >
 
         <img
-          src={
-            image
-              ? `https://prarambha-backend.onrender.com${image}`
-              : "https://i.pravatar.cc/300"
-          }
+          src={teamImage}
+
           alt={name}
+
+          loading="lazy"
+
+          onError={(e) => {
+
+            e.target.onerror = null
+
+            e.target.src =
+              "https://i.pravatar.cc/300"
+          }}
         />
 
       </div>
@@ -27,8 +53,10 @@ function TeamCard({ name, role, image, color }) {
 
       <p
         className="team-role"
+
         style={{
-          color: color || "#E63946",
+          color:
+            color || "#E63946",
         }}
       >
         {role}
@@ -38,11 +66,14 @@ function TeamCard({ name, role, image, color }) {
   )
 }
 
-export default function TeamSection({ data }) {
+export default function TeamSection({
+  data,
+}) {
 
   return (
     <>
       <style>{`
+
         .team-section {
           background: #fff;
           padding: 80px 40px;
@@ -111,6 +142,11 @@ export default function TeamSection({ data }) {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          transition: 0.4s ease;
+        }
+
+        .team-avatar img:hover {
+          transform: scale(1.08);
         }
 
         .team-name {
@@ -126,12 +162,14 @@ export default function TeamSection({ data }) {
         }
 
         @media (max-width: 992px) {
+
           .team-grid {
             grid-template-columns: repeat(2, 1fr);
           }
         }
 
         @media (max-width: 600px) {
+
           .team-grid {
             grid-template-columns: 1fr;
           }
@@ -140,11 +178,14 @@ export default function TeamSection({ data }) {
             padding: 60px 20px;
           }
         }
+
       `}</style>
 
       <section className="team-section">
 
         <div className="team-container">
+
+          {/* HEADER */}
 
           <div className="section-header">
 
@@ -158,16 +199,20 @@ export default function TeamSection({ data }) {
 
           </div>
 
+          {/* TEAM GRID */}
+
           <div className="team-grid">
 
-            {data?.map((member, index) => (
+            {data?.map(
+              (member, index) => (
 
-              <TeamCard
-                key={index}
-                {...member}
-              />
+                <TeamCard
+                  key={index}
+                  {...member}
+                />
 
-            ))}
+              )
+            )}
 
           </div>
 

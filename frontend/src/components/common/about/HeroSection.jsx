@@ -56,6 +56,12 @@ export default function HeroSection({ data }) {
           border-radius: 50px;
           text-decoration: none;
           font-weight: 700;
+          transition: 0.3s ease;
+        }
+
+        .hero-cta:hover {
+          background: #cf2e3c;
+          transform: translateY(-2px);
         }
 
         .hero-img-wrap {
@@ -72,6 +78,11 @@ export default function HeroSection({ data }) {
           border-radius: 24px 24px 0 0;
           position: relative;
           z-index: 1;
+          transition: 0.4s ease;
+        }
+
+        .hero-img-wrap img:hover {
+          transform: scale(1.03);
         }
 
         .hero-blob {
@@ -101,14 +112,24 @@ export default function HeroSection({ data }) {
         }
 
         @media (max-width: 900px) {
+
           .about-hero {
             flex-direction: column;
             padding: 40px 20px;
+            text-align: center;
           }
 
           .hero-img-wrap img,
           .hero-blob {
             display: none;
+          }
+
+          .hero-title {
+            font-size: 36px;
+          }
+
+          .hero-desc {
+            font-size: 15px;
           }
         }
       `}</style>
@@ -117,6 +138,8 @@ export default function HeroSection({ data }) {
 
         <div className="about-hero">
 
+          {/* LEFT CONTENT */}
+
           <div className="hero-text">
 
             <div className="hero-badge">
@@ -124,11 +147,14 @@ export default function HeroSection({ data }) {
             </div>
 
             <h1 className="hero-title">
-              {data?.title}
+              {data?.title || "Empowering Every Child With Inclusion"}
             </h1>
 
             <p className="hero-desc">
-              {data?.description}
+              {
+                data?.description ||
+                "We believe every child deserves equal opportunities, quality support, and a caring environment to grow with confidence and dignity."
+              }
             </p>
 
             <a
@@ -139,6 +165,8 @@ export default function HeroSection({ data }) {
             </a>
 
           </div>
+
+          {/* RIGHT IMAGE */}
 
           <div className="hero-img-wrap">
 
@@ -153,10 +181,23 @@ export default function HeroSection({ data }) {
             <img
               src={
                 data?.image
-                  ? `https://prarambha-backend.onrender.com${data.image}`
+                  ? data.image.startsWith("http")
+                    ? data.image
+                    : `https://prarambha-backend.onrender.com${data.image}`
                   : "https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&q=80"
               }
+
               alt="about hero"
+
+              onError={(e) => {
+
+                e.target.onerror = null
+
+                e.target.src =
+                  "https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&q=80"
+              }}
+
+              loading="lazy"
             />
 
           </div>
