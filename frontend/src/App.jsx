@@ -27,7 +27,7 @@ import Messages from "./admin/pages/Messages"
    CHAIRPERSON
 ===================================== */
 
-import Chairperson from "./pages/chairperson"
+import Chairperson from "./pages/Chairperson"
 
 /* =====================================
    PROGRAM PAGES
