@@ -82,12 +82,7 @@ function GalleryAdmin() {
 
       const res = await axios.post(
         "https://prarambha-backend.onrender.com/api/upload",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        data
       )
 
       setFormData((prev) => ({
@@ -308,10 +303,22 @@ function GalleryAdmin() {
               {formData.image && (
 
                 <img
-                  src={`https://prarambha-backend.onrender.com${formData.image}`}
-                  alt="Preview"
-                  className="w-full h-[320px] object-contain bg-black rounded-[30px]"
-                />
+                    src={formData.image}
+                    alt="Preview"
+
+                    onError={(e) => {
+                      e.target.src =
+                        "https://via.placeholder.com/1200x700?text=Gallery+Image"
+                    }}
+
+                    className="
+                      w-full
+                      h-[320px]
+                      object-contain
+                      bg-black
+                      rounded-[30px]
+                    "
+                  />
 
               )}
 
@@ -362,10 +369,20 @@ function GalleryAdmin() {
 
                 {/* IMAGE */}
                 <img
-                  src={`https://prarambha-backend.onrender.com${item.image}`}
-                  alt={item.title}
-                  className="w-full h-[260px] object-cover"
-                />
+                    src={item.image}
+                    alt={item.title}
+
+                    onError={(e) => {
+                      e.target.src =
+                        "https://via.placeholder.com/1200x700?text=Gallery+Image"
+                    }}
+
+                    className="
+                      w-full
+                      h-[260px]
+                      object-cover
+                    "
+                  />
 
                 {/* CONTENT */}
                 <div className="p-6">

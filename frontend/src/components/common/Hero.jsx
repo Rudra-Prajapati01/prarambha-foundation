@@ -44,9 +44,8 @@ export default function Hero({ pageData }) {
   /* =====================================
       HERO IMAGE
   ===================================== */
-  const heroImage = heroData.image
-    ? `https://prarambha-backend.onrender.com${heroData.image}`
-    : hero
+  const heroImage =
+    heroData.image || hero
 
   /* =====================================
       FEATURES
@@ -179,8 +178,22 @@ export default function Hero({ pageData }) {
           <img
             src={heroImage}
             alt="Children"
-            className="relative z-10 w-[90%] max-w-[360px] sm:max-w-[440px] object-contain"
-            style={{ marginBottom: "-4px" }}
+
+            onError={(e) => {
+              e.target.src = hero
+            }}
+
+            className="
+                    relative z-10
+                    w-[90%]
+                    max-w-[360px]
+                    sm:max-w-[440px]
+                    object-contain
+                  "
+
+            style={{
+              marginBottom: "-4px",
+            }}
           />
 
         </div>
@@ -209,8 +222,25 @@ export default function Hero({ pageData }) {
           <img
             src={heroImage}
             alt="Children"
-            className="absolute bottom-0 right-0 h-full w-auto max-w-none object-contain object-bottom"
-            style={{ zIndex: 1 }}
+
+            onError={(e) => {
+              e.target.src = hero
+            }}
+
+            className="
+              absolute
+              bottom-0
+              right-0
+              h-full
+              w-auto
+              max-w-none
+              object-contain
+              object-bottom
+            "
+
+            style={{
+              zIndex: 1,
+            }}
           />
         </div>
 

@@ -105,11 +105,12 @@ function StoryDetails() {
                 {/* IMAGE */}
                 <img
                     src={
-                        story.image?.startsWith("http")
-                            ? story.image
-                            : `https://prarambha-backend.onrender.com${story.image}`
+                        story.image ||
+                        "https://via.placeholder.com/1200x800?text=Story+Image"
                     }
+
                     alt={story.title}
+
                     onError={(e) => {
 
                         e.target.onerror = null
@@ -117,12 +118,13 @@ function StoryDetails() {
                         e.target.src =
                             "https://via.placeholder.com/1200x800?text=Story+Image"
                     }}
+
                     className="
-                                w-full
-                                max-h-screen
-                                object-contain
-                                mx-auto
-                            "
+                            w-full
+                            max-h-screen
+                            object-contain
+                            mx-auto
+                        "
                 />
 
                 {/* DARK OVERLAY */}

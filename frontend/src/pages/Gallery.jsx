@@ -1,110 +1,112 @@
 import Navbar from "../components/common/Navbar"
 import Footer from "../components/common/Footer"
 
-  import { useEffect, useState, useCallback } from "react"
-  import axios from "axios"
+import { useEffect, useState, useCallback } from "react"
+import axios from "axios"
 
-  function Gallery() {
+function Gallery() {
 
-    const [gallery, setGallery] = useState([])
-    const [selectedCategory, setSelectedCategory] = useState("All")
-    const [selectedImage, setSelectedImage] = useState(null)
-    const [lightboxIndex, setLightboxIndex] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const [imgLoaded, setImgLoaded] = useState(false)
+  const [gallery, setGallery] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState("All")
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [lightboxIndex, setLightboxIndex] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [imgLoaded, setImgLoaded] = useState(false)
 
-    /* ─────────────────────────────
-        FETCH
-    ───────────────────────────── */
-    useEffect(() => {
-      const fetchGallery = async () => {
-        try {
-          const { data } = await axios.get(
-            "https://prarambha-backend.onrender.com/api/gallery"
-          )
-          setGallery(data)
-        } catch (e) {
-          console.log(e)
-        } finally {
-          setLoading(false)
-        }
+  /* ─────────────────────────────
+      FETCH
+  ───────────────────────────── */
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const { data } = await axios.get(
+          "https://prarambha-backend.onrender.com/api/gallery"
+        )
+        setGallery(data)
+      } catch (e) {
+        console.log(e)
+      } finally {
+        setLoading(false)
       }
-      fetchGallery()
-    }, [])
-
-    /* ─────────────────────────────
-        CATEGORIES
-    ───────────────────────────── */
-    const categories = [
-      "All",
-      "Therapy Sessions",
-      "Inclusive Learning",
-      "Parent Support",
-      "Community Events",
-      "Creative Activities",
-      "Growth Moments",
-    ]
-
-    const filteredGallery =
-      selectedCategory === "All"
-        ? gallery
-        : gallery.filter(i => i.category === selectedCategory)
-
-    /* ─────────────────────────────
-        LIGHTBOX HELPERS
-    ───────────────────────────── */
-    const openLightbox = (item) => {
-      const idx = filteredGallery.findIndex(i => i._id === item._id)
-      setLightboxIndex(idx)
-      setSelectedImage(item)
-      setImgLoaded(false)
-      document.body.style.overflow = "hidden"
     }
+    fetchGallery()
+  }, [])
 
-    const closeLightbox = () => {
-      setSelectedImage(null)
-      setLightboxIndex(null)
-      document.body.style.overflow = ""
+  /* ─────────────────────────────
+      CATEGORIES
+  ───────────────────────────── */
+  const categories = [
+    "All",
+    "Therapy Sessions",
+    "Inclusive Learning",
+    "Parent Support",
+    "Community Events",
+    "Creative Activities",
+    "Growth Moments",
+  ]
+
+  const filteredGallery =
+    selectedCategory === "All"
+      ? gallery
+      : gallery.filter(i => i.category === selectedCategory)
+
+  /* ─────────────────────────────
+      LIGHTBOX HELPERS
+  ───────────────────────────── */
+  const openLightbox = (item) => {
+    const idx = filteredGallery.findIndex(i => i._id === item._id)
+    setLightboxIndex(idx)
+    setSelectedImage(item)
+    setImgLoaded(false)
+    document.body.style.overflow = "hidden"
+  }
+
+  const closeLightbox = () => {
+    setSelectedImage(null)
+    setLightboxIndex(null)
+    document.body.style.overflow = ""
+  }
+
+  const goPrev = useCallback((e) => {
+    if (e && e.stopPropagation) e.stopPropagation()
+    const idx = (lightboxIndex - 1 + filteredGallery.length) % filteredGallery.length
+    setLightboxIndex(idx)
+    setSelectedImage(filteredGallery[idx])
+    setImgLoaded(false)
+  }, [lightboxIndex, filteredGallery])
+
+  const goNext = useCallback((e) => {
+    if (e && e.stopPropagation) e.stopPropagation()
+    const idx = (lightboxIndex + 1) % filteredGallery.length
+    setLightboxIndex(idx)
+    setSelectedImage(filteredGallery[idx])
+    setImgLoaded(false)
+  }, [lightboxIndex, filteredGallery])
+
+  /* keyboard nav */
+  useEffect(() => {
+    if (!selectedImage) return
+    const handler = (e) => {
+      if (e.key === "Escape") closeLightbox()
+      if (e.key === "ArrowLeft") goPrev(null)
+      if (e.key === "ArrowRight") goNext(null)
     }
+    window.addEventListener("keydown", handler)
+    return () => window.removeEventListener("keydown", handler)
+  }, [selectedImage, goPrev, goNext])
 
-    const goPrev = useCallback((e) => {
-      if (e && e.stopPropagation) e.stopPropagation()
-      const idx = (lightboxIndex - 1 + filteredGallery.length) % filteredGallery.length
-      setLightboxIndex(idx)
-      setSelectedImage(filteredGallery[idx])
-      setImgLoaded(false)
-    }, [lightboxIndex, filteredGallery])
+  const IMG = (path) =>
+    path ||
+    "https://via.placeholder.com/1200x700?text=Gallery+Image"
 
-    const goNext = useCallback((e) => {
-      if (e && e.stopPropagation) e.stopPropagation()
-      const idx = (lightboxIndex + 1) % filteredGallery.length
-      setLightboxIndex(idx)
-      setSelectedImage(filteredGallery[idx])
-      setImgLoaded(false)
-    }, [lightboxIndex, filteredGallery])
+  const skeletonHeights = [280, 360, 300, 340, 260, 320]
 
-    /* keyboard nav */
-    useEffect(() => {
-      if (!selectedImage) return
-      const handler = (e) => {
-        if (e.key === "Escape") closeLightbox()
-        if (e.key === "ArrowLeft") goPrev(null)
-        if (e.key === "ArrowRight") goNext(null)
-      }
-      window.addEventListener("keydown", handler)
-      return () => window.removeEventListener("keydown", handler)
-    }, [selectedImage, goPrev, goNext])
-
-    const IMG = (path) => `https://prarambha-backend.onrender.com${path}`
-
-    const skeletonHeights = [280, 360, 300, 340, 260, 320]
-
-    /* ─────────────────────────────
-        RENDER
-    ───────────────────────────── */
-    return (
-      <>
-        <style>{`
+  /* ─────────────────────────────
+      RENDER
+  ───────────────────────────── */
+  return (
+    <>
+      <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
           :root {
@@ -706,280 +708,303 @@ import Footer from "../components/common/Footer"
           }
         `}</style>
 
-        <div className="gp">
+      <div className="gp">
 
-            <Navbar />
+        <Navbar />
 
 
-          {/* ══════════ HERO ══════════ */}
-          <section className="gp-hero">
-            <div className="gp-noise" />
-            <div className="gp-blob gp-b1" />
-            <div className="gp-blob gp-b2" />
-            <div className="gp-blob gp-b3" />
+        {/* ══════════ HERO ══════════ */}
+        <section className="gp-hero">
+          <div className="gp-noise" />
+          <div className="gp-blob gp-b1" />
+          <div className="gp-blob gp-b2" />
+          <div className="gp-blob gp-b3" />
 
-            <div className="gp-hero-inner">
+          <div className="gp-hero-inner">
 
-              <div className="gp-badge">
-                <div className="gp-pulse" />
-                Real Stories &bull; Real Smiles &bull; Real Growth
-              </div>
-
-              <h1 className="gp-title">
-                Moments of <em>Growth,</em><br />
-                Inclusion &amp; <em>Hope</em>
-              </h1>
-
-              <p className="gp-desc">
-                Every smile, every step, and every small achievement tells a story of
-                courage, care, and possibility. These moments reflect the heart of
-                Prarambha Foundation and the beautiful journeys of our children.
-              </p>
-
-              <div className="gp-stats">
-                <div className="gp-stat">
-                  <span className="gp-stat-n" style={{ color: "var(--red)" }}>500+</span>
-                  <span className="gp-stat-l">Children</span>
-                </div>
-                <div className="gp-stat">
-                  <span className="gp-stat-n" style={{ color: "var(--yellow)" }}>{gallery.length || "—"}</span>
-                  <span className="gp-stat-l">Gallery Items</span>
-                </div>
-                <div className="gp-stat">
-                  <span className="gp-stat-n" style={{ color: "var(--blue)" }}>7</span>
-                  <span className="gp-stat-l">Categories</span>
-                </div>
-              </div>
-
+            <div className="gp-badge">
+              <div className="gp-pulse" />
+              Real Stories &bull; Real Smiles &bull; Real Growth
             </div>
-          </section>
 
-          <svg className="gp-wave" viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48 Z" fill="#FFFDFB" />
-          </svg>
+            <h1 className="gp-title">
+              Moments of <em>Growth,</em><br />
+              Inclusion &amp; <em>Hope</em>
+            </h1>
 
-          {/* ══════════ FILTER BAR ══════════ */}
-          <div className="gp-filter">
-            <div className="gp-filter-inner">
-              {categories.map((cat, i) => (
-                <button
-                  key={i}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`gp-fbtn ${selectedCategory === cat ? "on" : "off"}`}
-                >
-                  {cat}
-                </button>
-              ))}
+            <p className="gp-desc">
+              Every smile, every step, and every small achievement tells a story of
+              courage, care, and possibility. These moments reflect the heart of
+              Prarambha Foundation and the beautiful journeys of our children.
+            </p>
+
+            <div className="gp-stats">
+              <div className="gp-stat">
+                <span className="gp-stat-n" style={{ color: "var(--red)" }}>500+</span>
+                <span className="gp-stat-l">Children</span>
+              </div>
+              <div className="gp-stat">
+                <span className="gp-stat-n" style={{ color: "var(--yellow)" }}>{gallery.length || "—"}</span>
+                <span className="gp-stat-l">Gallery Items</span>
+              </div>
+              <div className="gp-stat">
+                <span className="gp-stat-n" style={{ color: "var(--blue)" }}>7</span>
+                <span className="gp-stat-l">Categories</span>
+              </div>
             </div>
+
           </div>
+        </section>
 
-          {/* ══════════ MAIN ══════════ */}
-          <section className="gp-main">
-            <div className="gp-inner">
+        <svg className="gp-wave" viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48 Z" fill="#FFFDFB" />
+        </svg>
 
-              {/* Quote */}
-              <div className="gp-quote">
-                <p className="gp-quote-t">
-                  "Every child deserves a place where they are{" "}
-                  <span>understood before being judged.</span>"
-                </p>
-                <p className="gp-quote-a">— Prarambha Foundation</p>
-              </div>
+        {/* ══════════ FILTER BAR ══════════ */}
+        <div className="gp-filter">
+          <div className="gp-filter-inner">
+            {categories.map((cat, i) => (
+              <button
+                key={i}
+                onClick={() => setSelectedCategory(cat)}
+                className={`gp-fbtn ${selectedCategory === cat ? "on" : "off"}`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
 
-              {/* Label */}
-              <div className="gp-lbl">
-                <span className="gp-lbl-t">
-                  {selectedCategory === "All"
-                    ? `All Moments (${gallery.length})`
-                    : `${selectedCategory} (${filteredGallery.length})`}
-                </span>
-                <div className="gp-lbl-l" />
-              </div>
+        {/* ══════════ MAIN ══════════ */}
+        <section className="gp-main">
+          <div className="gp-inner">
 
-              {/* Skeleton */}
-              {loading && (
-                <div className="gp-skel-grid">
-                  {skeletonHeights.map((h, i) => (
-                    <div key={i} className="gp-skel">
-                      <div className="gp-shim" style={{ height: h }} />
-                      <div className="gp-skel-b">
-                        <div className="gp-skel-l gp-shim" style={{ height: 15, width: "38%", marginBottom: 12 }} />
-                        <div className="gp-skel-l gp-shim" style={{ height: 20, width: "80%" }} />
-                        <div className="gp-skel-l gp-shim" style={{ height: 20, width: "58%" }} />
-                        <div className="gp-skel-l gp-shim" style={{ height: 13, width: "68%", marginTop: 8 }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Empty */}
-              {!loading && filteredGallery.length === 0 && (
-                <div className="gp-empty">
-                  <div className="gp-empty-ico">📷</div>
-                  <div className="gp-empty-t">No photos in this category yet</div>
-                  <p>More moments are being added — check back soon!</p>
-                </div>
-              )}
-
-              {/* Grid */}
-              {!loading && filteredGallery.length > 0 && (
-                <div className="gp-grid">
-                  {filteredGallery.map((item, idx) => (
-                    <div
-                      key={item._id}
-                      className="gp-card"
-                      onClick={() => openLightbox(item)}
-                    >
-                      <div className="gp-c-img">
-                        <img src={IMG(item.image)} alt={item.title} />
-                        <div className="gp-c-ov">
-                          <span className="gp-c-num">{idx + 1} / {filteredGallery.length}</span>
-                          <div className="gp-c-zoom">🔍</div>
-                        </div>
-                      </div>
-                      <div className="gp-c-body">
-                        <div className="gp-pill">
-                          <div className="gp-dot" />
-                          {item.category}
-                        </div>
-                        <h3 className="gp-c-title">{item.title}</h3>
-                        <p className="gp-c-cap">{item.caption}</p>
-                        <button className="gp-c-btn">View Story →</button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
+            {/* Quote */}
+            <div className="gp-quote">
+              <p className="gp-quote-t">
+                "Every child deserves a place where they are{" "}
+                <span>understood before being judged.</span>"
+              </p>
+              <p className="gp-quote-a">— Prarambha Foundation</p>
             </div>
-          </section>
+
+            {/* Label */}
+            <div className="gp-lbl">
+              <span className="gp-lbl-t">
+                {selectedCategory === "All"
+                  ? `All Moments (${gallery.length})`
+                  : `${selectedCategory} (${filteredGallery.length})`}
+              </span>
+              <div className="gp-lbl-l" />
+            </div>
+
+            {/* Skeleton */}
+            {loading && (
+              <div className="gp-skel-grid">
+                {skeletonHeights.map((h, i) => (
+                  <div key={i} className="gp-skel">
+                    <div className="gp-shim" style={{ height: h }} />
+                    <div className="gp-skel-b">
+                      <div className="gp-skel-l gp-shim" style={{ height: 15, width: "38%", marginBottom: 12 }} />
+                      <div className="gp-skel-l gp-shim" style={{ height: 20, width: "80%" }} />
+                      <div className="gp-skel-l gp-shim" style={{ height: 20, width: "58%" }} />
+                      <div className="gp-skel-l gp-shim" style={{ height: 13, width: "68%", marginTop: 8 }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Empty */}
+            {!loading && filteredGallery.length === 0 && (
+              <div className="gp-empty">
+                <div className="gp-empty-ico">📷</div>
+                <div className="gp-empty-t">No photos in this category yet</div>
+                <p>More moments are being added — check back soon!</p>
+              </div>
+            )}
+
+            {/* Grid */}
+            {!loading && filteredGallery.length > 0 && (
+              <div className="gp-grid">
+                {filteredGallery.map((item, idx) => (
+                  <div
+                    key={item._id}
+                    className="gp-card"
+                    onClick={() => openLightbox(item)}
+                  >
+                    <div className="gp-c-img">
+                      <img
+                        src={IMG(item.image)}
+                        alt={item.title}
+
+                        onError={(e) => {
+                          e.target.src =
+                            "https://via.placeholder.com/1200x700?text=Gallery+Image"
+                        }}
+                      />
+                      <div className="gp-c-ov">
+                        <span className="gp-c-num">{idx + 1} / {filteredGallery.length}</span>
+                        <div className="gp-c-zoom">🔍</div>
+                      </div>
+                    </div>
+                    <div className="gp-c-body">
+                      <div className="gp-pill">
+                        <div className="gp-dot" />
+                        {item.category}
+                      </div>
+                      <h3 className="gp-c-title">{item.title}</h3>
+                      <p className="gp-c-cap">{item.caption}</p>
+                      <button className="gp-c-btn">View Story →</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+          </div>
+        </section>
 
 
-          {/* ══════════════════════════════
+        {/* ══════════════════════════════
               LIGHTBOX
           ══════════════════════════════ */}
-          {selectedImage && (
-            <div className="lb-ov" onClick={closeLightbox}>
+        {selectedImage && (
+          <div className="lb-ov" onClick={closeLightbox}>
 
-              {/* Close */}
-              <button className="lb-x" onClick={closeLightbox}>✕</button>
+            {/* Close */}
+            <button className="lb-x" onClick={closeLightbox}>✕</button>
 
-              {/* Arrows (desktop) */}
-              {filteredGallery.length > 1 && (
-                <>
-                  <button className="lb-arr lb-prev" onClick={goPrev}>‹</button>
-                  <button className="lb-arr lb-next" onClick={goNext}>›</button>
-                </>
-              )}
+            {/* Arrows (desktop) */}
+            {filteredGallery.length > 1 && (
+              <>
+                <button className="lb-arr lb-prev" onClick={goPrev}>‹</button>
+                <button className="lb-arr lb-next" onClick={goNext}>›</button>
+              </>
+            )}
 
-              {/* Counter */}
-              {filteredGallery.length > 1 && (
-                <div className="lb-cnt">
-                  {lightboxIndex + 1} &nbsp;/&nbsp; {filteredGallery.length}
-                </div>
-              )}
+            {/* Counter */}
+            {filteredGallery.length > 1 && (
+              <div className="lb-cnt">
+                {lightboxIndex + 1} &nbsp;/&nbsp; {filteredGallery.length}
+              </div>
+            )}
 
-              {/* Modal */}
-              <div className="lb-modal" onClick={e => e.stopPropagation()}>
+            {/* Modal */}
+            <div className="lb-modal" onClick={e => e.stopPropagation()}>
 
-                {/* ── Image side ── */}
-                <div className="lb-img-side">
-                  {!imgLoaded && (
-                    <div className="lb-spinner-wrap">
-                      <div className="lb-ring" />
-                    </div>
-                  )}
-                  <img
-                    key={selectedImage._id}
-                    src={IMG(selectedImage.image)}
-                    alt={selectedImage.title}
-                    className={imgLoaded ? "lb-loaded" : "lb-loading"}
-                    onLoad={() => setImgLoaded(true)}
-                  />
-
-                  {/* Mobile nav */}
-                  {filteredGallery.length > 1 && (
-                    <div className="lb-img-nav-m">
-                      <button className="lb-arr-m" onClick={goPrev}>‹</button>
-                      <button className="lb-arr-m" onClick={goNext}>›</button>
-                    </div>
-                  )}
-                </div>
-
-                {/* ── Info side ── */}
-                <div className="lb-info-side">
-
-                  {/* Category pill */}
-                  <div className="lb-i-pill">
-                    <div className="gp-dot" />
-                    {selectedImage.category}
+              {/* ── Image side ── */}
+              <div className="lb-img-side">
+                {!imgLoaded && (
+                  <div className="lb-spinner-wrap">
+                    <div className="lb-ring" />
                   </div>
+                )}
+                <img
+                  key={selectedImage._id}
 
-                  {/* Title */}
-                  <h2 className="lb-i-title">{selectedImage.title}</h2>
-                  <div className="lb-i-bar" />
+                  src={IMG(selectedImage.image)}
 
-                  {/* Caption */}
-                  <p className="lb-i-cap">{selectedImage.caption}</p>
+                  alt={selectedImage.title}
 
-                  {/* Inspirational quote */}
-                  <div className="lb-i-qblock">
-                    <p>
-                      "Every child learns differently, and every smile is a step
-                      toward confidence and belonging."
-                    </p>
+                  className={
+                    imgLoaded
+                      ? "lb-loaded"
+                      : "lb-loading"
+                  }
+
+                  onLoad={() =>
+                    setImgLoaded(true)
+                  }
+
+                  onError={(e) => {
+                    e.target.src =
+                      "https://via.placeholder.com/1200x700?text=Gallery+Image"
+                  }}
+                />
+
+                {/* Mobile nav */}
+                {filteredGallery.length > 1 && (
+                  <div className="lb-img-nav-m">
+                    <button className="lb-arr-m" onClick={goPrev}>‹</button>
+                    <button className="lb-arr-m" onClick={goNext}>›</button>
                   </div>
-
-                  {/* Action buttons */}
-                  <div className="lb-i-btns">
-                    <button className="lb-i-btn-p" onClick={closeLightbox}>
-                      ✕ Close Story
-                    </button>
-                    <button className="lb-i-btn-g">
-                      ❤️ Share
-                    </button>
-                  </div>
-
-                  {/* Dot navigation */}
-                  {filteredGallery.length > 1 && (
-                    <div className="lb-dots">
-                      {filteredGallery
-                        .slice(
-                          Math.max(0, lightboxIndex - 3),
-                          Math.min(filteredGallery.length, lightboxIndex + 4)
-                        )
-                        .map((_, i) => {
-                          const realIdx = Math.max(0, lightboxIndex - 3) + i
-                          return (
-                            <div
-                              key={realIdx}
-                              className={`lb-dot-i ${realIdx === lightboxIndex ? "on" : ""}`}
-                              onClick={() => {
-                                setLightboxIndex(realIdx)
-                                setSelectedImage(filteredGallery[realIdx])
-                                setImgLoaded(false)
-                              }}
-                            />
-                          )
-                        })}
-                    </div>
-                  )}
-
-                </div>
+                )}
               </div>
 
-              {/* Keyboard hint (mobile) */}
-              <div className="lb-hint">TAP ARROWS TO NAVIGATE &nbsp;•&nbsp; ESC TO CLOSE</div>
+              {/* ── Info side ── */}
+              <div className="lb-info-side">
 
+                {/* Category pill */}
+                <div className="lb-i-pill">
+                  <div className="gp-dot" />
+                  {selectedImage.category}
+                </div>
+
+                {/* Title */}
+                <h2 className="lb-i-title">{selectedImage.title}</h2>
+                <div className="lb-i-bar" />
+
+                {/* Caption */}
+                <p className="lb-i-cap">{selectedImage.caption}</p>
+
+                {/* Inspirational quote */}
+                <div className="lb-i-qblock">
+                  <p>
+                    "Every child learns differently, and every smile is a step
+                    toward confidence and belonging."
+                  </p>
+                </div>
+
+                {/* Action buttons */}
+                <div className="lb-i-btns">
+                  <button className="lb-i-btn-p" onClick={closeLightbox}>
+                    ✕ Close Story
+                  </button>
+                  <button className="lb-i-btn-g">
+                    ❤️ Share
+                  </button>
+                </div>
+
+                {/* Dot navigation */}
+                {filteredGallery.length > 1 && (
+                  <div className="lb-dots">
+                    {filteredGallery
+                      .slice(
+                        Math.max(0, lightboxIndex - 3),
+                        Math.min(filteredGallery.length, lightboxIndex + 4)
+                      )
+                      .map((_, i) => {
+                        const realIdx = Math.max(0, lightboxIndex - 3) + i
+                        return (
+                          <div
+                            key={realIdx}
+                            className={`lb-dot-i ${realIdx === lightboxIndex ? "on" : ""}`}
+                            onClick={() => {
+                              setLightboxIndex(realIdx)
+                              setSelectedImage(filteredGallery[realIdx])
+                              setImgLoaded(false)
+                            }}
+                          />
+                        )
+                      })}
+                  </div>
+                )}
+
+              </div>
             </div>
-          )}
-        
+
+            {/* Keyboard hint (mobile) */}
+            <div className="lb-hint">TAP ARROWS TO NAVIGATE &nbsp;•&nbsp; ESC TO CLOSE</div>
+
+          </div>
+        )}
+
         <Footer />
 
-        </div>
-      </>
-    )
-  }
+      </div>
+    </>
+  )
+}
 
-  export default Gallery
+export default Gallery

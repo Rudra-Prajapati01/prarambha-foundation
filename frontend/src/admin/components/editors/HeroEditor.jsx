@@ -242,14 +242,20 @@ function HeroEditor({
             </p>
 
             <img
-              src={`https://prarambha-backend.onrender.com${pageData.hero.image}`}
+              src={pageData.hero.image}
               alt="Hero"
+
+              onError={(e) => {
+                e.target.src =
+                  "https://via.placeholder.com/1200x700?text=Hero+Image"
+              }}
+
               className="
-                w-full
-                h-[350px]
-                object-cover
-                rounded-[30px]
-              "
+                    w-full
+                    h-[350px]
+                    object-cover
+                    rounded-[30px]
+                  "
             />
 
           </div>

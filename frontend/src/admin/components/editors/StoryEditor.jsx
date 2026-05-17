@@ -446,13 +446,7 @@ function StoryEditor() {
                     const { data } =
                       await axios.post(
                         "https://prarambha-backend.onrender.com/api/upload",
-                        formData,
-                        {
-                          headers: {
-                            "Content-Type":
-                              "multipart/form-data",
-                          },
-                        }
+                        formData
                       )
 
                     handleChange(
@@ -482,11 +476,12 @@ function StoryEditor() {
 
                 <img
                   src={
-                    story.image?.startsWith("http")
-                      ? story.image
-                      : `https://prarambha-backend.onrender.com${story.image}`
+                    story.image ||
+                    "https://via.placeholder.com/800x600?text=Story+Image"
                   }
+
                   alt={story.title}
+
                   onError={(e) => {
 
                     e.target.onerror = null
@@ -494,13 +489,14 @@ function StoryEditor() {
                     e.target.src =
                       "https://via.placeholder.com/800x600?text=Story+Image"
                   }}
+
                   className="
-                              w-full
-                              h-[220px]
-                              object-cover
-                              rounded-2xl
-                              mt-4
-                            "
+                            w-full
+                            h-[220px]
+                            object-cover
+                            rounded-2xl
+                            mt-4
+                          "
                 />
 
               )}

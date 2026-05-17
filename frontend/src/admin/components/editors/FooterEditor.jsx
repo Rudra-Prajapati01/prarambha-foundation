@@ -46,8 +46,6 @@ function FooterEditor({
 
     try {
 
-      setLoading(true)
-
       const formData =
         new FormData()
 
@@ -55,10 +53,6 @@ function FooterEditor({
         "logo",
         file
       )
-
-      /* =====================================
-          CLOUDINARY UPLOAD API
-      ===================================== */
 
       const response =
         await fetch(
@@ -71,32 +65,22 @@ function FooterEditor({
 
       console.log(response)
 
+      if (!response.ok) {
+
+        const errorText =
+          await response.text()
+
+        console.log(errorText)
+
+        throw new Error(
+          "Upload failed"
+        )
+      }
+
       const data =
         await response.json()
 
       console.log(data)
-
-      const data =
-        await response.json()
-
-      console.log(
-        "UPLOAD RESPONSE:",
-        data
-      )
-
-      if (!response.ok) {
-
-        alert(
-          data.message ||
-          "Logo upload failed"
-        )
-
-        return
-      }
-
-      /* =====================================
-          UPDATE REACT STATE
-      ===================================== */
 
       setPageData((prev) => ({
 
@@ -107,9 +91,7 @@ function FooterEditor({
           ...(prev.footer || {}),
 
           logo:
-            data?.footer?.logo ||
-            data?.logo ||
-            "",
+            data?.logo || "",
         },
       }))
 
@@ -122,12 +104,8 @@ function FooterEditor({
       console.log(error)
 
       alert(
-        "Something went wrong"
+        "Logo upload failed"
       )
-
-    } finally {
-
-      setLoading(false)
     }
   }
 
@@ -147,11 +125,6 @@ function FooterEditor({
             {
 
               method: "PUT",
-
-              headers: {
-                "Content-Type":
-                  "application/json",
-              },
 
               body: JSON.stringify({
                 footer,
