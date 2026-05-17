@@ -29,7 +29,7 @@ import DonateNow from "./pages/DonateNow"
    CHAIRPERSON
 ===================================== */
 
-import Chairperson from "./pages/Chairperson"
+import Chairperson from "./pages/ChairpersonPage"
 
 /* =====================================
    PROGRAM PAGES
@@ -96,7 +96,7 @@ function App() {
               CHAIRPERSON PAGE
           ===================================== */}
 
-          <Route
+         <Route
             path="/chairperson"
             element={<Chairperson />}
           />
