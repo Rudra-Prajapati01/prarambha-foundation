@@ -216,6 +216,8 @@ const pageSchema = mongoose.Schema(
       email: String,
 
       address: String,
+
+      logo: String,
     },
 
     /* =====================================

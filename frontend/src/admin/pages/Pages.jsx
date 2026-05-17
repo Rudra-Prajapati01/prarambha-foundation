@@ -137,10 +137,16 @@ function Pages() {
       team: [],
 
       footer: {
+
         description: "",
+
         phone: "",
+
         email: "",
+
         address: "",
+
+        logo: "",
       },
     })
 
@@ -298,22 +304,22 @@ function Pages() {
     )
   }
 
- return (
+  return (
 
-  <AdminLayout>
+    <AdminLayout>
 
-    <div
-      className="
+      <div
+        className="
         flex
         gap-8
         w-full
         overflow-hidden
       "
-    >
+      >
 
-      {/* SIDEBAR */}
-      <div
-        className="
+        {/* SIDEBAR */}
+        <div
+          className="
           w-[280px]
           min-w-[280px]
           bg-white
@@ -326,31 +332,31 @@ function Pages() {
           overflow-y-auto
           max-h-[95vh]
         "
-      >
+        >
 
-        <h2
-          className="
+          <h2
+            className="
             text-3xl
             font-bold
             mb-8
             text-[#111827]
           "
-        >
-          Website Pages
-        </h2>
+          >
+            Website Pages
+          </h2>
 
-        {/* PAGE BUTTONS */}
-        <div className="space-y-4">
+          {/* PAGE BUTTONS */}
+          <div className="space-y-4">
 
-          {pagesList.map((page) => (
+            {pagesList.map((page) => (
 
-            <div key={page}>
+              <div key={page}>
 
-              <button
-                onClick={() =>
-                  togglePage(page)
-                }
-                className={`
+                <button
+                  onClick={() =>
+                    togglePage(page)
+                  }
+                  className={`
                   w-full
                   flex
                   items-center
@@ -363,31 +369,30 @@ function Pages() {
                   text-lg
                   transition-all
 
-                  ${
-                    selectedPage === page
+                  ${selectedPage === page
                       ? "bg-[#E63946] text-white"
                       : "bg-[#F3F4F6] text-[#111827]"
-                  }
+                    }
                 `}
-              >
+                >
 
-                {page}
+                  {page}
 
-                <span>
+                  <span>
 
-                  {expandedPage === page
-                    ? "−"
-                    : "+"}
+                    {expandedPage === page
+                      ? "−"
+                      : "+"}
 
-                </span>
+                  </span>
 
-              </button>
+                </button>
 
-              {/* SECTIONS */}
-              {expandedPage === page && (
+                {/* SECTIONS */}
+                {expandedPage === page && (
 
-                <div
-                  className="
+                  <div
+                    className="
                     mt-3
                     ml-4
                     space-y-3
@@ -395,19 +400,19 @@ function Pages() {
                     border-gray-200
                     pl-4
                   "
-                >
+                  >
 
-                  {sectionsMap[page].map(
-                    (section) => (
+                    {sectionsMap[page].map(
+                      (section) => (
 
-                      <button
-                        key={section}
-                        onClick={() =>
-                          setSelectedSection(
-                            section
-                          )
-                        }
-                        className={`
+                        <button
+                          key={section}
+                          onClick={() =>
+                            setSelectedSection(
+                              section
+                            )
+                          }
+                          className={`
                           w-full
                           text-left
                           px-4
@@ -417,37 +422,36 @@ function Pages() {
                           font-medium
                           transition-all
 
-                          ${
-                            selectedSection ===
-                            section
+                          ${selectedSection ===
+                              section
                               ? "bg-black text-white"
                               : "bg-[#F9FAFB] text-[#111827] hover:bg-[#ECEFF3]"
-                          }
+                            }
                         `}
-                      >
+                        >
 
-                        {section}
+                          {section}
 
-                      </button>
+                        </button>
 
-                    )
-                  )}
+                      )
+                    )}
 
-                </div>
+                  </div>
 
-              )}
+                )}
 
-            </div>
+              </div>
 
-          ))}
+            ))}
 
-        </div>
+          </div>
 
-        {/* SAVE BUTTON */}
-        <button
-          onClick={savePage}
-          disabled={saving}
-          className="
+          {/* SAVE BUTTON */}
+          <button
+            onClick={savePage}
+            disabled={saving}
+            className="
             w-full
             mt-10
             bg-[#E63946]
@@ -458,19 +462,19 @@ function Pages() {
             font-bold
             text-lg
           "
-        >
+          >
 
-          {saving
-            ? "Saving..."
-            : "Save Changes"}
+            {saving
+              ? "Saving..."
+              : "Save Changes"}
 
-        </button>
+          </button>
 
-        {/* SUCCESS */}
-        {success && (
+          {/* SUCCESS */}
+          {success && (
 
-          <div
-            className="
+            <div
+              className="
               mt-5
               bg-green-100
               text-green-700
@@ -479,162 +483,162 @@ function Pages() {
               rounded-2xl
               font-semibold
             "
-          >
+            >
 
-            {success}
+              {success}
 
-          </div>
-
-        )}
-
-      </div>
-
-      {/* =====================================
-          EDITOR AREA
-      ===================================== */}
-      <div
-        className="
-          flex-1
-          overflow-y-auto
-          overflow-x-hidden
-          pr-2
-        "
-      >
-
-        <div
-          className="
-            w-full
-            max-w-[1400px]
-            mx-auto
-          "
-        >
-
-          {/* HOME HERO */}
-          {selectedPage === "home" &&
-            selectedSection === "hero" && (
-
-            <HeroEditor
-              pageData={pageData}
-              setPageData={setPageData}
-              uploadImage={uploadImage}
-              uploading={uploading}
-            />
-
-          )}
-
-          {/* HOME STORY */}
-          {selectedPage === "home" &&
-            selectedSection === "story" && (
-
-            <StoryEditor
-              pageData={pageData}
-              setPageData={setPageData}
-            />
-
-          )}
-
-          {/* HOME PROGRAMS */}
-          {selectedPage === "home" &&
-            selectedSection === "programs" && (
-
-            <ProgramsEditor
-              pageData={pageData}
-              setPageData={setPageData}
-            />
-
-          )}
-
-          {/* HOME STATS */}
-          {selectedPage === "home" &&
-            selectedSection === "stats" && (
-
-            <StatsEditor
-              pageData={pageData}
-              setPageData={setPageData}
-            />
-
-          )}
-
-          {/* HOME FOOTER */}
-          {selectedPage === "home" &&
-            selectedSection === "footer" && (
-
-            <FooterEditor
-              pageData={pageData}
-              setPageData={setPageData}
-            />
-
-          )}
-
-          {/* ABOUT HERO */}
-          {selectedPage === "about" &&
-            selectedSection === "hero" && (
-
-            <AboutHeroEditor
-              pageData={pageData}
-              setPageData={setPageData}
-              uploadImage={uploadImage}
-              uploading={uploading}
-            />
-
-          )}
-
-          {/* ABOUT MISSION */}
-          {selectedPage === "about" &&
-            selectedSection === "mission" && (
-
-            <AboutMissionEditor
-              pageData={pageData}
-              setPageData={setPageData}
-              uploadImage={uploadImage}
-              uploading={uploading}
-            />
-
-          )}
-
-          {/* ABOUT CHAIRPERSON */}
-          {selectedPage === "about" &&
-            selectedSection === "chairperson" && (
-
-            <AboutChairpersonEditor
-              pageData={pageData}
-              setPageData={setPageData}
-              uploadImage={uploadImage}
-              uploading={uploading}
-            />
-
-          )}
-
-          {/* ABOUT TEAM */}
-          {selectedPage === "about" &&
-            selectedSection === "team" && (
-
-            <AboutTeamEditor
-              pageData={pageData}
-              setPageData={setPageData}
-            />
-
-          )}
-
-          {/* ABOUT CTA */}
-          {selectedPage === "about" &&
-            selectedSection === "cta" && (
-
-            <AboutCTAEditor
-              pageData={pageData}
-              setPageData={setPageData}
-            />
+            </div>
 
           )}
 
         </div>
 
+        {/* =====================================
+          EDITOR AREA
+      ===================================== */}
+        <div
+          className="
+          flex-1
+          overflow-y-auto
+          overflow-x-hidden
+          pr-2
+        "
+        >
+
+          <div
+            className="
+            w-full
+            max-w-[1400px]
+            mx-auto
+          "
+          >
+
+            {/* HOME HERO */}
+            {selectedPage === "home" &&
+              selectedSection === "hero" && (
+
+                <HeroEditor
+                  pageData={pageData}
+                  setPageData={setPageData}
+                  uploadImage={uploadImage}
+                  uploading={uploading}
+                />
+
+              )}
+
+            {/* HOME STORY */}
+            {selectedPage === "home" &&
+              selectedSection === "story" && (
+
+                <StoryEditor
+                  pageData={pageData}
+                  setPageData={setPageData}
+                />
+
+              )}
+
+            {/* HOME PROGRAMS */}
+            {selectedPage === "home" &&
+              selectedSection === "programs" && (
+
+                <ProgramsEditor
+                  pageData={pageData}
+                  setPageData={setPageData}
+                />
+
+              )}
+
+            {/* HOME STATS */}
+            {selectedPage === "home" &&
+              selectedSection === "stats" && (
+
+                <StatsEditor
+                  pageData={pageData}
+                  setPageData={setPageData}
+                />
+
+              )}
+
+            {/* HOME FOOTER */}
+            {selectedPage === "home" &&
+              selectedSection === "footer" && (
+
+                <FooterEditor
+                  pageData={pageData}
+                  setPageData={setPageData}
+                />
+
+              )}
+
+            {/* ABOUT HERO */}
+            {selectedPage === "about" &&
+              selectedSection === "hero" && (
+
+                <AboutHeroEditor
+                  pageData={pageData}
+                  setPageData={setPageData}
+                  uploadImage={uploadImage}
+                  uploading={uploading}
+                />
+
+              )}
+
+            {/* ABOUT MISSION */}
+            {selectedPage === "about" &&
+              selectedSection === "mission" && (
+
+                <AboutMissionEditor
+                  pageData={pageData}
+                  setPageData={setPageData}
+                  uploadImage={uploadImage}
+                  uploading={uploading}
+                />
+
+              )}
+
+            {/* ABOUT CHAIRPERSON */}
+            {selectedPage === "about" &&
+              selectedSection === "chairperson" && (
+
+                <AboutChairpersonEditor
+                  pageData={pageData}
+                  setPageData={setPageData}
+                  uploadImage={uploadImage}
+                  uploading={uploading}
+                />
+
+              )}
+
+            {/* ABOUT TEAM */}
+            {selectedPage === "about" &&
+              selectedSection === "team" && (
+
+                <AboutTeamEditor
+                  pageData={pageData}
+                  setPageData={setPageData}
+                />
+
+              )}
+
+            {/* ABOUT CTA */}
+            {selectedPage === "about" &&
+              selectedSection === "cta" && (
+
+                <AboutCTAEditor
+                  pageData={pageData}
+                  setPageData={setPageData}
+                />
+
+              )}
+
+          </div>
+
+        </div>
+
       </div>
 
-    </div>
-
-  </AdminLayout>
-)
+    </AdminLayout>
+  )
 }
 
 export default Pages

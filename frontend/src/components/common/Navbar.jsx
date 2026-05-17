@@ -29,11 +29,9 @@ function Navbar({ pageData }) {
   ========================================= */
 
   const dynamicLogo =
-    footer.logo
-      ? footer.logo.startsWith("http")
-        ? footer.logo
-        : `https://prarambha-backend.onrender.com${footer.logo}`
-      : "/logo.png"
+
+    footer?.logo
+    || "/logo.png"
 
   /* =========================================
      PREVENT BODY SCROLL

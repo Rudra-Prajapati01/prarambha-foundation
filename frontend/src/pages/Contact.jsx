@@ -112,7 +112,7 @@ function Contact() {
     <div className="bg-[#FFFDFB] min-h-screen overflow-hidden">
 
       {/* NAVBAR */}
-      <Navbar pageData={pageData} />
+      <Navbar />
 
       {/* HERO SECTION */}
 

@@ -61,7 +61,7 @@ function Home() {
 
     <div className="w-full overflow-x-hidden bg-white">
 
-      <Navbar pageData={pageData} />
+      <Navbar/>
 
 
       <Hero pageData={pageData} />
@@ -72,7 +72,7 @@ function Home() {
 
       <Story pageData={pageData} />
 
-      <Footer pageData={pageData} />
+      <Footer />
 
     </div>
   )

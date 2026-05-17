@@ -262,7 +262,7 @@ export default function EarlyIntervention() {
 
       <div className="ei-page">
 
-        <Navbar pageData={pageData} />
+        <Navbar />
 
 
         {/* HERO */}
@@ -355,7 +355,7 @@ export default function EarlyIntervention() {
 
         </section>
 
-        <Footer pageData={pageData} />
+        <Footer />
 
       </div>
     </>

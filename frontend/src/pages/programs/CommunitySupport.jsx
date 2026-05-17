@@ -294,7 +294,7 @@ export default function CommunitySupport() {
 
       <div className="community-page">
 
-        <Navbar pageData={pageData} />
+        <Navbar />
 
 
         {/* HERO */}
@@ -392,7 +392,7 @@ export default function CommunitySupport() {
 
         </section>
 
-        <Footer pageData={pageData} />
+        <Footer />
       </div>
     </>
   )

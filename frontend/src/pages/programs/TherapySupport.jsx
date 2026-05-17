@@ -294,7 +294,7 @@ export default function TherapySupport() {
 
       <div className="therapy-page">
 
-        <Navbar pageData={pageData} />
+        <Navbar />
 
         {/* HERO */}
 
@@ -391,7 +391,7 @@ export default function TherapySupport() {
 
         </section>
 
-        <Footer pageData={pageData} />
+        <Footer />
 
       </div>
     </>

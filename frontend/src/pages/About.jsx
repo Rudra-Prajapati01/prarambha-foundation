@@ -49,7 +49,7 @@
 
       return (
         <>
-          <Navbar pageData={pageData} />
+          <Navbar />
 
 
           <div
@@ -70,7 +70,7 @@
 
     return (
       <>
-        <Navbar pageData={pageData} />
+        <Navbar />
 
         <HeroSection
           data={pageData?.hero}

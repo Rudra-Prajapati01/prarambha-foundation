@@ -67,7 +67,7 @@ export default function Chairperson() {
 
     return (
       <>
-        <Navbar pageData={pageData} />
+        <Navbar />
 
         <div
           style={{
@@ -232,7 +232,7 @@ export default function Chairperson() {
       <div className="chair-page">
 
         {/* NAVBAR */}
-        <Navbar pageData={pageData} />
+        <Navbar/>
 
         {/* CHAIRPERSON SECTION */}
         <section className="chair-section">
@@ -290,7 +290,7 @@ export default function Chairperson() {
         </section>
 
         {/* FOOTER */}
-        <Footer pageData={pageData} />
+        <Footer />
 
       </div>
     </>

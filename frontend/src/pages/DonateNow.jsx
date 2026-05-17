@@ -224,7 +224,7 @@ export default function DonateNow() {
 
       <div className="donate-page">
 
-        <Navbar pageData={pageData} />
+        <Navbar />
 
 
         {/* HERO */}
@@ -302,7 +302,7 @@ export default function DonateNow() {
 
         </section>
 
-        <Footer pageData={pageData} />
+        <Footer />
 
       </div>
     </>

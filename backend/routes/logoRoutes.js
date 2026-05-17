@@ -2,49 +2,18 @@ import express from "express"
 
 import multer from "multer"
 
-import path from "path"
-
 import Page from "../models/Page.js"
+
+import {
+  storage
+}
+from "../config/cloudinary.js"
 
 const router =
   express.Router()
 
-/* =====================================
-   MULTER STORAGE
-===================================== */
-
-const storage =
-  multer.diskStorage({
-
-    destination:
-      (req, file, cb) => {
-
-        cb(
-          null,
-          "uploads/"
-        )
-      },
-
-    filename:
-      (req, file, cb) => {
-
-        cb(
-          null,
-
-          Date.now() +
-          path.extname(
-            file.originalname
-          )
-        )
-      },
-  })
-
 const upload =
   multer({ storage })
-
-/* =====================================
-   UPLOAD FOOTER LOGO
-===================================== */
 
 router.put(
 
@@ -56,40 +25,28 @@ router.put(
 
     try {
 
-      const page =
-        await Page.findOne({
-          slug: "home"
-        })
+      const pages =
+        await Page.find()
 
-      if (!page) {
+      for (const page of pages) {
 
-        return res.status(404).json({
+        if (!page.footer) {
 
-          error:
-            "Page not found"
-        })
+          page.footer = {}
+        }
+
+        page.footer.logo =
+          req.file.path
+
+        await page.save()
       }
-
-      /* CREATE FOOTER IF MISSING */
-
-      if (!page.footer) {
-
-        page.footer = {}
-      }
-
-      /* SAVE LOGO PATH */
-
-      page.footer.logo =
-        `/uploads/${req.file.filename}`
-
-      await page.save()
 
       res.json({
 
         success: true,
 
         logo:
-          page.footer.logo,
+          req.file.path,
       })
 
     } catch (error) {

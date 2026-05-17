@@ -19,12 +19,10 @@ function Footer({ pageData }) {
       DYNAMIC LOGO
   ===================================== */
 
-  const dynamicLogo =
-    footer.logo
-      ? footer.logo.startsWith("http")
-        ? footer.logo
-        : `https://prarambha-backend.onrender.com${footer.logo}`
-      : "/logo.png"
+const dynamicLogo =
+
+  footer?.logo
+    || "/logo.png"
 
   return (
 
