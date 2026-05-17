@@ -1,10 +1,13 @@
-const express = require("express")
-const router = express.Router()
+import express from "express"
 
-const multer = require("multer")
-const path = require("path")
+import multer from "multer"
 
-const Page = require("../models/Page")
+import path from "path"
+
+import Page from "../models/Page.js"
+
+const router =
+  express.Router()
 
 /* =====================================
    MULTER STORAGE
@@ -16,7 +19,10 @@ const storage =
     destination:
       (req, file, cb) => {
 
-        cb(null, "uploads/")
+        cb(
+          null,
+          "uploads/"
+        )
       },
 
     filename:
@@ -24,8 +30,11 @@ const storage =
 
         cb(
           null,
+
           Date.now() +
-          path.extname(file.originalname)
+          path.extname(
+            file.originalname
+          )
         )
       },
   })
@@ -34,10 +43,11 @@ const upload =
   multer({ storage })
 
 /* =====================================
-   UPLOAD LOGO
+   UPLOAD FOOTER LOGO
 ===================================== */
 
 router.put(
+
   "/footer-logo",
 
   upload.single("logo"),
@@ -54,9 +64,20 @@ router.put(
       if (!page) {
 
         return res.status(404).json({
-          error: "Page not found"
+
+          error:
+            "Page not found"
         })
       }
+
+      /* CREATE FOOTER IF MISSING */
+
+      if (!page.footer) {
+
+        page.footer = {}
+      }
+
+      /* SAVE LOGO PATH */
 
       page.footer.logo =
         `/uploads/${req.file.filename}`
@@ -64,18 +85,24 @@ router.put(
       await page.save()
 
       res.json({
+
         success: true,
+
         logo:
           page.footer.logo,
       })
 
     } catch (error) {
 
+      console.log(error)
+
       res.status(500).json({
-        error: error.message
+
+        error:
+          error.message
       })
     }
   }
 )
 
-module.exports = router
+export default router

@@ -32,36 +32,15 @@ function FooterEditor({
   /* =====================================
       HANDLE LOGO
   ===================================== */
-const handleLogoChange = async (e) => {
+  const handleLogoChange = (e) => {
 
-  const file =
-    e.target.files[0]
+    const file =
+      e.target.files[0]
 
-  if (!file) return
+    if (!file) return
 
-  try {
-
-    const formData =
-      new FormData()
-
-    formData.append(
-      "logo",
-      file
-    )
-
-    const response =
-      await fetch(
-        "https://prarambha-backend.onrender.com/api/logo/footer-logo",
-        {
-          method: "PUT",
-          body: formData,
-        }
-      )
-
-    const data =
-      await response.json()
-
-    console.log(data)
+    const imageUrl =
+      URL.createObjectURL(file)
 
     setPageData((prev) => ({
 
@@ -71,15 +50,12 @@ const handleLogoChange = async (e) => {
 
         ...(prev.footer || {}),
 
-        logo: data.logo,
+        logo: imageUrl,
+
+        logoFile: file,
       },
     }))
-
-  } catch (error) {
-
-    console.log(error)
   }
-}
 
   return (
 
