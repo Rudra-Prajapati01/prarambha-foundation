@@ -1,7 +1,19 @@
 import Navbar from "../../components/common/Navbar"
 import Footer from "../../components/common/Footer"
 
+import {
+  usePageData,
+} from "../../context/PageContext"
+
 export default function EarlyIntervention() {
+
+  /* =====================================
+      GLOBAL PAGE DATA
+  ===================================== */
+
+  const {
+    pageData,
+  } = usePageData()
 
   const services = [
 
@@ -262,8 +274,11 @@ export default function EarlyIntervention() {
 
       <div className="ei-page">
 
-        <Navbar />
+        {/* NAVBAR */}
 
+        <Navbar
+          pageData={pageData}
+        />
 
         {/* HERO */}
 
@@ -355,7 +370,106 @@ export default function EarlyIntervention() {
 
         </section>
 
-        <Footer />
+        {/* IMPACT */}
+
+        <section className="impact-section">
+
+          <div className="impact-inner">
+
+            <h2 className="section-title">
+
+              Positive <span>Impact</span>
+
+            </h2>
+
+            <div className="impact-grid">
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  500+
+                </div>
+
+                <div className="impact-text">
+                  Children supported through structured intervention programs.
+                </div>
+
+              </div>
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  120+
+                </div>
+
+                <div className="impact-text">
+                  Families guided with therapy and developmental support.
+                </div>
+
+              </div>
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  50+
+                </div>
+
+                <div className="impact-text">
+                  Therapy and developmental sessions conducted every month.
+                </div>
+
+              </div>
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  95%
+                </div>
+
+                <div className="impact-text">
+                  Improvement seen in communication, focus, and social skills.
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* CTA */}
+
+        <section className="cta-section">
+
+          <h2 className="cta-title">
+
+            Every Child Deserves An <span>Opportunity</span>
+
+          </h2>
+
+          <p className="cta-desc">
+
+            Early identification and timely intervention can
+            transform a child’s development journey.
+            Let’s work together to create a brighter future.
+
+          </p>
+
+          <a
+            href="/contact"
+            className="cta-btn"
+          >
+            Connect With Us
+          </a>
+
+        </section>
+
+        {/* FOOTER */}
+
+        <Footer
+          pageData={pageData}
+        />
 
       </div>
     </>

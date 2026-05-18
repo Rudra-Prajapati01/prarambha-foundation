@@ -2,11 +2,11 @@ import AdminLayout from "../layouts/AdminLayout"
 
 function Dashboard() {
 
+  /* =====================================
+      DASHBOARD CARDS
+  ===================================== */
+
   const cards = [
-    {
-      title: "Programs",
-      value: "04",
-    },
 
     {
       title: "Impact Stories",
@@ -25,7 +25,38 @@ function Dashboard() {
   ]
 
   return (
+
     <AdminLayout>
+
+      {/* =====================================
+          PAGE HEADER
+      ===================================== */}
+
+      <div className="mb-8">
+
+        <h1
+          className="
+            text-4xl
+            font-extrabold
+            text-[#111827]
+            mb-2
+          "
+        >
+          Dashboard
+        </h1>
+
+        <p className="text-gray-500">
+
+          Welcome to the
+          Prarambha Foundation CMS.
+
+        </p>
+
+      </div>
+
+      {/* =====================================
+          DASHBOARD GRID
+      ===================================== */}
 
       <div
         className="
@@ -37,41 +68,65 @@ function Dashboard() {
         "
       >
 
-        {cards.map((card, index) => (
+        {Array.isArray(cards)
+          && cards.map(
+            (card, index) => (
 
-          <div
-            key={index}
-            className="
-              bg-white
-              rounded-[28px]
-              p-8
-              shadow-sm
-            "
-          >
+              <div
+                key={index}
 
-            <p
-              className="
-                text-gray-500
-                font-medium
-                mb-4
-              "
-            >
-              {card.title}
-            </p>
+                className="
+                  bg-white
+                  rounded-[28px]
+                  p-8
+                  shadow-sm
+                  hover:shadow-xl
+                  hover:-translate-y-1
+                  transition-all
+                  duration-300
+                "
+              >
 
-            <h2
-              className="
-                text-5xl
-                font-extrabold
-                text-[#E63946]
-              "
-            >
-              {card.value}
-            </h2>
+                {/* TOP ACCENT */}
 
-          </div>
+                <div
+                  className="
+                    w-14
+                    h-2
+                    rounded-full
+                    bg-[#E63946]
+                    mb-5
+                  "
+                ></div>
 
-        ))}
+                {/* TITLE */}
+
+                <p
+                  className="
+                    text-gray-500
+                    font-medium
+                    mb-4
+                  "
+                >
+                  {card.title}
+                </p>
+
+                {/* VALUE */}
+
+                <h2
+                  className="
+                    text-5xl
+                    font-extrabold
+                    text-[#E63946]
+                  "
+                >
+                  {card.value}
+                </h2>
+
+              </div>
+
+            )
+          )}
 
       </div>
 

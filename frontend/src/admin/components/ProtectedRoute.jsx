@@ -1,14 +1,33 @@
 import { Navigate } from "react-router-dom"
 
-function ProtectedRoute({ children }) {
+function ProtectedRoute({
+  children,
+}) {
 
-  const adminInfo = JSON.parse(
-    localStorage.getItem("adminInfo")
-  )
+  let adminInfo = null
+
+  try {
+
+    adminInfo = JSON.parse(
+      localStorage.getItem(
+        "adminInfo"
+      )
+    )
+
+  } catch (error) {
+
+    console.log(
+      "Invalid adminInfo"
+    )
+
+    localStorage.removeItem(
+      "adminInfo"
+    )
+  }
 
   return adminInfo
     ? children
-    : <Navigate to="/admin" />
+    : <Navigate to="/admin" replace />
 }
 
 export default ProtectedRoute

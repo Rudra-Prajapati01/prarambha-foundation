@@ -31,10 +31,12 @@ function Navbar({ pageData }) {
   const dynamicLogo =
 
     footer?.logo
-      ? footer.logo.startsWith("http")
+      ? typeof footer.logo === "string"
+        && footer.logo.startsWith("http")
         ? footer.logo
         : `https://prarambha-backend.onrender.com${footer.logo}`
       : "/logo.png"
+
   /* =========================================
      PREVENT BODY SCROLL
   ========================================= */
@@ -43,18 +45,19 @@ function Navbar({ pageData }) {
 
     if (menuOpen) {
 
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow =
+        "hidden"
 
     } else {
 
-      document.body.style.overflow = "auto"
-
+      document.body.style.overflow =
+        "auto"
     }
 
     return () => {
 
-      document.body.style.overflow = "auto"
-
+      document.body.style.overflow =
+        "auto"
     }
 
   }, [menuOpen])
@@ -143,7 +146,8 @@ function Navbar({ pageData }) {
 
       <div
         className="
-          hidden lg:flex
+          hidden
+          lg:flex
           items-center
           justify-between
           bg-[#0B1B4D]
@@ -221,7 +225,7 @@ function Navbar({ pageData }) {
               <img
                 src={dynamicLogo}
 
-                alt="logo"
+                alt="Prarambha Foundation Logo"
 
                 loading="lazy"
 
@@ -229,12 +233,14 @@ function Navbar({ pageData }) {
 
                   e.target.onerror = null
 
-                  e.target.src = "/logo.png"
+                  e.target.src =
+                    "/logo.png"
                 }}
 
                 className="
-                        w-28
-                        h-[55px]
+                        w-[180px]
+                        lg:w-[210px]
+                        h-[85px]
                         object-contain
                       "
               />
@@ -254,118 +260,133 @@ function Navbar({ pageData }) {
               "
             >
 
-              {navLinks.map((link, index) => (
+              {Array.isArray(navLinks)
+                && navLinks.map(
+                  (link, index) => (
 
-                <li
-                  key={index}
-                  className="relative group"
-                >
-
-                  {!link.dropdown ? (
-
-                    <Link
-                      to={link.path}
-                      className="
-                        text-[#1F2937]
-                        font-semibold
-                        hover:text-[#E63946]
-                        transition
-                      "
+                    <li
+                      key={index}
+                      className="relative group"
                     >
 
-                      {link.name}
+                      {!link.dropdown ? (
 
-                    </Link>
+                        <Link
+                          to={link.path}
 
-                  ) : (
-
-                    <>
-
-                      <button
-                        className="
-                          flex
-                          items-center
-                          gap-2
-                          text-[#1F2937]
-                          font-semibold
-                          hover:text-[#E63946]
-                          transition
-                        "
-                      >
-
-                        {link.name}
-
-                        <FaChevronDown
                           className="
-                            text-[12px]
-                            group-hover:rotate-180
-                            transition
+                            text-[#1F2937]
+                            font-semibold
+                            hover:text-[#E63946]
+                            transition-all
+                            duration-300
                           "
-                        />
+                        >
 
-                      </button>
+                          {link.name}
 
-                      {/* DESKTOP DROPDOWN */}
+                        </Link>
 
-                      <div
-                        className="
-                          absolute
-                          left-0
-                          top-[50px]
-                          w-[280px]
-                          bg-white
-                          rounded-2xl
-                          shadow-xl
-                          border
-                          border-gray-100
-                          opacity-0
-                          invisible
-                          translate-y-3
-                          group-hover:opacity-100
-                          group-hover:visible
-                          group-hover:translate-y-0
-                          transition-all
-                          duration-300
-                          overflow-hidden
-                          z-50
-                        "
-                      >
+                      ) : (
 
-                        {link.dropdown.map((item, idx) => (
+                        <>
 
-                          <Link
-                            key={idx}
-                            to={item.path}
+                          <button
+                            type="button"
+
                             className="
-                              block
-                              px-6
-                              py-4
-                              text-sm
-                              font-medium
+                              flex
+                              items-center
+                              gap-2
                               text-[#1F2937]
-                              hover:bg-[#FFF5F5]
+                              font-semibold
                               hover:text-[#E63946]
-                              border-b
-                              border-gray-100
-                              transition
+                              transition-all
+                              duration-300
                             "
                           >
 
-                            {item.name}
+                            {link.name}
 
-                          </Link>
+                            <FaChevronDown
+                              className="
+                                text-[12px]
+                                group-hover:rotate-180
+                                transition-all
+                                duration-300
+                              "
+                            />
 
-                        ))}
+                          </button>
 
-                      </div>
+                          {/* DESKTOP DROPDOWN */}
 
-                    </>
+                          <div
+                            className="
+                              absolute
+                              left-0
+                              top-[50px]
+                              w-[280px]
+                              bg-white
+                              rounded-2xl
+                              shadow-xl
+                              border
+                              border-gray-100
+                              opacity-0
+                              invisible
+                              translate-y-3
+                              group-hover:opacity-100
+                              group-hover:visible
+                              group-hover:translate-y-0
+                              transition-all
+                              duration-300
+                              overflow-hidden
+                              z-50
+                            "
+                          >
 
-                  )}
+                            {Array.isArray(link.dropdown)
+                              && link.dropdown.map(
+                                (item, idx) => (
 
-                </li>
+                                  <Link
+                                    key={idx}
 
-              ))}
+                                    to={item.path}
+
+                                    className="
+                                      block
+                                      px-6
+                                      py-4
+                                      text-sm
+                                      font-medium
+                                      text-[#1F2937]
+                                      hover:bg-[#FFF5F5]
+                                      hover:text-[#E63946]
+                                      border-b
+                                      border-gray-100
+                                      transition-all
+                                      duration-300
+                                    "
+                                  >
+
+                                    {item.name}
+
+                                  </Link>
+
+                                )
+                              )}
+
+                          </div>
+
+                        </>
+
+                      )}
+
+                    </li>
+
+                  )
+                )}
 
             </ul>
 
@@ -379,8 +400,10 @@ function Navbar({ pageData }) {
 
               <Link
                 to="/donate"
+
                 className="
-                  hidden md:flex
+                  hidden
+                  md:flex
                   items-center
                   gap-2
                   bg-[#EF4444]
@@ -390,7 +413,8 @@ function Navbar({ pageData }) {
                   py-3
                   rounded-full
                   font-semibold
-                  transition
+                  transition-all
+                  duration-300
                 "
               >
 
@@ -403,9 +427,14 @@ function Navbar({ pageData }) {
               {/* MOBILE MENU BUTTON */}
 
               <button
+                type="button"
+
+                aria-label="Open Menu"
+
                 onClick={() =>
                   setMenuOpen(!menuOpen)
                 }
+
                 className="
                   lg:hidden
                   w-12
@@ -420,8 +449,12 @@ function Navbar({ pageData }) {
 
                 {
                   menuOpen
-                    ? <FaTimes className="text-2xl" />
-                    : <FaBars className="text-2xl" />
+                    ? (
+                      <FaTimes className="text-2xl" />
+                    )
+                    : (
+                      <FaBars className="text-2xl" />
+                    )
                 }
 
               </button>
@@ -472,7 +505,7 @@ function Navbar({ pageData }) {
             <img
               src={dynamicLogo}
 
-              alt="logo"
+              alt="Prarambha Foundation Logo"
 
               loading="lazy"
 
@@ -480,23 +513,33 @@ function Navbar({ pageData }) {
 
                 e.target.onerror = null
 
-                e.target.src = "/logo.png"
+                e.target.src =
+                  "/logo.png"
               }}
 
               className="
-                      w-28
-                      h-[55px]
-                      object-contain
-                    "
+                        w-[180px]
+                        h-[85px]
+                        object-contain
+                      "
             />
 
             <button
+              type="button"
+
+              aria-label="Close Menu"
+
               onClick={() =>
                 setMenuOpen(false)
               }
             >
 
-              <FaTimes className="text-3xl text-[#1F2937]" />
+              <FaTimes
+                className="
+                  text-3xl
+                  text-[#1F2937]
+                "
+              />
 
             </button>
 
@@ -506,123 +549,144 @@ function Navbar({ pageData }) {
 
           <div className="p-5">
 
-            {navLinks.map((link, index) => (
+            {Array.isArray(navLinks)
+              && navLinks.map(
+                (link, index) => (
 
-              <div
-                key={index}
-                className="mb-3"
-              >
-
-                {!link.dropdown ? (
-
-                  <Link
-                    to={link.path}
-                    onClick={() =>
-                      setMenuOpen(false)
-                    }
-                    className="
-                      block
-                      py-4
-                      px-4
-                      rounded-xl
-                      font-semibold
-                      text-[#1F2937]
-                      hover:bg-gray-100
-                    "
+                  <div
+                    key={index}
+                    className="mb-3"
                   >
 
-                    {link.name}
+                    {!link.dropdown ? (
 
-                  </Link>
+                      <Link
+                        to={link.path}
 
-                ) : (
+                        onClick={() =>
+                          setMenuOpen(false)
+                        }
 
-                  <>
+                        className="
+                          block
+                          py-4
+                          px-4
+                          rounded-xl
+                          font-semibold
+                          text-[#1F2937]
+                          hover:bg-gray-100
+                          transition-all
+                          duration-300
+                        "
+                      >
 
-                    <button
-                      onClick={() =>
-                        setActiveDropdown(
-                          activeDropdown === index
-                            ? null
-                            : index
-                        )
-                      }
-                      className="
-                        w-full
-                        flex
-                        items-center
-                        justify-between
-                        py-4
-                        px-4
-                        rounded-xl
-                        font-semibold
-                        text-[#1F2937]
-                        hover:bg-gray-100
-                      "
-                    >
+                        {link.name}
 
-                      {link.name}
+                      </Link>
 
-                      <FaChevronDown
-                        className={`
-                          transition
-                          ${activeDropdown === index
-                            ? "rotate-180"
-                            : ""
+                    ) : (
+
+                      <>
+
+                        <button
+                          type="button"
+
+                          onClick={() =>
+                            setActiveDropdown(
+                              activeDropdown === index
+                                ? null
+                                : index
+                            )
                           }
-                        `}
-                      />
 
-                    </button>
-
-                    {
-                      activeDropdown === index && (
-
-                        <div
                           className="
-                            ml-4
-                            mt-2
-                            border-l-2
-                            border-[#EF4444]
+                            w-full
+                            flex
+                            items-center
+                            justify-between
+                            py-4
+                            px-4
+                            rounded-xl
+                            font-semibold
+                            text-[#1F2937]
+                            hover:bg-gray-100
+                            transition-all
+                            duration-300
                           "
                         >
 
-                          {link.dropdown.map((item, idx) => (
+                          {link.name}
 
-                            <Link
-                              key={idx}
-                              to={item.path}
-                              onClick={() =>
-                                setMenuOpen(false)
+                          <FaChevronDown
+                            className={`
+                              transition-all
+                              duration-300
+                              ${activeDropdown === index
+                                ? "rotate-180"
+                                : ""
                               }
+                            `}
+                          />
+
+                        </button>
+
+                        {
+                          activeDropdown === index && (
+
+                            <div
                               className="
-                                block
-                                py-3
-                                px-4
-                                text-sm
-                                text-gray-700
-                                hover:text-[#EF4444]
+                                ml-4
+                                mt-2
+                                border-l-2
+                                border-[#EF4444]
                               "
                             >
 
-                              {item.name}
+                              {Array.isArray(link.dropdown)
+                                && link.dropdown.map(
+                                  (item, idx) => (
 
-                            </Link>
+                                    <Link
+                                      key={idx}
 
-                          ))}
+                                      to={item.path}
 
-                        </div>
+                                      onClick={() =>
+                                        setMenuOpen(false)
+                                      }
 
-                      )
-                    }
+                                      className="
+                                        block
+                                        py-3
+                                        px-4
+                                        text-sm
+                                        text-gray-700
+                                        hover:text-[#EF4444]
+                                        transition-all
+                                        duration-300
+                                      "
+                                    >
 
-                  </>
+                                      {item.name}
 
-                )}
+                                    </Link>
 
-              </div>
+                                  )
+                                )}
 
-            ))}
+                            </div>
+
+                          )
+                        }
+
+                      </>
+
+                    )}
+
+                  </div>
+
+                )
+              )}
 
             {/* CONTACT INFO */}
 
@@ -656,9 +720,11 @@ function Navbar({ pageData }) {
 
             <Link
               to="/donate"
+
               onClick={() =>
                 setMenuOpen(false)
               }
+
               className="
                 w-full
                 mt-6
@@ -672,7 +738,8 @@ function Navbar({ pageData }) {
                 items-center
                 justify-center
                 gap-2
-                transition
+                transition-all
+                duration-300
               "
             >
 
@@ -686,7 +753,9 @@ function Navbar({ pageData }) {
 
         </div>
 
-        {/* OVERLAY */}
+        {/* =========================================
+            OVERLAY
+        ========================================= */}
 
         {
           menuOpen && (
@@ -695,12 +764,14 @@ function Navbar({ pageData }) {
               onClick={() =>
                 setMenuOpen(false)
               }
+
               className="
                 lg:hidden
                 fixed
                 inset-0
                 bg-black/40
                 z-[998]
+                backdrop-blur-sm
               "
             />
 

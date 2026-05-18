@@ -4,7 +4,15 @@ import Footer from "../components/common/Footer"
 import { useEffect, useState, useCallback } from "react"
 import axios from "axios"
 
+import { usePageData }
+  from "../context/PageContext"
+
+
+
 function Gallery() {
+
+  const { pageData } =
+  usePageData()
 
   const [gallery, setGallery] = useState([])
   const [selectedCategory, setSelectedCategory] = useState("All")
@@ -95,9 +103,35 @@ function Gallery() {
     return () => window.removeEventListener("keydown", handler)
   }, [selectedImage, goPrev, goNext])
 
-  const IMG = (path) =>
-    path ||
-    "https://via.placeholder.com/1200x700?text=Gallery+Image"
+  const IMG = (path) => {
+
+    /* =====================================
+        NO IMAGE
+    ===================================== */
+
+    if (!path) {
+
+      return "https://via.placeholder.com/1200x700?text=Gallery+Image"
+    }
+
+    /* =====================================
+        CLOUDINARY IMAGE
+    ===================================== */
+
+    if (
+      typeof path === "string"
+      && path.startsWith("http")
+    ) {
+
+      return path
+    }
+
+    /* =====================================
+        OLD BACKEND UPLOAD IMAGE
+    ===================================== */
+
+    return `https://prarambha-backend.onrender.com${path}`
+  }
 
   const skeletonHeights = [280, 360, 300, 340, 260, 320]
 
@@ -710,8 +744,9 @@ function Gallery() {
 
       <div className="gp">
 
-        <Navbar />
-
+        <Navbar
+          pageData={pageData}
+        />
 
         {/* ══════════ HERO ══════════ */}
         <section className="gp-hero">
@@ -999,9 +1034,9 @@ function Gallery() {
 
           </div>
         )}
-
-        <Footer />
-
+        <Footer
+          pageData={pageData}
+        />
       </div>
     </>
   )

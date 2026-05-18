@@ -22,18 +22,22 @@ function Footer({ pageData }) {
   const dynamicLogo =
 
     footer?.logo
-      ? footer.logo.startsWith("http")
-        ? footer.logo
-        : `https://prarambha-backend.onrender.com${footer.logo}`
+      ? typeof footer.logo === "string"
+        && footer.logo.startsWith("http")
+          ? footer.logo
+          : `https://prarambha-backend.onrender.com${footer.logo}`
       : "/logo.png"
 
   return (
 
-    <footer className="bg-[#FFF7E8] pt-16 pb-6 border-t border-gray-200">
+    <footer className="bg-[#FFF7E8] pt-20 pb-6 border-t border-gray-200">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* TOP */}
+        {/* =====================================
+            TOP SECTION
+        ===================================== */}
+
         <div
           className="
             grid
@@ -47,10 +51,14 @@ function Footer({ pageData }) {
           "
         >
 
-          {/* ABOUT */}
+          {/* =====================================
+              ABOUT
+          ===================================== */}
+
           <div>
 
             {/* LOGO */}
+
             <img
               src={dynamicLogo}
 
@@ -65,13 +73,16 @@ function Footer({ pageData }) {
                 e.target.src = "/logo.png"
               }}
 
-              className="
-                      w-48
-                      h-[70px]
-                      object-contain
-                      mb-5
-                    "
+                className="
+                  w-[240px]
+                  lg:w-[260px]
+                  h-[110px]
+                  object-contain
+                  mb-5
+              "
             />
+
+            {/* DESCRIPTION */}
 
             <p
               className="
@@ -86,21 +97,36 @@ function Footer({ pageData }) {
 
             </p>
 
-            {/* SOCIALS */}
+            {/* SOCIAL LINKS */}
+
             <div className="flex items-center gap-3 mt-6">
 
               {/* FACEBOOK */}
+
               <a
-                href={footer.facebook || "#"}
+                href={
+                  footer?.facebook
+                    || "https://facebook.com"
+                }
+
                 target="_blank"
+
                 rel="noreferrer"
+
+                aria-label="Facebook"
+
                 className="
-                  w-10 h-10 rounded-full
+                  w-10
+                  h-10
+                  rounded-full
                   bg-[#F3F4F6]
                   hover:bg-[#E63946]
                   hover:text-white
-                  transition
-                  flex items-center justify-center
+                  transition-all
+                  duration-300
+                  flex
+                  items-center
+                  justify-center
                   cursor-pointer
                   text-[#1F2937]
                 "
@@ -111,17 +137,31 @@ function Footer({ pageData }) {
               </a>
 
               {/* INSTAGRAM */}
+
               <a
-                href={footer.instagram || "#"}
+                href={
+                  footer?.instagram
+                    || "https://instagram.com"
+                }
+
                 target="_blank"
+
                 rel="noreferrer"
+
+                aria-label="Instagram"
+
                 className="
-                  w-10 h-10 rounded-full
+                  w-10
+                  h-10
+                  rounded-full
                   bg-[#F3F4F6]
                   hover:bg-[#E63946]
                   hover:text-white
-                  transition
-                  flex items-center justify-center
+                  transition-all
+                  duration-300
+                  flex
+                  items-center
+                  justify-center
                   cursor-pointer
                   text-[#1F2937]
                 "
@@ -132,17 +172,31 @@ function Footer({ pageData }) {
               </a>
 
               {/* YOUTUBE */}
+
               <a
-                href={footer.youtube || "#"}
+                href={
+                  footer?.youtube
+                    || "https://youtube.com"
+                }
+
                 target="_blank"
+
                 rel="noreferrer"
+
+                aria-label="YouTube"
+
                 className="
-                  w-10 h-10 rounded-full
+                  w-10
+                  h-10
+                  rounded-full
                   bg-[#F3F4F6]
                   hover:bg-[#E63946]
                   hover:text-white
-                  transition
-                  flex items-center justify-center
+                  transition-all
+                  duration-300
+                  flex
+                  items-center
+                  justify-center
                   cursor-pointer
                   text-[#1F2937]
                 "
@@ -156,7 +210,10 @@ function Footer({ pageData }) {
 
           </div>
 
-          {/* QUICK LINKS */}
+          {/* =====================================
+              QUICK LINKS
+          ===================================== */}
+
           <div>
 
             <h3
@@ -167,9 +224,7 @@ function Footer({ pageData }) {
                 text-[#1F2937]
               "
             >
-
               Quick Links
-
             </h3>
 
             <ul
@@ -181,55 +236,88 @@ function Footer({ pageData }) {
             >
 
               <li>
+
                 <Link
                   to="/"
-                  className="hover:text-[#E63946] transition"
+                  className="
+                    hover:text-[#E63946]
+                    transition-all
+                    duration-300
+                  "
                 >
                   Home
                 </Link>
+
               </li>
 
               <li>
+
                 <Link
                   to="/about"
-                  className="hover:text-[#E63946] transition"
+                  className="
+                    hover:text-[#E63946]
+                    transition-all
+                    duration-300
+                  "
                 >
                   About Us
                 </Link>
+
               </li>
 
               <li>
+
                 <Link
                   to="/gallery"
-                  className="hover:text-[#E63946] transition"
+                  className="
+                    hover:text-[#E63946]
+                    transition-all
+                    duration-300
+                  "
                 >
                   Gallery
                 </Link>
+
               </li>
 
               <li>
+
                 <Link
                   to="/stories"
-                  className="hover:text-[#E63946] transition"
+                  className="
+                    hover:text-[#E63946]
+                    transition-all
+                    duration-300
+                  "
                 >
                   Blog
                 </Link>
+
               </li>
 
               <li>
+
                 <Link
                   to="/contact"
-                  className="hover:text-[#E63946] transition"
+                  className="
+                    hover:text-[#E63946]
+                    transition-all
+                    duration-300
+                  "
                 >
                   Contact
                 </Link>
+
               </li>
 
             </ul>
 
           </div>
 
-          {/* PROGRAMS */}
+          {/* =====================================
+              PROGRAMS
+          ===================================== */}
+
           <div>
 
             <h3
@@ -240,9 +328,7 @@ function Footer({ pageData }) {
                 text-[#1F2937]
               "
             >
-
               Our Programs
-
             </h3>
 
             <ul
@@ -254,46 +340,73 @@ function Footer({ pageData }) {
             >
 
               <li>
+
                 <Link
                   to="/programs/early-intervention"
-                  className="hover:text-[#E63946] transition"
+                  className="
+                    hover:text-[#E63946]
+                    transition-all
+                    duration-300
+                  "
                 >
                   Early Intervention
                 </Link>
+
               </li>
 
               <li>
+
                 <Link
                   to="/programs/therapy-support"
-                  className="hover:text-[#E63946] transition"
+                  className="
+                    hover:text-[#E63946]
+                    transition-all
+                    duration-300
+                  "
                 >
                   Therapy Support
                 </Link>
+
               </li>
 
               <li>
+
                 <Link
                   to="/programs/inclusive-education"
-                  className="hover:text-[#E63946] transition"
+                  className="
+                    hover:text-[#E63946]
+                    transition-all
+                    duration-300
+                  "
                 >
                   Inclusive Education
                 </Link>
+
               </li>
 
               <li>
+
                 <Link
                   to="/programs/community-support"
-                  className="hover:text-[#E63946] transition"
+                  className="
+                    hover:text-[#E63946]
+                    transition-all
+                    duration-300
+                  "
                 >
                   Community Support
                 </Link>
+
               </li>
 
             </ul>
 
           </div>
 
-          {/* CONTACT */}
+          {/* =====================================
+              CONTACT
+          ===================================== */}
+
           <div>
 
             <h3
@@ -304,9 +417,7 @@ function Footer({ pageData }) {
                 text-[#1F2937]
               "
             >
-
               Contact Us
-
             </h3>
 
             <div
@@ -318,6 +429,7 @@ function Footer({ pageData }) {
             >
 
               {/* PHONE */}
+
               <div className="flex items-start gap-3">
 
                 <FaPhoneAlt className="text-[#E63946] mt-1" />
@@ -330,6 +442,7 @@ function Footer({ pageData }) {
               </div>
 
               {/* EMAIL */}
+
               <div className="flex items-start gap-3">
 
                 <FaEnvelope className="text-[#E63946] mt-1" />
@@ -342,6 +455,7 @@ function Footer({ pageData }) {
               </div>
 
               {/* ADDRESS */}
+
               <div className="flex items-start gap-3">
 
                 <FaMapMarkerAlt className="text-[#E63946] mt-1" />
@@ -356,19 +470,24 @@ function Footer({ pageData }) {
             </div>
 
             {/* DONATE BUTTON */}
+
             <Link
               to="/donate"
+
               className="
                 mt-6
                 inline-flex
-                items-center gap-2
+                items-center
+                gap-2
                 bg-[#E63946]
                 hover:bg-red-600
                 text-white
-                px-6 py-3
+                px-6
+                py-3
                 rounded-full
                 font-semibold
-                transition
+                transition-all
+                duration-300
                 shadow-lg
               "
             >
@@ -383,13 +502,19 @@ function Footer({ pageData }) {
 
         </div>
 
-        {/* BOTTOM */}
+        {/* =====================================
+            BOTTOM SECTION
+        ===================================== */}
+
         <div className="pt-6 flex flex-col gap-5">
 
           {/* COPYRIGHT */}
+
           <div
             className="
-              flex flex-col md:flex-row
+              flex
+              flex-col
+              md:flex-row
               items-center
               justify-between
               gap-4
@@ -425,12 +550,16 @@ function Footer({ pageData }) {
 
           </div>
 
-          {/* LEGAL INFO */}
+          {/* LEGAL */}
+
           <div
             className="
-              border-t border-gray-200
+              border-t
+              border-gray-200
               pt-5
-              flex flex-col lg:flex-row
+              flex
+              flex-col
+              lg:flex-row
               items-center
               justify-between
               gap-3
@@ -454,7 +583,8 @@ function Footer({ pageData }) {
 
             <div
               className="
-                flex flex-wrap
+                flex
+                flex-wrap
                 items-center
                 justify-center
                 gap-4
@@ -463,17 +593,44 @@ function Footer({ pageData }) {
               "
             >
 
-              <span className="hover:text-[#E63946] transition cursor-pointer">
+              <button
+                type="button"
+
+                className="
+                  hover:text-[#E63946]
+                  transition-all
+                  duration-300
+                  cursor-pointer
+                "
+              >
                 Privacy Policy
-              </span>
+              </button>
 
-              <span className="hover:text-[#E63946] transition cursor-pointer">
+              <button
+                type="button"
+
+                className="
+                  hover:text-[#E63946]
+                  transition-all
+                  duration-300
+                  cursor-pointer
+                "
+              >
                 Terms & Conditions
-              </span>
+              </button>
 
-              <span className="hover:text-[#E63946] transition cursor-pointer">
+              <button
+                type="button"
+
+                className="
+                  hover:text-[#E63946]
+                  transition-all
+                  duration-300
+                  cursor-pointer
+                "
+              >
                 Child Protection Policy
-              </span>
+              </button>
 
             </div>
 

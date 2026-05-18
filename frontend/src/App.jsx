@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Services from "./pages/Services"
-import Events from "./pages/Events"
+
 import Gallery from "./pages/Gallery"
 import Contact from "./pages/Contact"
 
@@ -18,6 +18,8 @@ import GalleryAdmin from "./admin/pages/GalleryAdmin"
 import StoryDetails from "./pages/StoryDetails"
 
 import Stories from "./components/common/stories/Stories"
+
+import DonateNow from "./pages/DonateNow"
 
 import StoriesAdmin from "./admin/pages/StoriesAdmin"
 
@@ -71,11 +73,6 @@ function App() {
           />
 
           <Route
-            path="/events"
-            element={<Events />}
-          />
-
-          <Route
             path="/gallery"
             element={<Gallery />}
           />
@@ -83,6 +80,11 @@ function App() {
           <Route
             path="/contact"
             element={<Contact />}
+          />
+
+          <Route
+            path="/donate"
+            element={<DonateNow />}
           />
 
           {/* =====================================

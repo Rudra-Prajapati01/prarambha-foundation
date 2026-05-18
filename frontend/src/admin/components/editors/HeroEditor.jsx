@@ -333,6 +333,8 @@ function HeroEditor({
           <input
             type="file"
 
+            accept="image/*"
+
             onChange={uploadImage}
 
             className="
@@ -380,6 +382,8 @@ function HeroEditor({
 
             <img
               src={heroImage}
+
+              loading="lazy"
 
               alt="Hero"
 

@@ -117,7 +117,7 @@ function CTAEditor({
             rows="5"
             placeholder="Enter CTA description"
             value={
-              pageData.cta?.description || ""
+             pageData?.cta.description || ""
             }
             onChange={(e) =>
               handleChange(

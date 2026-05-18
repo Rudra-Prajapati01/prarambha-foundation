@@ -1,35 +1,57 @@
-  import { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
-  import HeroSection from "../components/common/about/HeroSection"
-  import MissionSection from "../components/common/about/MissionSection"
-  import ChairpersonSection from "../components/common/about/ChairpersonSection"
-  import TeamSection from "../components/common/about/TeamSection"
-  import CTASection from "../components/common/about/CTASection"
+import HeroSection from "../components/common/about/HeroSection"
+import MissionSection from "../components/common/about/MissionSection"
+import ChairpersonSection from "../components/common/about/ChairpersonSection"
+import TeamSection from "../components/common/about/TeamSection"
+import CTASection from "../components/common/about/CTASection"
 
-  import Navbar from "../components/common/Navbar"
+import Navbar from "../components/common/Navbar"
+import Footer from "../components/common/Footer"
 
-  export default function About() {
+import { usePageData }
+from "../context/PageContext"
 
-    const [pageData, setPageData] =
-      useState(null)
+export default function About() {
 
-    const [loading, setLoading] =
-      useState(true)
+  /* =====================================
+      GLOBAL PAGE DATA
+  ===================================== */
 
-    useEffect(() => {
+  const {
+    pageData: globalPageData,
+  } = usePageData()
 
-      const fetchPage = async () => {
+  /* =====================================
+      ABOUT PAGE DATA
+  ===================================== */
+
+  const [aboutData, setAboutData] =
+    useState(null)
+
+  const [loading, setLoading] =
+    useState(true)
+
+  /* =====================================
+      FETCH ABOUT PAGE
+  ===================================== */
+
+  useEffect(() => {
+
+    const fetchPage =
+      async () => {
 
         try {
 
-          const response = await fetch(
-            "https://prarambha-backend.onrender.com/api/pages/about"
-          )
+          const response =
+            await fetch(
+              "https://prarambha-backend.onrender.com/api/pages/about"
+            )
 
           const data =
             await response.json()
 
-          setPageData(data)
+          setAboutData(data)
 
         } catch (error) {
 
@@ -41,56 +63,145 @@
         }
       }
 
-      fetchPage()
+    fetchPage()
 
-    }, [])
+  }, [])
 
-    if (loading) {
+  /* =====================================
+      LOADING
+  ===================================== */
 
-      return (
-        <>
-          <Navbar />
+  if (loading) {
 
+    return (
+
+      <>
+
+        <Navbar
+          pageData={globalPageData}
+        />
+
+        <div
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "#fff",
+          }}
+        >
 
           <div
             style={{
-              minHeight: "100vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              fontSize: "24px",
-              fontWeight: "700",
+              textAlign: "center",
             }}
           >
-            Loading...
+
+            <div
+              style={{
+                width: "70px",
+                height: "70px",
+                border:
+                  "5px solid #E63946",
+                borderTop:
+                  "5px solid transparent",
+                borderRadius: "50%",
+                margin: "0 auto 20px",
+                animation:
+                  "spin 1s linear infinite",
+              }}
+            />
+
+            <h2
+              style={{
+                fontSize: "32px",
+                fontWeight: "900",
+                color: "#0B1B4D",
+              }}
+            >
+              Loading...
+            </h2>
+
           </div>
-        </>
-      )
-    }
 
-    return (
-      <>
-        <Navbar />
+        </div>
 
-        <HeroSection
-          data={pageData?.hero}
-        />
+        <style>{`
+          @keyframes spin {
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        `}</style>
 
-        <MissionSection
-          data={pageData?.mission}
-        />
-
-        <ChairpersonSection
-          data={pageData?.chairperson}
-        />
-
-        <TeamSection
-          data={pageData?.team}
-        />
-
-        <CTASection
-          data={pageData?.cta}
-        />
       </>
     )
   }
+
+  /* =====================================
+      PAGE
+  ===================================== */
+
+  return (
+
+    <>
+
+      {/* =====================================
+          NAVBAR
+      ===================================== */}
+
+      <Navbar
+        pageData={globalPageData}
+      />
+
+      {/* =====================================
+          HERO
+      ===================================== */}
+
+      <HeroSection
+        data={aboutData?.hero}
+      />
+
+      {/* =====================================
+          MISSION
+      ===================================== */}
+
+      <MissionSection
+        data={aboutData?.mission}
+      />
+
+      {/* =====================================
+          CHAIRPERSON
+      ===================================== */}
+
+      <ChairpersonSection
+        data={aboutData?.chairperson}
+      />
+
+      {/* =====================================
+          TEAM
+      ===================================== */}
+
+      <TeamSection
+        data={aboutData?.team}
+      />
+
+      {/* =====================================
+          CTA
+      ===================================== */}
+
+      <CTASection
+        data={aboutData?.cta}
+      />
+
+      {/* =====================================
+          FOOTER
+      ===================================== */}
+
+      <Footer
+        pageData={globalPageData}
+      />
+
+    </>
+  )
+}

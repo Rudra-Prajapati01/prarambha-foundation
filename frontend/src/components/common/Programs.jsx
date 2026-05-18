@@ -4,11 +4,30 @@ function Programs({ pageData }) {
     pageData?.programs || []
 
   /* =====================================
+      IMAGE HELPER
+  ===================================== */
+
+  const getImageUrl = (
+    image
+  ) => {
+
+    if (!image) {
+
+      return "https://via.placeholder.com/600x600?text=Program+Image"
+    }
+
+    return typeof image === "string"
+      && image.startsWith("http")
+        ? image
+        : `https://prarambha-backend.onrender.com${image}`
+  }
+
+  /* =====================================
       FIRST PROGRAM IMAGES
   ===================================== */
 
-  const firstProgram =
-  {
+  const firstProgram = {
+
     image1:
       pageData?.programImage1,
 
@@ -18,6 +37,7 @@ function Programs({ pageData }) {
     image3:
       pageData?.programImage3,
   }
+
   return (
 
     <section className="bg-white py-14 lg:py-24 overflow-hidden">
@@ -35,7 +55,9 @@ function Programs({ pageData }) {
           "
         >
 
-          {/* LEFT CONTENT */}
+          {/* =====================================
+              LEFT CONTENT
+          ===================================== */}
 
           <div>
 
@@ -101,131 +123,150 @@ function Programs({ pageData }) {
 
             <div className="space-y-5 lg:space-y-7">
 
-              {programList.map((program, index) => (
+              {Array.isArray(programList)
+                && programList.map(
+                  (program, index) => (
 
-                <div
-                  key={index}
+                    <div
+                      key={index}
 
-                  className="
-                    bg-[#F8FAFC]
-                    rounded-[24px]
-                    p-5
-                    lg:p-7
-                    shadow-[0_4px_20px_rgba(0,0,0,0.04)]
-                    border
-                    border-gray-100
-                    transition
-                    hover:-translate-y-1
-                  "
+                      className="
+                        bg-[#F8FAFC]
+                        rounded-[24px]
+                        p-5
+                        lg:p-7
+                        shadow-[0_4px_20px_rgba(0,0,0,0.04)]
+                        border
+                        border-gray-100
+                        transition-all
+                        duration-300
+                        hover:-translate-y-1
+                        hover:shadow-xl
+                      "
 
-                  style={{
-                    borderLeft:
-                      `5px solid ${program.color}`,
-                  }}
-                >
+                      style={{
+                        borderLeft:
+                          `5px solid ${program.color || "#E63946"}`,
+                      }}
+                    >
 
-                  {/* TITLE */}
+                      {/* TITLE */}
 
-                  <h3
-                    className="
-                      text-[18px]
-                      lg:text-xl
-                      font-bold
-                      text-[#0B1B4D]
-                      mb-4
-                      leading-snug
-                    "
-                  >
-                    {program.title}
-                  </h3>
+                      <h3
+                        className="
+                          text-[18px]
+                          lg:text-xl
+                          font-bold
+                          text-[#0B1B4D]
+                          mb-4
+                          leading-snug
+                        "
+                      >
+                        {program.title}
+                      </h3>
 
-                  {/* POINTS */}
+                      {/* POINTS */}
 
-                  <ul className="space-y-2.5">
+                      <ul className="space-y-2.5">
 
-                    {(program.points || []).map(
-                      (item, idx) => (
+                        {(Array.isArray(program.points)
+                          ? program.points
+                          : []
+                        ).map(
+                          (item, idx) => (
 
-                        <li
-                          key={idx}
+                            <li
+                              key={idx}
 
-                          className="
-                            text-gray-600
-                            text-sm
-                            lg:text-base
-                            flex items-start gap-2
-                            leading-relaxed
-                          "
-                        >
+                              className="
+                                text-gray-600
+                                text-sm
+                                lg:text-base
+                                flex
+                                items-start
+                                gap-2
+                                leading-relaxed
+                              "
+                            >
 
-                          <span
-                            className="
-                              mt-[8px]
-                              w-1.5
-                              h-1.5
-                              rounded-full
-                              flex-shrink-0
-                            "
+                              <span
+                                className="
+                                  mt-[8px]
+                                  w-1.5
+                                  h-1.5
+                                  rounded-full
+                                  flex-shrink-0
+                                "
 
-                            style={{
-                              background:
-                                program.color,
-                            }}
-                          />
+                                style={{
+                                  background:
+                                    program.color || "#E63946",
+                                }}
+                              />
 
-                          {item}
+                              {item}
 
-                        </li>
+                            </li>
 
-                      )
-                    )}
+                          )
+                        )}
 
-                  </ul>
+                      </ul>
 
-                  {/* BUTTON */}
+                      {/* BUTTON */}
 
-                  <button
-                    className="
-                      mt-5
-                      inline-flex
-                      items-center
-                      gap-2
-                      text-sm
-                      font-semibold
-                      transition
-                      hover:translate-x-1
-                    "
+                      <button
+                        type="button"
 
-                    style={{
-                      color:
-                        program.color,
-                    }}
-                  >
+                        className="
+                          mt-5
+                          inline-flex
+                          items-center
+                          gap-2
+                          text-sm
+                          font-semibold
+                          transition-all
+                          duration-300
+                          hover:translate-x-1
+                        "
 
-                    Read More →
+                        style={{
+                          color:
+                            program.color || "#E63946",
+                        }}
+                      >
 
-                  </button>
+                        Read More →
 
-                </div>
+                      </button>
 
-              ))}
+                    </div>
+
+                  )
+                )}
 
             </div>
 
           </div>
 
-          {/* RIGHT IMAGES */}
+          {/* =====================================
+              RIGHT IMAGES
+          ===================================== */}
 
           <div
             className="
               relative
               mt-12
               lg:mt-0
-              flex items-center justify-center
+              flex
+              items-center
+              justify-center
             "
           >
 
-            {/* MOBILE */}
+            {/* =====================================
+                MOBILE
+            ===================================== */}
 
             <div
               className="
@@ -243,13 +284,11 @@ function Programs({ pageData }) {
               {firstProgram.image1 && (
 
                 <img
-                  src={
-                    firstProgram.image1?.startsWith("http")
-                      ? firstProgram.image1
-                      : `https://prarambha-backend.onrender.com${firstProgram.image1}`
-                  }
+                  src={getImageUrl(firstProgram.image1)}
 
                   alt="Program"
+
+                  loading="lazy"
 
                   onError={(e) => {
 
@@ -274,13 +313,11 @@ function Programs({ pageData }) {
               {firstProgram.image2 && (
 
                 <img
-                  src={
-                    firstProgram.image2?.startsWith("http")
-                      ? firstProgram.image2
-                      : `https://prarambha-backend.onrender.com${firstProgram.image2}`
-                  }
+                  src={getImageUrl(firstProgram.image2)}
 
                   alt="Program"
+
+                  loading="lazy"
 
                   onError={(e) => {
 
@@ -306,13 +343,11 @@ function Programs({ pageData }) {
               {firstProgram.image3 && (
 
                 <img
-                  src={
-                    firstProgram.image3?.startsWith("http")
-                      ? firstProgram.image3
-                      : `https://prarambha-backend.onrender.com${firstProgram.image3}`
-                  }
+                  src={getImageUrl(firstProgram.image3)}
 
                   alt="Program"
+
+                  loading="lazy"
 
                   onError={(e) => {
 
@@ -334,7 +369,9 @@ function Programs({ pageData }) {
 
             </div>
 
-            {/* DESKTOP */}
+            {/* =====================================
+                DESKTOP
+            ===================================== */}
 
             <div
               className="
@@ -361,20 +398,18 @@ function Programs({ pageData }) {
                     shadow-2xl
                     rotate-[-6deg]
                     hover:rotate-0
-                    transition
+                    transition-all
                     duration-500
                     z-10
                   "
                 >
 
                   <img
-                    src={
-                      firstProgram.image1?.startsWith("http")
-                        ? firstProgram.image1
-                        : `https://prarambha-backend.onrender.com${firstProgram.image1}`
-                    }
+                    src={getImageUrl(firstProgram.image1)}
 
                     alt="Program"
+
+                    loading="lazy"
 
                     onError={(e) => {
 
@@ -410,20 +445,18 @@ function Programs({ pageData }) {
                     shadow-2xl
                     rotate-[4deg]
                     hover:rotate-0
-                    transition
+                    transition-all
                     duration-500
                     z-20
                   "
                 >
 
                   <img
-                    src={
-                      firstProgram.image2?.startsWith("http")
-                        ? firstProgram.image2
-                        : `https://prarambha-backend.onrender.com${firstProgram.image2}`
-                    }
+                    src={getImageUrl(firstProgram.image2)}
 
                     alt="Program"
+
+                    loading="lazy"
 
                     onError={(e) => {
 
@@ -459,20 +492,18 @@ function Programs({ pageData }) {
                     shadow-2xl
                     rotate-[-4deg]
                     hover:rotate-0
-                    transition
+                    transition-all
                     duration-500
                     z-10
                   "
                 >
 
                   <img
-                    src={
-                      firstProgram.image3?.startsWith("http")
-                        ? firstProgram.image3
-                        : `https://prarambha-backend.onrender.com${firstProgram.image3}`
-                    }
+                    src={getImageUrl(firstProgram.image3)}
 
                     alt="Program"
+
+                    loading="lazy"
 
                     onError={(e) => {
 

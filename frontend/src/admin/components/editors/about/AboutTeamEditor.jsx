@@ -297,6 +297,15 @@ function AboutTeamEditor({
                             }
                           )
 
+                        if (!response.ok) {
+
+                          console.log(
+                            "Upload failed"
+                          )
+
+                          return
+                        }
+
                         const data =
                           await response.json()
 

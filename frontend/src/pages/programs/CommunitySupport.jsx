@@ -1,7 +1,19 @@
 import Navbar from "../../components/common/Navbar"
 import Footer from "../../components/common/Footer"
 
+import {
+  usePageData,
+} from "../../context/PageContext"
+
 export default function CommunitySupport() {
+
+  /* =====================================
+      GLOBAL PAGE DATA
+  ===================================== */
+
+  const {
+    pageData,
+  } = usePageData()
 
   const supports = [
 
@@ -294,8 +306,11 @@ export default function CommunitySupport() {
 
       <div className="community-page">
 
-        <Navbar />
+        {/* NAVBAR */}
 
+        <Navbar
+          pageData={pageData}
+        />
 
         {/* HERO */}
 
@@ -392,7 +407,40 @@ export default function CommunitySupport() {
 
         </section>
 
-        <Footer />
+        {/* CTA */}
+
+        <section className="cta-section">
+
+          <h2 className="cta-title">
+
+            Together We Build An <span>Inclusive Future</span>
+
+          </h2>
+
+          <p className="cta-desc">
+
+            Join our mission to empower children,
+            support families,
+            and create awareness for inclusive education
+            and early intervention across communities.
+
+          </p>
+
+          <a
+            href="/donate"
+            className="cta-btn"
+          >
+            Support Our Mission
+          </a>
+
+        </section>
+
+        {/* FOOTER */}
+
+        <Footer
+          pageData={pageData}
+        />
+
       </div>
     </>
   )

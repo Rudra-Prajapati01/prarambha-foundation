@@ -134,11 +134,11 @@ function StoryEditor() {
     if (!image)
       return "https://via.placeholder.com/800x600?text=Story+Image"
 
-    return image.startsWith("http")
+    return typeof image === "string"
+      && image.startsWith("http")
       ? image
       : `https://prarambha-backend.onrender.com${image}`
   }
-
   return (
 
     <div

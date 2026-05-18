@@ -11,8 +11,24 @@ import {
 } from "react-icons/fa"
 
 import Navbar from "../components/common/Navbar"
+import Footer from "../components/common/Footer"
+
+import { usePageData }
+from "../context/PageContext"
 
 function Contact() {
+
+  /* =========================================
+      GLOBAL DATA
+  ========================================= */
+
+  const {
+    pageData,
+  } = usePageData()
+
+  /* =========================================
+      STATES
+  ========================================= */
 
   const [contactData, setContactData] =
     useState(null)
@@ -34,23 +50,23 @@ function Contact() {
 
   useEffect(() => {
 
-    const fetchData = async () => {
+    const fetchData =
+      async () => {
 
-      try {
+        try {
 
-        const { data } =
-          await axios.get(
-            "https://prarambha-backend.onrender.com/api/pages/contact"
-          )
+          const { data } =
+            await axios.get(
+              "https://prarambha-backend.onrender.com/api/pages/contact"
+            )
 
-        setContactData(data)
+          setContactData(data)
 
-      } catch (error) {
+        } catch (error) {
 
-        console.log(error)
-
+          console.log(error)
+        }
       }
-    }
 
     fetchData()
 
@@ -64,6 +80,7 @@ function Contact() {
 
     setFormData({
       ...formData,
+
       [e.target.name]:
         e.target.value,
     })
@@ -73,48 +90,66 @@ function Contact() {
       SUBMIT FORM
   ========================================= */
 
-  const submitHandler = async (e) => {
+  const submitHandler =
+    async (e) => {
 
-    e.preventDefault()
+      e.preventDefault()
 
-    setLoading(true)
+      setLoading(true)
 
-    try {
+      try {
 
-      await axios.post(
-        "https://prarambha-backend.onrender.com/api/messages",
-        formData
-      )
+        await axios.post(
+          "https://prarambha-backend.onrender.com/api/messages",
+          formData
+        )
 
-      alert("Message Sent Successfully 😄")
+        alert(
+          "Message Sent Successfully 😄"
+        )
 
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      })
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        })
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error)
+        console.log(error)
 
-      alert("Something went wrong")
+        alert(
+          "Something went wrong"
+        )
 
-    } finally {
+      } finally {
 
-      setLoading(false)
+        setLoading(false)
+      }
     }
-  }
 
   return (
 
-    <div className="bg-[#FFFDFB] min-h-screen overflow-hidden">
+    <div
+      className="
+        bg-[#FFFDFB]
+        min-h-screen
+        overflow-hidden
+      "
+    >
 
-      {/* NAVBAR */}
-      <Navbar />
+      {/* =====================================
+          NAVBAR
+      ===================================== */}
 
-      {/* HERO SECTION */}
+      <Navbar
+        pageData={pageData}
+      />
+
+      {/* =====================================
+          HERO SECTION
+      ===================================== */}
 
       <section
         className="
@@ -131,7 +166,9 @@ function Contact() {
         "
       >
 
-        {/* SHAPES */}
+        {/* =====================================
+            SHAPES
+        ===================================== */}
 
         <div
           className="
@@ -144,7 +181,7 @@ function Contact() {
             rounded-bl-[250px]
             opacity-95
           "
-        ></div>
+        />
 
         <div
           className="
@@ -156,9 +193,16 @@ function Contact() {
             bg-[#FFE9EC]
             rounded-full
           "
-        ></div>
+        />
 
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div
+          className="
+            max-w-7xl
+            mx-auto
+            relative
+            z-10
+          "
+        >
 
           <div
             className="
@@ -169,7 +213,9 @@ function Contact() {
             "
           >
 
-            {/* LEFT */}
+            {/* =====================================
+                LEFT
+            ===================================== */}
 
             <div>
 
@@ -182,8 +228,12 @@ function Contact() {
                   mb-5
                 "
               >
-                {contactData?.heroTag ||
-                  "Contact Us"}
+
+                {
+                  contactData?.heroTag
+                  || "Contact Us"
+                }
+
               </p>
 
               <h1
@@ -197,8 +247,10 @@ function Contact() {
                 "
               >
 
-                {contactData?.heroTitle ||
-                  "Let’s Build Inclusive Futures Together"}
+                {
+                  contactData?.heroTitle
+                  || "Let’s Build Inclusive Futures Together"
+                }
 
               </h1>
 
@@ -212,12 +264,16 @@ function Contact() {
                 "
               >
 
-                {contactData?.heroDescription ||
-                  "We’re here to support children, families, educators, and communities through inclusive education, therapy, and early intervention. Reach out to us anytime."}
+                {
+                  contactData?.heroDescription
+                  || "We’re here to support children, families, educators, and communities through inclusive education, therapy, and early intervention. Reach out to us anytime."
+                }
 
               </p>
 
-              {/* CONTACT CARDS */}
+              {/* =====================================
+                  CONTACT CARDS
+              ===================================== */}
 
               <div className="space-y-6">
 
@@ -265,8 +321,10 @@ function Contact() {
 
                     <p className="text-gray-600">
 
-                      {contactData?.email ||
-                        "foundationprarambha@gmail.com"}
+                      {
+                        contactData?.email
+                        || "foundationprarambha@gmail.com"
+                      }
 
                     </p>
 
@@ -318,8 +376,10 @@ function Contact() {
 
                     <p className="text-gray-600">
 
-                      {contactData?.phone ||
-                        "+91 940 911 8461"}
+                      {
+                        contactData?.phone
+                        || "+91 940 911 8461"
+                      }
 
                     </p>
 
@@ -371,8 +431,10 @@ function Contact() {
 
                     <p className="text-gray-600">
 
-                      {contactData?.location ||
-                        "Ahmedabad, Gujarat, India"}
+                      {
+                        contactData?.location
+                        || "Ahmedabad, Gujarat, India"
+                      }
 
                     </p>
 
@@ -424,8 +486,10 @@ function Contact() {
 
                     <p className="text-gray-600">
 
-                      {contactData?.hours ||
-                        "Monday - Saturday : 9 AM - 6 PM"}
+                      {
+                        contactData?.hours
+                        || "Monday - Saturday : 9 AM - 6 PM"
+                      }
 
                     </p>
 
@@ -437,7 +501,9 @@ function Contact() {
 
             </div>
 
-            {/* RIGHT FORM */}
+            {/* =====================================
+                RIGHT FORM
+            ===================================== */}
 
             <div
               className="
@@ -462,7 +528,7 @@ function Contact() {
                   rounded-full
                   blur-3xl
                 "
-              ></div>
+              />
 
               <div className="relative z-10">
 
@@ -571,7 +637,7 @@ function Contact() {
                       outline-none
                       resize-none
                     "
-                  ></textarea>
+                  />
 
                   <button
                     type="submit"
@@ -615,6 +681,14 @@ function Contact() {
         </div>
 
       </section>
+
+      {/* =====================================
+          FOOTER
+      ===================================== */}
+
+      <Footer
+        pageData={pageData}
+      />
 
     </div>
   )

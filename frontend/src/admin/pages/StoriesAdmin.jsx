@@ -5,48 +5,73 @@ import AdminLayout from "../layouts/AdminLayout"
 
 function StoriesAdmin() {
 
-  const [stories, setStories] = useState([])
+  const [stories, setStories] =
+    useState([])
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] =
+    useState(false)
 
-  const [uploading, setUploading] = useState(false)
+  const [uploading, setUploading] =
+    useState(false)
 
-  const [editingId, setEditingId] = useState(null)
+  const [editingId, setEditingId] =
+    useState(null)
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] =
+    useState({
 
-    title: "",
+      title: "",
 
-    desc: "",
+      desc: "",
 
-    category: "Inclusive Education",
+      category:
+        "Inclusive Education",
 
-    image: "",
+      image: "",
 
-    type: "small",
-  })
+      type: "small",
+    })
+
+  /* =====================================
+      IMAGE SUPPORT
+  ===================================== */
+
+  const getImageUrl = (
+    image
+  ) => {
+
+    if (!image) {
+
+      return "https://via.placeholder.com/1200x700?text=Story+Image"
+    }
+
+    return typeof image === "string"
+      && image.startsWith("http")
+        ? image
+        : `https://prarambha-backend.onrender.com${image}`
+  }
 
   /* =====================================
       FETCH STORIES
   ===================================== */
 
-  const fetchStories = async () => {
+  const fetchStories =
+    async () => {
 
-    try {
+      try {
 
-      const { data } =
-        await axios.get(
-          "https://prarambha-backend.onrender.com/api/stories"
-        )
+        const { data } =
+          await axios.get(
+            "https://prarambha-backend.onrender.com/api/stories"
+          )
 
-      setStories(data)
+        setStories(data)
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error)
-
+        console.log(error)
+      }
     }
-  }
 
   useEffect(() => {
 
@@ -58,15 +83,21 @@ function StoriesAdmin() {
       HANDLE CHANGE
   ===================================== */
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e
+  ) => {
 
-    const { name, value } = e.target
+    const {
+      name,
+      value,
+    } = e.target
 
     setFormData((prev) => ({
 
       ...prev,
 
-      [name]: value,
+      [name]:
+        value,
     }))
   }
 
@@ -74,130 +105,163 @@ function StoriesAdmin() {
       UPLOAD IMAGE
   ===================================== */
 
-  const uploadImage = async (e) => {
+  const uploadImage =
+    async (e) => {
 
-    const file = e.target.files[0]
+      const file =
+        e.target.files[0]
 
-    if (!file) return
+      if (!file) return
 
-    const data = new FormData()
+      const data =
+        new FormData()
 
-    data.append("image", file)
+      data.append(
+        "image",
+        file
+      )
 
-    try {
+      try {
 
-      setUploading(true)
+        setUploading(true)
 
-      const res =
-        await axios.post(
-          "https://prarambha-backend.onrender.com/api/upload",
-          data,
-          {
-            headers: {
-              "Content-Type":
-                "multipart/form-data",
-            },
-          }
+        const res =
+          await axios.post(
+            "https://prarambha-backend.onrender.com/api/upload",
+            data,
+            {
+              headers: {
+                "Content-Type":
+                  "multipart/form-data",
+              },
+            }
+          )
+
+        /* SAFE RESPONSE */
+
+        if (
+          !res.data?.image
+        ) {
+
+          console.log(
+            "Upload failed"
+          )
+
+          return
+        }
+
+        setFormData(
+          (prev) => ({
+
+            ...prev,
+
+            image:
+              res.data.image,
+          })
         )
 
-      setFormData((prev) => ({
+      } catch (error) {
 
-        ...prev,
+        console.log(error)
 
-        image: res.data.image,
-      }))
+      } finally {
 
-    } catch (error) {
-
-      console.log(error)
-
-    } finally {
-
-      setUploading(false)
-
+        setUploading(false)
+      }
     }
-  }
 
   /* =====================================
       CREATE / UPDATE STORY
   ===================================== */
 
-  const submitHandler = async (e) => {
+  const submitHandler =
+    async (e) => {
 
-    e.preventDefault()
+      e.preventDefault()
 
-    try {
+      try {
 
-      setLoading(true)
+        setLoading(true)
 
-      if (editingId) {
+        if (editingId) {
 
-        await axios.put(
-          `https://prarambha-backend.onrender.com/api/stories/${editingId}`,
-          formData
-        )
+          await axios.put(
+            `https://prarambha-backend.onrender.com/api/stories/${editingId}`,
+            formData
+          )
 
-      } else {
+        } else {
 
-        await axios.post(
-          "https://prarambha-backend.onrender.com/api/stories",
-          formData
-        )
+          await axios.post(
+            "https://prarambha-backend.onrender.com/api/stories",
+            formData
+          )
+        }
+
+        /* RESET */
+
+        setFormData({
+
+          title: "",
+
+          desc: "",
+
+          category:
+            "Inclusive Education",
+
+          image: "",
+
+          type: "small",
+        })
+
+        setEditingId(null)
+
+        fetchStories()
+
+      } catch (error) {
+
+        console.log(error)
+
+      } finally {
+
+        setLoading(false)
       }
-
-      setFormData({
-
-        title: "",
-
-        desc: "",
-
-        category:
-          "Inclusive Education",
-
-        image: "",
-
-        type: "small",
-      })
-
-      setEditingId(null)
-
-      fetchStories()
-
-    } catch (error) {
-
-      console.log(error)
-
-    } finally {
-
-      setLoading(false)
-
     }
-  }
 
   /* =====================================
       EDIT STORY
   ===================================== */
 
-  const editHandler = (item) => {
+  const editHandler = (
+    item
+  ) => {
 
     setEditingId(item._id)
 
     setFormData({
 
-      title: item.title,
+      title:
+        item.title,
 
-      desc: item.desc,
+      desc:
+        item.desc,
 
-      category: item.category,
+      category:
+        item.category,
 
-      image: item.image,
+      image:
+        item.image,
 
-      type: item.type,
+      type:
+        item.type,
     })
 
     window.scrollTo({
+
       top: 0,
-      behavior: "smooth",
+
+      behavior:
+        "smooth",
     })
   }
 
@@ -205,73 +269,131 @@ function StoriesAdmin() {
       DELETE STORY
   ===================================== */
 
-  const deleteHandler = async (id) => {
+  const deleteHandler =
+    async (id) => {
 
-    const confirmDelete =
-      window.confirm(
-        "Delete this story?"
-      )
+      const confirmDelete =
+        window.confirm(
+          "Delete this story?"
+        )
 
-    if (!confirmDelete) return
+      if (
+        !confirmDelete
+      ) return
 
-    try {
+      try {
 
-      await axios.delete(
-        `https://prarambha-backend.onrender.com/api/stories/${id}`
-      )
+        await axios.delete(
+          `https://prarambha-backend.onrender.com/api/stories/${id}`
+        )
 
-      fetchStories()
+        fetchStories()
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error)
-
+        console.log(error)
+      }
     }
-  }
 
   return (
 
     <AdminLayout>
 
-      <div className="max-w-7xl mx-auto px-4 py-10">
+      <div
+        className="
+          max-w-7xl
+          mx-auto
+          px-4
+          py-10
+        "
+      >
 
-        {/* HEADER */}
+        {/* =====================================
+            HEADER
+        ===================================== */}
 
         <div className="mb-10">
 
-          <h1 className="text-5xl font-black text-[#1F2937] mb-4">
-
+          <h1
+            className="
+              text-5xl
+              font-black
+              text-[#1F2937]
+              mb-4
+            "
+          >
             Emotional Stories CMS
-
           </h1>
 
-          <p className="text-lg text-gray-500 max-w-3xl leading-relaxed">
-
-            Manage impactful NGO stories, emotional journeys,
-            inclusive learning moments, and child development experiences.
-
+          <p
+            className="
+              text-lg
+              text-gray-500
+              max-w-3xl
+              leading-relaxed
+            "
+          >
+            Manage impactful NGO stories,
+            emotional journeys,
+            inclusive learning moments,
+            and child development
+            experiences.
           </p>
 
         </div>
 
-        {/* FORM */}
+        {/* =====================================
+            FORM
+        ===================================== */}
 
-        <div className="bg-white rounded-[35px] p-8 shadow-sm border border-gray-100 mb-12">
+        <div
+          className="
+            bg-white
+            rounded-[35px]
+            p-8
+            shadow-sm
+            border
+            border-gray-100
+            mb-12
+          "
+        >
 
           <form
-            onSubmit={submitHandler}
-            className="space-y-6"
+            onSubmit={
+              submitHandler
+            }
+
+            className="
+              space-y-6
+            "
           >
 
             {/* TITLE */}
 
             <input
               type="text"
+
               name="title"
+
               placeholder="Story Title"
-              value={formData.title}
-              onChange={handleChange}
-              className="w-full h-[65px] px-6 rounded-2xl bg-[#F3F4F6] outline-none"
+
+              value={
+                formData.title
+              }
+
+              onChange={
+                handleChange
+              }
+
+              className="
+                w-full
+                h-[65px]
+                px-6
+                rounded-2xl
+                bg-[#F3F4F6]
+                outline-none
+              "
+
               required
             />
 
@@ -279,11 +401,28 @@ function StoriesAdmin() {
 
             <textarea
               rows="5"
+
               name="desc"
+
               placeholder="Emotional impact story"
-              value={formData.desc}
-              onChange={handleChange}
-              className="w-full p-6 rounded-2xl bg-[#F3F4F6] outline-none resize-none"
+
+              value={
+                formData.desc
+              }
+
+              onChange={
+                handleChange
+              }
+
+              className="
+                w-full
+                p-6
+                rounded-2xl
+                bg-[#F3F4F6]
+                outline-none
+                resize-none
+              "
+
               required
             />
 
@@ -291,9 +430,23 @@ function StoriesAdmin() {
 
             <select
               name="category"
-              value={formData.category}
-              onChange={handleChange}
-              className="w-full h-[65px] px-6 rounded-2xl bg-[#F3F4F6] outline-none"
+
+              value={
+                formData.category
+              }
+
+              onChange={
+                handleChange
+              }
+
+              className="
+                w-full
+                h-[65px]
+                px-6
+                rounded-2xl
+                bg-[#F3F4F6]
+                outline-none
+              "
             >
 
               <option>
@@ -322,9 +475,23 @@ function StoriesAdmin() {
 
             <select
               name="type"
-              value={formData.type}
-              onChange={handleChange}
-              className="w-full h-[65px] px-6 rounded-2xl bg-[#F3F4F6] outline-none"
+
+              value={
+                formData.type
+              }
+
+              onChange={
+                handleChange
+              }
+
+              className="
+                w-full
+                h-[65px]
+                px-6
+                rounded-2xl
+                bg-[#F3F4F6]
+                outline-none
+              "
             >
 
               <option value="large">
@@ -347,26 +514,69 @@ function StoriesAdmin() {
 
               <input
                 type="file"
-                onChange={uploadImage}
-                className="w-full p-5 rounded-2xl bg-[#F3F4F6]"
+
+                accept="image/*"
+
+                onChange={
+                  uploadImage
+                }
+
+                className="
+                  w-full
+                  p-5
+                  rounded-2xl
+                  bg-[#F3F4F6]
+                  cursor-pointer
+                "
               />
+
+              {/* LOADING */}
 
               {uploading && (
 
-                <p className="text-[#E63946] font-semibold">
-
+                <p
+                  className="
+                    text-[#E63946]
+                    font-semibold
+                  "
+                >
                   Uploading image...
-
                 </p>
 
               )}
 
+              {/* PREVIEW */}
+
               {formData.image && (
 
                 <img
-                  src={`https://prarambha-backend.onrender.com${formData.image}`}
+                  src={
+                    getImageUrl(
+                      formData.image
+                    )
+                  }
+
                   alt="Preview"
-                  className="w-full h-[320px] object-cover rounded-[30px]"
+
+                  loading="lazy"
+
+                  onError={(
+                    e
+                  ) => {
+
+                    e.target.onerror =
+                      null
+
+                    e.target.src =
+                      "https://via.placeholder.com/1200x700?text=Story+Image"
+                  }}
+
+                  className="
+                    w-full
+                    h-[320px]
+                    object-cover
+                    rounded-[30px]
+                  "
                 />
 
               )}
@@ -377,8 +587,24 @@ function StoriesAdmin() {
 
             <button
               type="submit"
-              disabled={loading}
-              className="w-full bg-[#E63946] hover:bg-[#d62839] text-white py-5 rounded-2xl font-bold text-lg transition-all"
+
+              disabled={
+                loading
+              }
+
+              className="
+                w-full
+                bg-[#E63946]
+                hover:bg-[#d62839]
+                text-white
+                py-5
+                rounded-2xl
+                font-bold
+                text-lg
+                transition-all
+                disabled:opacity-50
+                disabled:cursor-not-allowed
+              "
             >
 
               {loading
@@ -393,104 +619,252 @@ function StoriesAdmin() {
 
         </div>
 
-        {/* STORIES */}
+        {/* =====================================
+            STORIES
+        ===================================== */}
 
         <div>
 
-          <div className="flex items-center justify-between mb-8">
+          <div
+            className="
+              flex
+              items-center
+              justify-between
+              mb-8
+            "
+          >
 
-            <h2 className="text-4xl font-black text-[#1F2937]">
-
+            <h2
+              className="
+                text-4xl
+                font-black
+                text-[#1F2937]
+              "
+            >
               Uploaded Stories
-
             </h2>
 
-            <div className="bg-[#FFF4F4] text-[#E63946] px-5 py-3 rounded-full font-bold">
-
-              {stories.length} Stories
-
+            <div
+              className="
+                bg-[#FFF4F4]
+                text-[#E63946]
+                px-5
+                py-3
+                rounded-full
+                font-bold
+              "
+            >
+              {stories.length}
+              {" "}
+              Stories
             </div>
 
           </div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {/* GRID */}
 
-            {stories.map((item) => (
+          <div
+            className="
+              grid
+              md:grid-cols-2
+              xl:grid-cols-3
+              gap-8
+            "
+          >
 
-              <div
-                key={item._id}
-                className="bg-white rounded-[30px] overflow-hidden shadow-sm border border-gray-100"
-              >
+            {Array.isArray(
+              stories
+            ) && stories.map(
+              (item) => (
 
-                {/* IMAGE */}
+                <div
+                  key={
+                    item._id
+                  }
 
-                <img
-                  src={`https://prarambha-backend.onrender.com${item.image}`}
-                  alt={item.title}
-                  className="w-full h-[260px] object-cover"
-                />
+                  className="
+                    bg-white
+                    rounded-[30px]
+                    overflow-hidden
+                    shadow-sm
+                    border
+                    border-gray-100
+                    hover:shadow-xl
+                    transition-all
+                  "
+                >
 
-                {/* CONTENT */}
+                  {/* IMAGE */}
 
-                <div className="p-6">
+                  <img
+                    src={
+                      getImageUrl(
+                        item.image
+                      )
+                    }
 
-                  <div className="inline-block bg-[#FFF4F4] text-[#E63946] text-sm font-bold px-4 py-2 rounded-full mb-4">
+                    alt={
+                      item.title
+                    }
 
-                    {item.category}
+                    loading="lazy"
 
-                  </div>
+                    onError={(
+                      e
+                    ) => {
 
-                  <h3 className="text-2xl font-black text-[#1F2937] mb-3 leading-snug">
+                      e.target.onerror =
+                        null
 
-                    {item.title}
+                      e.target.src =
+                        "https://via.placeholder.com/1200x700?text=Story+Image"
+                    }}
 
-                  </h3>
+                    className="
+                      w-full
+                      h-[260px]
+                      object-cover
+                    "
+                  />
 
-                  <p className="text-gray-600 leading-relaxed mb-6 line-clamp-3">
+                  {/* CONTENT */}
 
-                    {item.desc}
+                  <div className="p-6">
 
-                  </p>
+                    {/* CATEGORY */}
 
-                  <div className="bg-[#F3F4F6] text-[#111827] text-sm font-semibold px-4 py-2 rounded-full inline-block mb-6">
-
-                    {item.type} card
-
-                  </div>
-
-                  {/* BUTTONS */}
-
-                  <div className="flex gap-3">
-
-                    <button
-                      onClick={() =>
-                        editHandler(item)
+                    <div
+                      className="
+                        inline-block
+                        bg-[#FFF4F4]
+                        text-[#E63946]
+                        text-sm
+                        font-bold
+                        px-4
+                        py-2
+                        rounded-full
+                        mb-4
+                      "
+                    >
+                      {
+                        item.category
                       }
-                      className="flex-1 bg-[#E63946] hover:bg-[#d62839] text-white py-4 rounded-2xl font-bold transition-all"
+                    </div>
+
+                    {/* TITLE */}
+
+                    <h3
+                      className="
+                        text-2xl
+                        font-black
+                        text-[#1F2937]
+                        mb-3
+                        leading-snug
+                      "
+                    >
+                      {
+                        item.title
+                      }
+                    </h3>
+
+                    {/* DESCRIPTION */}
+
+                    <p
+                      className="
+                        text-gray-600
+                        leading-relaxed
+                        mb-6
+                        line-clamp-3
+                      "
+                    >
+                      {
+                        item.desc
+                      }
+                    </p>
+
+                    {/* TYPE */}
+
+                    <div
+                      className="
+                        bg-[#F3F4F6]
+                        text-[#111827]
+                        text-sm
+                        font-semibold
+                        px-4
+                        py-2
+                        rounded-full
+                        inline-block
+                        mb-6
+                      "
+                    >
+                      {item.type}
+                      {" "}
+                      card
+                    </div>
+
+                    {/* BUTTONS */}
+
+                    <div
+                      className="
+                        flex
+                        gap-3
+                      "
                     >
 
-                      Edit
+                      {/* EDIT */}
 
-                    </button>
+                      <button
+                        onClick={() =>
+                          editHandler(
+                            item
+                          )
+                        }
 
-                    <button
-                      onClick={() =>
-                        deleteHandler(item._id)
-                      }
-                      className="flex-1 bg-black hover:bg-[#111827] text-white py-4 rounded-2xl font-bold transition-all"
-                    >
+                        className="
+                          flex-1
+                          bg-[#E63946]
+                          hover:bg-[#d62839]
+                          text-white
+                          py-4
+                          rounded-2xl
+                          font-bold
+                          transition-all
+                        "
+                      >
+                        Edit
+                      </button>
 
-                      Delete
+                      {/* DELETE */}
 
-                    </button>
+                      <button
+                        onClick={() =>
+                          deleteHandler(
+                            item._id
+                          )
+                        }
+
+                        className="
+                          flex-1
+                          bg-black
+                          hover:bg-[#111827]
+                          text-white
+                          py-4
+                          rounded-2xl
+                          font-bold
+                          transition-all
+                        "
+                      >
+                        Delete
+                      </button>
+
+                    </div>
 
                   </div>
 
                 </div>
 
-              </div>
-
-            ))}
+              )
+            )}
 
           </div>
 

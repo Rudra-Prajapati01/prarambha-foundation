@@ -10,7 +10,12 @@ import Stats from "../components/common/Stats"
 
 function Home() {
 
-  const [pageData, setPageData] = useState(null)
+  const [pageData, setPageData] =
+    useState(null)
+
+  /* =====================================
+      FETCH PAGE DATA
+  ===================================== */
 
   useEffect(() => {
 
@@ -18,21 +23,27 @@ function Home() {
 
   }, [])
 
-  const fetchPage = async () => {
+  const fetchPage =
+    async () => {
 
-    try {
+      try {
 
-      const { data } = await axios.get(
-        "https://prarambha-backend.onrender.com/api/pages/home"
-      )
+        const { data } =
+          await axios.get(
+            "https://prarambha-backend.onrender.com/api/pages/home"
+          )
 
-      setPageData(data)
+        setPageData(data)
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error)
+        console.log(error)
+      }
     }
-  }
+
+  /* =====================================
+      LOADING
+  ===================================== */
 
   if (!pageData) {
 
@@ -44,13 +55,37 @@ function Home() {
           flex
           items-center
           justify-center
-          text-3xl
-          font-extrabold
-          text-[#1F2937]
+          bg-white
         "
       >
 
-        Loading...
+        <div className="text-center">
+
+          <div
+            className="
+              w-16
+              h-16
+              border-4
+              border-[#E63946]
+              border-t-transparent
+              rounded-full
+              animate-spin
+              mx-auto
+              mb-5
+            "
+          />
+
+          <h2
+            className="
+              text-3xl
+              font-extrabold
+              text-[#1F2937]
+            "
+          >
+            Loading...
+          </h2>
+
+        </div>
 
       </div>
 
@@ -59,20 +94,61 @@ function Home() {
 
   return (
 
-    <div className="w-full overflow-x-hidden bg-white">
+    <div
+      className="
+        w-full
+        overflow-x-hidden
+        bg-white
+      "
+    >
 
-      <Navbar/>
+      {/* =====================================
+          NAVBAR
+      ===================================== */}
 
+      <Navbar
+        pageData={pageData}
+      />
 
-      <Hero pageData={pageData} />
+      {/* =====================================
+          HERO
+      ===================================== */}
 
-      <Programs pageData={pageData} />
+      <Hero
+        pageData={pageData}
+      />
 
-      <Stats pageData={pageData} />
+      {/* =====================================
+          PROGRAMS
+      ===================================== */}
 
-      <Story pageData={pageData} />
+      <Programs
+        pageData={pageData}
+      />
 
-      <Footer />
+      {/* =====================================
+          STATS
+      ===================================== */}
+
+      <Stats
+        pageData={pageData}
+      />
+
+      {/* =====================================
+          STORIES
+      ===================================== */}
+
+      <Story
+        pageData={pageData}
+      />
+
+      {/* =====================================
+          FOOTER
+      ===================================== */}
+
+      <Footer
+        pageData={pageData}
+      />
 
     </div>
   )

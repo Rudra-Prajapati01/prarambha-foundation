@@ -9,7 +9,13 @@ import StoriesCTA from "./StoriesCTA"
 import Navbar from "../Navbar"
 import Footer from "../Footer"
 
+import { usePageData }
+from "../../../context/PageContext"
+
 function Stories() {
+
+    const { pageData } =
+        usePageData()
 
     const navigate = useNavigate()
 
@@ -103,7 +109,10 @@ function Stories() {
 
         /* CLOUDINARY */
 
-        if (image.startsWith("http")) {
+        if (
+            typeof image === "string"
+            && image.startsWith("http")
+        ) {
 
             return image
         }
@@ -125,7 +134,9 @@ function Stories() {
 
         <div className="bg-[#FFFDFB] min-h-screen">
 
-            <Navbar />
+            <Navbar
+                pageData={pageData}
+            />
 
 
             {/* =========================================
@@ -606,8 +617,9 @@ function Stories() {
                 </div>
 
             </section>
-
-            <Footer />
+            <Footer
+                pageData={pageData}
+            />
         </div>
     )
 }

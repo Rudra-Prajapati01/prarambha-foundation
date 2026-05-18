@@ -35,12 +35,6 @@ function Sidebar() {
     },
 
     {
-      title: "Programs",
-      icon: <FaHandsHelping />,
-      path: "/admin/programs",
-    },
-
-    {
       title: "Gallery",
       icon: <FaImages />,
       path: "/admin/gallery",

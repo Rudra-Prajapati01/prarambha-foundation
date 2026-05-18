@@ -216,7 +216,8 @@ function ProgramsEditor({
     if (!image)
       return "https://via.placeholder.com/600x400?text=Program+Image"
 
-    return image.startsWith("http")
+    return typeof image === "string"
+      && image.startsWith("http")
       ? image
       : `https://prarambha-backend.onrender.com${image}`
   }
@@ -490,9 +491,8 @@ function ProgramsEditor({
                       <input
                         type="text"
 
-                        placeholder={`Point ${
-                          pointIndex + 1
-                        }`}
+                        placeholder={`Point ${pointIndex + 1
+                          }`}
 
                         value={point}
 

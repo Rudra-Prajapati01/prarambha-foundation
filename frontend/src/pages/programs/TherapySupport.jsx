@@ -1,7 +1,19 @@
 import Navbar from "../../components/common/Navbar"
 import Footer from "../../components/common/Footer"
 
+import {
+  usePageData,
+} from "../../context/PageContext"
+
 export default function TherapySupport() {
+
+  /* =====================================
+      GLOBAL PAGE DATA
+  ===================================== */
+
+  const {
+    pageData,
+  } = usePageData()
 
   const therapies = [
 
@@ -294,7 +306,11 @@ export default function TherapySupport() {
 
       <div className="therapy-page">
 
-        <Navbar />
+        {/* NAVBAR */}
+
+        <Navbar
+          pageData={pageData}
+        />
 
         {/* HERO */}
 
@@ -391,7 +407,108 @@ export default function TherapySupport() {
 
         </section>
 
-        <Footer />
+        {/* IMPACT */}
+
+        <section className="impact-section">
+
+          <div className="impact-inner">
+
+            <h2 className="section-title">
+
+              Therapy <span>Impact</span>
+
+            </h2>
+
+            <div className="impact-grid">
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  400+
+                </div>
+
+                <div className="impact-text">
+                  Children supported through therapy and developmental programs.
+                </div>
+
+              </div>
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  120+
+                </div>
+
+                <div className="impact-text">
+                  Families guided with home-based therapy support strategies.
+                </div>
+
+              </div>
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  50+
+                </div>
+
+                <div className="impact-text">
+                  Therapy sessions and developmental activities conducted monthly.
+                </div>
+
+              </div>
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  95%
+                </div>
+
+                <div className="impact-text">
+                  Improvement observed in communication, focus, and daily participation.
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* CTA */}
+
+        <section className="cta-section">
+
+          <h2 className="cta-title">
+
+            Supporting Every Child’s <span>Growth</span>
+
+          </h2>
+
+          <p className="cta-desc">
+
+            With the right therapy and guidance,
+            children can develop confidence,
+            independence,
+            communication,
+            and meaningful life skills.
+
+          </p>
+
+          <a
+            href="/contact"
+            className="cta-btn"
+          >
+            Connect With Us
+          </a>
+
+        </section>
+
+        {/* FOOTER */}
+
+        <Footer
+          pageData={pageData}
+        />
 
       </div>
     </>

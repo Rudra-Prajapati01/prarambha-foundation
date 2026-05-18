@@ -5,42 +5,71 @@ import AdminLayout from "../layouts/AdminLayout"
 
 function GalleryAdmin() {
 
-  const [gallery, setGallery] = useState([])
+  const [gallery, setGallery] =
+    useState([])
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] =
+    useState(false)
 
-  const [uploading, setUploading] = useState(false)
+  const [uploading, setUploading] =
+    useState(false)
 
-  const [editingId, setEditingId] = useState(null)
+  const [editingId, setEditingId] =
+    useState(null)
 
-  const [formData, setFormData] = useState({
-    title: "",
-    caption: "",
-    category: "Therapy Sessions",
-    image: "",
-  })
+  const [formData, setFormData] =
+    useState({
+
+      title: "",
+
+      caption: "",
+
+      category:
+        "Therapy Sessions",
+
+      image: "",
+    })
+
+  /* =====================================
+      IMAGE SUPPORT
+  ===================================== */
+
+  const getImageUrl = (
+    image
+  ) => {
+
+    if (!image) {
+
+      return "https://via.placeholder.com/1200x700?text=Gallery+Image"
+    }
+
+    return typeof image === "string"
+      && image.startsWith("http")
+        ? image
+        : `https://prarambha-backend.onrender.com${image}`
+  }
 
   /* =====================================
       FETCH GALLERY
   ===================================== */
 
-  const fetchGallery = async () => {
+  const fetchGallery =
+    async () => {
 
-    try {
+      try {
 
-      const { data } =
-        await axios.get(
-          "https://prarambha-backend.onrender.com/api/gallery"
-        )
+        const { data } =
+          await axios.get(
+            "https://prarambha-backend.onrender.com/api/gallery"
+          )
 
-      setGallery(data)
+        setGallery(data)
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error)
-
+        console.log(error)
+      }
     }
-  }
 
   useEffect(() => {
 
@@ -52,13 +81,21 @@ function GalleryAdmin() {
       HANDLE CHANGE
   ===================================== */
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e
+  ) => {
 
-    const { name, value } = e.target
+    const {
+      name,
+      value,
+    } = e.target
 
     setFormData((prev) => ({
+
       ...prev,
-      [name]: value,
+
+      [name]:
+        value,
     }))
   }
 
@@ -66,108 +103,152 @@ function GalleryAdmin() {
       UPLOAD IMAGE
   ===================================== */
 
-  const uploadImage = async (e) => {
+  const uploadImage =
+    async (e) => {
 
-    const file = e.target.files[0]
+      const file =
+        e.target.files[0]
 
-    if (!file) return
+      if (!file) return
 
-    const data = new FormData()
+      const data =
+        new FormData()
 
-    data.append("image", file)
-
-    try {
-
-      setUploading(true)
-
-      const res = await axios.post(
-        "https://prarambha-backend.onrender.com/api/upload",
-        data
+      data.append(
+        "image",
+        file
       )
 
-      setFormData((prev) => ({
-        ...prev,
-        image: res.data.image,
-      }))
+      try {
 
-    } catch (error) {
+        setUploading(true)
 
-      console.log(error)
+        const res =
+          await axios.post(
+            "https://prarambha-backend.onrender.com/api/upload",
+            data
+          )
 
-    } finally {
+        /* SAFE RESPONSE */
 
-      setUploading(false)
+        if (
+          !res.data?.image
+        ) {
 
+          console.log(
+            "Upload failed"
+          )
+
+          return
+        }
+
+        setFormData(
+          (prev) => ({
+
+            ...prev,
+
+            image:
+              res.data.image,
+          })
+        )
+
+      } catch (error) {
+
+        console.log(error)
+
+      } finally {
+
+        setUploading(false)
+      }
     }
-  }
 
   /* =====================================
-      CREATE / UPDATE GALLERY
+      CREATE / UPDATE
   ===================================== */
 
-  const submitHandler = async (e) => {
+  const submitHandler =
+    async (e) => {
 
-    e.preventDefault()
+      e.preventDefault()
 
-    try {
+      try {
 
-      setLoading(true)
+        setLoading(true)
 
-      if (editingId) {
+        if (editingId) {
 
-        await axios.put(
-          `https://prarambha-backend.onrender.com/api/gallery/${editingId}`,
-          formData
-        )
+          await axios.put(
+            `https://prarambha-backend.onrender.com/api/gallery/${editingId}`,
+            formData
+          )
 
-      } else {
+        } else {
 
-        await axios.post(
-          "https://prarambha-backend.onrender.com/api/gallery",
-          formData
-        )
+          await axios.post(
+            "https://prarambha-backend.onrender.com/api/gallery",
+            formData
+          )
+        }
+
+        /* RESET */
+
+        setFormData({
+
+          title: "",
+
+          caption: "",
+
+          category:
+            "Therapy Sessions",
+
+          image: "",
+        })
+
+        setEditingId(null)
+
+        fetchGallery()
+
+      } catch (error) {
+
+        console.log(error)
+
+      } finally {
+
+        setLoading(false)
       }
-
-      setFormData({
-        title: "",
-        caption: "",
-        category: "Therapy Sessions",
-        image: "",
-      })
-
-      setEditingId(null)
-
-      fetchGallery()
-
-    } catch (error) {
-
-      console.log(error)
-
-    } finally {
-
-      setLoading(false)
-
     }
-  }
 
   /* =====================================
       EDIT ITEM
   ===================================== */
 
-  const editHandler = (item) => {
+  const editHandler = (
+    item
+  ) => {
 
     setEditingId(item._id)
 
     setFormData({
-      title: item.title,
-      caption: item.caption,
-      category: item.category,
-      image: item.image,
+
+      title:
+        item.title,
+
+      caption:
+        item.caption,
+
+      category:
+        item.category,
+
+      image:
+        item.image,
     })
 
     window.scrollTo({
+
       top: 0,
-      behavior: "smooth",
+
+      behavior:
+        "smooth",
     })
   }
 
@@ -175,86 +256,184 @@ function GalleryAdmin() {
       DELETE ITEM
   ===================================== */
 
-  const deleteHandler = async (id) => {
+  const deleteHandler =
+    async (id) => {
 
-    const confirmDelete =
-      window.confirm(
-        "Delete this gallery item?"
-      )
+      const confirmDelete =
+        window.confirm(
+          "Delete this gallery item?"
+        )
 
-    if (!confirmDelete) return
+      if (
+        !confirmDelete
+      ) return
 
-    try {
+      try {
 
-      await axios.delete(
-        `https://prarambha-backend.onrender.com/api/gallery/${id}`
-      )
+        await axios.delete(
+          `https://prarambha-backend.onrender.com/api/gallery/${id}`
+        )
 
-      fetchGallery()
+        fetchGallery()
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error)
-
+        console.log(error)
+      }
     }
-  }
 
   return (
 
     <AdminLayout>
 
-      <div className="max-w-7xl mx-auto px-4 py-10">
+      <div
+        className="
+          max-w-7xl
+          mx-auto
+          px-4
+          py-10
+        "
+      >
 
-        {/* HEADER */}
+        {/* =====================================
+            HEADER
+        ===================================== */}
+
         <div className="mb-10">
 
-          <h1 className="text-5xl font-black text-[#1F2937] mb-4">
+          <h1
+            className="
+              text-5xl
+              font-black
+              text-[#1F2937]
+              mb-4
+            "
+          >
             Emotional Gallery CMS
           </h1>
 
-          <p className="text-lg text-gray-500 max-w-3xl leading-relaxed">
-            Upload meaningful moments that reflect growth,
-            inclusion, therapy, learning, and emotional connection.
+          <p
+            className="
+              text-lg
+              text-gray-500
+              max-w-3xl
+              leading-relaxed
+            "
+          >
+            Upload meaningful moments
+            that reflect growth,
+            inclusion, therapy,
+            learning, and emotional
+            connection.
           </p>
 
         </div>
 
-        {/* FORM */}
-        <div className="bg-white rounded-[35px] p-8 shadow-sm border border-gray-100 mb-12">
+        {/* =====================================
+            FORM
+        ===================================== */}
+
+        <div
+          className="
+            bg-white
+            rounded-[35px]
+            p-8
+            shadow-sm
+            border
+            border-gray-100
+            mb-12
+          "
+        >
 
           <form
-            onSubmit={submitHandler}
-            className="space-y-6"
+            onSubmit={
+              submitHandler
+            }
+
+            className="
+              space-y-6
+            "
           >
 
             {/* TITLE */}
+
             <input
               type="text"
+
               name="title"
+
               placeholder="Story Title"
-              value={formData.title}
-              onChange={handleChange}
-              className="w-full h-[65px] px-6 rounded-2xl bg-[#F3F4F6] outline-none"
+
+              value={
+                formData.title
+              }
+
+              onChange={
+                handleChange
+              }
+
+              className="
+                w-full
+                h-[65px]
+                px-6
+                rounded-2xl
+                bg-[#F3F4F6]
+                outline-none
+              "
+
               required
             />
 
             {/* CAPTION */}
+
             <textarea
               rows="5"
+
               name="caption"
+
               placeholder="Emotional caption or short impact story"
-              value={formData.caption}
-              onChange={handleChange}
-              className="w-full p-6 rounded-2xl bg-[#F3F4F6] outline-none resize-none"
+
+              value={
+                formData.caption
+              }
+
+              onChange={
+                handleChange
+              }
+
+              className="
+                w-full
+                p-6
+                rounded-2xl
+                bg-[#F3F4F6]
+                outline-none
+                resize-none
+              "
+
               required
             />
 
             {/* CATEGORY */}
+
             <select
               name="category"
-              value={formData.category}
-              onChange={handleChange}
-              className="w-full h-[65px] px-6 rounded-2xl bg-[#F3F4F6] outline-none"
+
+              value={
+                formData.category
+              }
+
+              onChange={
+                handleChange
+              }
+
+              className="
+                w-full
+                h-[65px]
+                px-6
+                rounded-2xl
+                bg-[#F3F4F6]
+                outline-none
+              "
             >
 
               <option>
@@ -284,51 +463,103 @@ function GalleryAdmin() {
             </select>
 
             {/* IMAGE */}
+
             <div className="space-y-4">
 
               <input
                 type="file"
-                onChange={uploadImage}
-                className="w-full p-5 rounded-2xl bg-[#F3F4F6]"
+
+                accept="image/*"
+
+                onChange={
+                  uploadImage
+                }
+
+                className="
+                  w-full
+                  p-5
+                  rounded-2xl
+                  bg-[#F3F4F6]
+                  cursor-pointer
+                "
               />
+
+              {/* LOADING */}
 
               {uploading && (
 
-                <p className="text-[#E63946] font-semibold">
+                <p
+                  className="
+                    text-[#E63946]
+                    font-semibold
+                  "
+                >
                   Uploading image...
                 </p>
 
               )}
 
+              {/* PREVIEW */}
+
               {formData.image && (
 
                 <img
-                    src={formData.image}
-                    alt="Preview"
+                  src={
+                    getImageUrl(
+                      formData.image
+                    )
+                  }
 
-                    onError={(e) => {
-                      e.target.src =
-                        "https://via.placeholder.com/1200x700?text=Gallery+Image"
-                    }}
+                  alt="Preview"
 
-                    className="
-                      w-full
-                      h-[320px]
-                      object-contain
-                      bg-black
-                      rounded-[30px]
-                    "
-                  />
+                  loading="lazy"
+
+                  onError={(
+                    e
+                  ) => {
+
+                    e.target.onerror =
+                      null
+
+                    e.target.src =
+                      "https://via.placeholder.com/1200x700?text=Gallery+Image"
+                  }}
+
+                  className="
+                    w-full
+                    h-[320px]
+                    object-contain
+                    bg-black
+                    rounded-[30px]
+                  "
+                />
 
               )}
 
             </div>
 
             {/* BUTTON */}
+
             <button
               type="submit"
-              disabled={loading}
-              className="w-full bg-[#E63946] hover:bg-[#d62839] text-white py-5 rounded-2xl font-bold text-lg transition-all"
+
+              disabled={
+                loading
+              }
+
+              className="
+                w-full
+                bg-[#E63946]
+                hover:bg-[#d62839]
+                text-white
+                py-5
+                rounded-2xl
+                font-bold
+                text-lg
+                transition-all
+                disabled:opacity-50
+                disabled:cursor-not-allowed
+              "
             >
 
               {loading
@@ -343,36 +574,103 @@ function GalleryAdmin() {
 
         </div>
 
-        {/* GALLERY ITEMS */}
+        {/* =====================================
+            GALLERY ITEMS
+        ===================================== */}
+
         <div>
 
-          <div className="flex items-center justify-between mb-8">
+          <div
+            className="
+              flex
+              items-center
+              justify-between
+              mb-8
+            "
+          >
 
-            <h2 className="text-4xl font-black text-[#1F2937]">
+            <h2
+              className="
+                text-4xl
+                font-black
+                text-[#1F2937]
+              "
+            >
               Uploaded Stories
             </h2>
 
-            <div className="bg-[#FFF4F4] text-[#E63946] px-5 py-3 rounded-full font-bold">
-              {gallery.length} Stories
+            <div
+              className="
+                bg-[#FFF4F4]
+                text-[#E63946]
+                px-5
+                py-3
+                rounded-full
+                font-bold
+              "
+            >
+              {gallery.length}
+              {" "}
+              Stories
             </div>
 
           </div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {/* GRID */}
 
-            {gallery.map((item) => (
+          <div
+            className="
+              grid
+              md:grid-cols-2
+              xl:grid-cols-3
+              gap-8
+            "
+          >
 
-              <div
-                key={item._id}
-                className="bg-white rounded-[30px] overflow-hidden shadow-sm border border-gray-100"
-              >
+            {Array.isArray(
+              gallery
+            ) && gallery.map(
+              (item) => (
 
-                {/* IMAGE */}
-                <img
-                    src={item.image}
-                    alt={item.title}
+                <div
+                  key={
+                    item._id
+                  }
 
-                    onError={(e) => {
+                  className="
+                    bg-white
+                    rounded-[30px]
+                    overflow-hidden
+                    shadow-sm
+                    border
+                    border-gray-100
+                    hover:shadow-xl
+                    transition-all
+                  "
+                >
+
+                  {/* IMAGE */}
+
+                  <img
+                    src={
+                      getImageUrl(
+                        item.image
+                      )
+                    }
+
+                    alt={
+                      item.title
+                    }
+
+                    loading="lazy"
+
+                    onError={(
+                      e
+                    ) => {
+
+                      e.target.onerror =
+                        null
+
                       e.target.src =
                         "https://via.placeholder.com/1200x700?text=Gallery+Image"
                     }}
@@ -384,51 +682,123 @@ function GalleryAdmin() {
                     "
                   />
 
-                {/* CONTENT */}
-                <div className="p-6">
+                  {/* CONTENT */}
 
-                  <div className="inline-block bg-[#FFF4F4] text-[#E63946] text-sm font-bold px-4 py-2 rounded-full mb-4">
-                    {item.category}
-                  </div>
+                  <div className="p-6">
 
-                  <h3 className="text-2xl font-black text-[#1F2937] mb-3 leading-snug">
-                    {item.title}
-                  </h3>
+                    {/* CATEGORY */}
 
-                  <p className="text-gray-600 leading-relaxed mb-6">
-                    {item.caption}
-                  </p>
-
-                  {/* ACTION BUTTONS */}
-                  <div className="flex gap-3">
-
-                    {/* EDIT */}
-                    <button
-                      onClick={() =>
-                        editHandler(item)
-                      }
-                      className="flex-1 bg-[#E63946] hover:bg-[#d62839] text-white py-4 rounded-2xl font-bold transition-all"
+                    <div
+                      className="
+                        inline-block
+                        bg-[#FFF4F4]
+                        text-[#E63946]
+                        text-sm
+                        font-bold
+                        px-4
+                        py-2
+                        rounded-full
+                        mb-4
+                      "
                     >
-                      Edit Story
-                    </button>
-
-                    {/* DELETE */}
-                    <button
-                      onClick={() =>
-                        deleteHandler(item._id)
+                      {
+                        item.category
                       }
-                      className="flex-1 bg-black hover:bg-[#111827] text-white py-4 rounded-2xl font-bold transition-all"
+                    </div>
+
+                    {/* TITLE */}
+
+                    <h3
+                      className="
+                        text-2xl
+                        font-black
+                        text-[#1F2937]
+                        mb-3
+                        leading-snug
+                      "
                     >
-                      Delete
-                    </button>
+                      {
+                        item.title
+                      }
+                    </h3>
+
+                    {/* CAPTION */}
+
+                    <p
+                      className="
+                        text-gray-600
+                        leading-relaxed
+                        mb-6
+                      "
+                    >
+                      {
+                        item.caption
+                      }
+                    </p>
+
+                    {/* ACTIONS */}
+
+                    <div
+                      className="
+                        flex
+                        gap-3
+                      "
+                    >
+
+                      {/* EDIT */}
+
+                      <button
+                        onClick={() =>
+                          editHandler(
+                            item
+                          )
+                        }
+
+                        className="
+                          flex-1
+                          bg-[#E63946]
+                          hover:bg-[#d62839]
+                          text-white
+                          py-4
+                          rounded-2xl
+                          font-bold
+                          transition-all
+                        "
+                      >
+                        Edit Story
+                      </button>
+
+                      {/* DELETE */}
+
+                      <button
+                        onClick={() =>
+                          deleteHandler(
+                            item._id
+                          )
+                        }
+
+                        className="
+                          flex-1
+                          bg-black
+                          hover:bg-[#111827]
+                          text-white
+                          py-4
+                          rounded-2xl
+                          font-bold
+                          transition-all
+                        "
+                      >
+                        Delete
+                      </button>
+
+                    </div>
 
                   </div>
 
                 </div>
 
-              </div>
-
-            ))}
+              )
+            )}
 
           </div>
 

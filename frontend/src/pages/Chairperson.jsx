@@ -3,14 +3,22 @@ import { useEffect, useState } from "react"
 import Navbar from "../components/common/Navbar"
 import Footer from "../components/common/Footer"
 
+import { usePageData }
+from "../context/PageContext"
+
 export default function Chairperson() {
+
+  /* =========================================
+     GLOBAL DATA
+  ========================================= */
+
+  const {
+    pageData: globalPageData,
+  } = usePageData()
 
   /* =========================================
      STATES
   ========================================= */
-
-  const [pageData, setPageData] =
-    useState(null)
 
   const [chairData, setChairData] =
     useState(null)
@@ -24,39 +32,34 @@ export default function Chairperson() {
 
   useEffect(() => {
 
-    const fetchChairperson = async () => {
+    const fetchChairperson =
+      async () => {
 
-      try {
+        try {
 
-        const response =
-          await fetch(
-            "https://prarambha-backend.onrender.com/api/pages/about"
+          const response =
+            await fetch(
+              "https://prarambha-backend.onrender.com/api/pages/about"
+            )
+
+          const data =
+            await response.json()
+
+          /* ONLY CHAIRPERSON */
+
+          setChairData(
+            data?.chairperson
           )
 
-        const data =
-          await response.json()
+        } catch (error) {
 
-        console.log(data)
+          console.log(error)
 
-        /* FULL PAGE DATA */
+        } finally {
 
-        setPageData(data)
-
-        /* ONLY CHAIRPERSON */
-
-        setChairData(
-          data?.chairperson
-        )
-
-      } catch (error) {
-
-        console.log(error)
-
-      } finally {
-
-        setLoading(false)
+          setLoading(false)
+        }
       }
-    }
 
     fetchChairperson()
 
@@ -67,10 +70,16 @@ export default function Chairperson() {
   ========================================= */
 
   const chairImage =
+
     chairData?.image
-      ? chairData.image.startsWith("http")
-        ? chairData.image
-        : `https://prarambha-backend.onrender.com${chairData.image}`
+
+      ? typeof chairData.image === "string"
+        && chairData.image.startsWith("http")
+
+          ? chairData.image
+
+          : `https://prarambha-backend.onrender.com${chairData.image}`
+
       : "https://i.pravatar.cc/500?img=47"
 
   /* =========================================
@@ -80,8 +89,12 @@ export default function Chairperson() {
   if (loading) {
 
     return (
+
       <>
-        <Navbar />
+
+        <Navbar
+          pageData={globalPageData}
+        />
 
         <div
           style={{
@@ -89,19 +102,65 @@ export default function Chairperson() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            fontSize: "24px",
-            fontWeight: "700",
+            background: "#fff",
           }}
         >
-          Loading...
+
+          <div
+            style={{
+              textAlign: "center",
+            }}
+          >
+
+            <div
+              style={{
+                width: "70px",
+                height: "70px",
+                border:
+                  "5px solid #E63946",
+                borderTop:
+                  "5px solid transparent",
+                borderRadius: "50%",
+                margin: "0 auto 20px",
+                animation:
+                  "spin 1s linear infinite",
+              }}
+            />
+
+            <h2
+              style={{
+                fontSize: "32px",
+                fontWeight: "900",
+                color: "#0B1B4D",
+              }}
+            >
+              Loading...
+            </h2>
+
+          </div>
+
         </div>
+
+        <style>{`
+          @keyframes spin {
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        `}</style>
+
       </>
     )
   }
 
+  /* =========================================
+     PAGE
+  ========================================= */
+
   return (
 
     <>
+
       <style>{`
 
         .chair-page {
@@ -250,11 +309,17 @@ export default function Chairperson() {
 
       <div className="chair-page">
 
-        {/* NAVBAR */}
+        {/* =====================================
+            NAVBAR
+        ===================================== */}
 
-        <Navbar />
+        <Navbar
+          pageData={globalPageData}
+        />
 
-        {/* CHAIRPERSON SECTION */}
+        {/* =====================================
+            CHAIRPERSON SECTION
+        ===================================== */}
 
         <section className="chair-section">
 
@@ -291,49 +356,61 @@ export default function Chairperson() {
             <div className="chair-content">
 
               <p className="section-tag">
+
                 {
-                  chairData?.heading ||
-                  "Message from the Chairperson"
+                  chairData?.heading
+                  || "Message from the Chairperson"
                 }
+
               </p>
 
               <h1 className="section-title">
 
                 {
-                  chairData?.title ||
-                  <>
-                    Leading with <span>Heart</span>
-                  </>
+                  chairData?.title
+                  || (
+                    <>
+                      Leading with <span>Heart</span>
+                    </>
+                  )
                 }
 
               </h1>
 
               <blockquote className="chair-quote">
+
                 {
-                  chairData?.quote ||
-                  "Every child deserves equal opportunities, compassion, and support."
+                  chairData?.quote
+                  || "Every child deserves equal opportunities, compassion, and support."
                 }
+
               </blockquote>
 
               <p className="section-desc">
+
                 {
-                  chairData?.description ||
-                  "We are dedicated to building an inclusive environment where children can thrive with dignity, confidence, and care."
+                  chairData?.description
+                  || "We are dedicated to building an inclusive environment where children can thrive with dignity, confidence, and care."
                 }
+
               </p>
 
               <div className="chair-name">
+
                 {
-                  chairData?.name ||
-                  "Chairperson Name"
+                  chairData?.name
+                  || "Chairperson Name"
                 }
+
               </div>
 
               <div className="chair-role">
+
                 {
-                  chairData?.role ||
-                  "Founder & Chairperson"
+                  chairData?.role
+                  || "Founder & Chairperson"
                 }
+
               </div>
 
             </div>
@@ -342,11 +419,16 @@ export default function Chairperson() {
 
         </section>
 
-        {/* FOOTER */}
+        {/* =====================================
+            FOOTER
+        ===================================== */}
 
-        <Footer />
+        <Footer
+          pageData={globalPageData}
+        />
 
       </div>
+
     </>
   )
 }

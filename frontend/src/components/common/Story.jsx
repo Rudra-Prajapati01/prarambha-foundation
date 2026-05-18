@@ -10,9 +10,28 @@ function Story() {
   const [stories, setStories] =
     useState([])
 
-  /* =========================
+  /* =====================================
+      IMAGE HELPER
+  ===================================== */
+
+  const getImageUrl = (
+    image
+  ) => {
+
+    if (!image) {
+
+      return "https://via.placeholder.com/1200x800?text=Story+Image"
+    }
+
+    return typeof image === "string"
+      && image.startsWith("http")
+        ? image
+        : `https://prarambha-backend.onrender.com${image}`
+  }
+
+  /* =====================================
       FETCH STORIES
-  ========================= */
+  ===================================== */
 
   useEffect(() => {
 
@@ -26,12 +45,17 @@ function Story() {
               "https://prarambha-backend.onrender.com/api/stories"
             )
 
-          setStories(data)
+          setStories(
+            Array.isArray(data)
+              ? data
+              : []
+          )
 
         } catch (error) {
 
           console.log(error)
 
+          setStories([])
         }
       }
 
@@ -39,27 +63,33 @@ function Story() {
 
   }, [])
 
-  /* =========================
+  /* =====================================
       STORY TYPES
-  ========================= */
+  ===================================== */
 
   const largeStory =
-    stories.find(
-      (story) =>
-        story.type === "large"
-    )
+    Array.isArray(stories)
+      ? stories.find(
+          (story) =>
+            story.type === "large"
+        )
+      : null
 
   const tallStory =
-    stories.find(
-      (story) =>
-        story.type === "tall"
-    )
+    Array.isArray(stories)
+      ? stories.find(
+          (story) =>
+            story.type === "tall"
+        )
+      : null
 
   const smallStories =
-    stories.filter(
-      (story) =>
-        story.type === "small"
-    )
+    Array.isArray(stories)
+      ? stories.filter(
+          (story) =>
+            story.type === "small"
+        )
+      : []
 
   return (
 
@@ -82,7 +112,9 @@ function Story() {
         "
       >
 
-        {/* HEADING */}
+        {/* =====================================
+            HEADING
+        ===================================== */}
 
         <div className="mb-8 lg:mb-10">
 
@@ -124,7 +156,9 @@ function Story() {
 
         </div>
 
-        {/* MOBILE */}
+        {/* =====================================
+            MOBILE
+        ===================================== */}
 
         <div
           className="
@@ -135,148 +169,161 @@ function Story() {
           "
         >
 
-          {stories.map((story) => (
+          {Array.isArray(stories)
+            && stories.map(
+              (story) => (
 
-            <div
-              key={story._id}
-
-              className="
-                relative
-                rounded-[30px]
-                overflow-hidden
-                h-[340px]
-                shadow-[0_10px_40px_rgba(0,0,0,0.08)]
-                group
-              "
-            >
-
-              <img
-                src={
-                  story.image ||
-                  "https://via.placeholder.com/800x600?text=Story+Image"
-                }
-
-                alt={story.title}
-
-                onError={(e) => {
-
-                  e.target.onerror = null
-
-                  e.target.src =
-                    "https://via.placeholder.com/800x600?text=Story+Image"
-                }}
-
-                className="
-                  w-full
-                  h-full
-                  object-cover
-                  group-hover:scale-105
-                  transition
-                  duration-700
-                "
-              />
-
-              <div
-                className="
-                  absolute
-                  inset-0
-                  bg-gradient-to-t
-                  from-black/80
-                  via-black/30
-                  to-transparent
-                "
-              />
-
-              <div
-                className="
-                  absolute
-                  top-4
-                  right-4
-                  bg-[#E63946]
-                  text-white
-                  px-4
-                  py-2
-                  text-[11px]
-                  font-bold
-                  rounded-full
-                "
-              >
-                {story.category}
-              </div>
-
-              <div
-                className="
-                  absolute
-                  bottom-0
-                  left-0
-                  right-0
-                  p-5
-                  text-white
-                "
-              >
-
-                <h3
-                  className="
-                    text-[26px]
-                    font-extrabold
-                    leading-tight
-                    mb-3
-                  "
-                >
-                  {story.title}
-                </h3>
-
-                <p
-                  className="
-                    text-sm
-                    leading-relaxed
-                    text-gray-200
-                    mb-5
-                    line-clamp-3
-                  "
-                >
-                  {story.desc}
-                </p>
-
-                <button
-                  onClick={() =>
-                    navigate(`/stories/${story._id}`)
-                  }
+                <div
+                  key={story._id}
 
                   className="
-                    flex
-                    items-center
-                    gap-3
-                    bg-white/15
-                    backdrop-blur-md
-                    hover:bg-white/25
-                    border
-                    border-white/20
-                    text-white
-                    px-5
-                    py-3
-                    rounded-full
-                    text-sm
-                    font-semibold
-                    transition
+                    relative
+                    rounded-[30px]
+                    overflow-hidden
+                    h-[340px]
+                    shadow-[0_10px_40px_rgba(0,0,0,0.08)]
+                    group
                   "
                 >
 
-                  Read More
+                  <img
+                    src={
+                      getImageUrl(
+                        story.image
+                      )
+                    }
 
-                  <FaArrowRight className="text-xs" />
+                    alt={
+                      story.title
+                    }
 
-                </button>
+                    loading="lazy"
 
-              </div>
+                    onError={(e) => {
 
-            </div>
+                      e.target.onerror = null
 
-          ))}
+                      e.target.src =
+                        "https://via.placeholder.com/800x600?text=Story+Image"
+                    }}
+
+                    className="
+                      w-full
+                      h-full
+                      object-cover
+                      group-hover:scale-105
+                      transition-all
+                      duration-700
+                    "
+                  />
+
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      bg-gradient-to-t
+                      from-black/80
+                      via-black/30
+                      to-transparent
+                    "
+                  />
+
+                  <div
+                    className="
+                      absolute
+                      top-4
+                      right-4
+                      bg-[#E63946]
+                      text-white
+                      px-4
+                      py-2
+                      text-[11px]
+                      font-bold
+                      rounded-full
+                    "
+                  >
+                    {story.category}
+                  </div>
+
+                  <div
+                    className="
+                      absolute
+                      bottom-0
+                      left-0
+                      right-0
+                      p-5
+                      text-white
+                    "
+                  >
+
+                    <h3
+                      className="
+                        text-[26px]
+                        font-extrabold
+                        leading-tight
+                        mb-3
+                      "
+                    >
+                      {story.title}
+                    </h3>
+
+                    <p
+                      className="
+                        text-sm
+                        leading-relaxed
+                        text-gray-200
+                        mb-5
+                        line-clamp-3
+                      "
+                    >
+                      {story.desc}
+                    </p>
+
+                    <button
+                      type="button"
+
+                      onClick={() =>
+                        navigate(`/stories/${story._id}`)
+                      }
+
+                      className="
+                        flex
+                        items-center
+                        gap-3
+                        bg-white/15
+                        backdrop-blur-md
+                        hover:bg-white/25
+                        border
+                        border-white/20
+                        text-white
+                        px-5
+                        py-3
+                        rounded-full
+                        text-sm
+                        font-semibold
+                        transition-all
+                        duration-300
+                      "
+                    >
+
+                      Read More
+
+                      <FaArrowRight className="text-xs" />
+
+                    </button>
+
+                  </div>
+
+                </div>
+
+              )
+            )}
 
         </div>
 
-        {/* DESKTOP */}
+        {/* =====================================
+            DESKTOP
+        ===================================== */}
 
         <div
           className="
@@ -287,7 +334,9 @@ function Story() {
           "
         >
 
-          {/* LEFT */}
+          {/* =====================================
+              LEFT
+          ===================================== */}
 
           <div
             className="
@@ -314,11 +363,16 @@ function Story() {
 
                 <img
                   src={
-                    largeStory.image ||
-                    "https://via.placeholder.com/1200x800?text=Story+Image"
+                    getImageUrl(
+                      largeStory.image
+                    )
                   }
 
-                  alt={largeStory.title}
+                  alt={
+                    largeStory.title
+                  }
+
+                  loading="lazy"
 
                   onError={(e) => {
 
@@ -333,7 +387,7 @@ function Story() {
                     h-full
                     object-cover
                     group-hover:scale-105
-                    transition
+                    transition-all
                     duration-700
                   "
                 />
@@ -391,6 +445,8 @@ function Story() {
                   </p>
 
                   <button
+                    type="button"
+
                     onClick={() =>
                       navigate(`/stories/${largeStory._id}`)
                     }
@@ -406,7 +462,8 @@ function Story() {
                       flex
                       items-center
                       gap-3
-                      transition
+                      transition-all
+                      duration-300
                     "
                   >
 
@@ -426,115 +483,131 @@ function Story() {
 
             <div className="grid grid-cols-2 gap-5">
 
-              {smallStories.map((story) => (
+              {Array.isArray(smallStories)
+                && smallStories.map(
+                  (story) => (
 
-                <div
-                  key={story._id}
-
-                  className="
-                    relative
-                    rounded-[32px]
-                    overflow-hidden
-                    h-[330px]
-                    group
-                  "
-                >
-
-                  <img
-                    src={
-                      story.image ||
-                      "https://via.placeholder.com/800x600?text=Story+Image"
-                    }
-
-                    alt={story.title}
-
-                    onError={(e) => {
-
-                      e.target.onerror = null
-
-                      e.target.src =
-                        "https://via.placeholder.com/800x600?text=Story+Image"
-                    }}
-
-                    className="
-                      w-full
-                      h-full
-                      object-cover
-                    "
-                  />
-
-                  <div className="absolute inset-0 bg-black/35" />
-
-                  <div
-                    className="
-                      absolute
-                      top-5
-                      right-5
-                      bg-[#E63946]
-                      text-white
-                      px-5
-                      py-2
-                      text-sm
-                      font-bold
-                      rounded-full
-                    "
-                  >
-                    {story.category}
-                  </div>
-
-                  <div
-                    className="
-                      absolute
-                      bottom-7
-                      left-7
-                      right-7
-                      text-white
-                    "
-                  >
-
-                    <h3
-                      className="
-                        text-2xl
-                        font-bold
-                        mb-4
-                        leading-snug
-                      "
-                    >
-                      {story.title}
-                    </h3>
-
-                    <button
-                      onClick={() =>
-                        navigate(`/stories/${story._id}`)
-                      }
+                    <div
+                      key={story._id}
 
                       className="
-                        bg-white/20
-                        backdrop-blur-md
-                        hover:bg-white/30
-                        text-white
-                        px-5
-                        py-2
-                        rounded-full
-                        text-sm
-                        font-semibold
-                        transition
+                        relative
+                        rounded-[32px]
+                        overflow-hidden
+                        h-[330px]
+                        group
                       "
                     >
-                      Read More
-                    </button>
 
-                  </div>
+                      <img
+                        src={
+                          getImageUrl(
+                            story.image
+                          )
+                        }
 
-                </div>
+                        alt={
+                          story.title
+                        }
 
-              ))}
+                        loading="lazy"
+
+                        onError={(e) => {
+
+                          e.target.onerror = null
+
+                          e.target.src =
+                            "https://via.placeholder.com/800x600?text=Story+Image"
+                        }}
+
+                        className="
+                          w-full
+                          h-full
+                          object-cover
+                          group-hover:scale-105
+                          transition-all
+                          duration-700
+                        "
+                      />
+
+                      <div className="absolute inset-0 bg-black/35" />
+
+                      <div
+                        className="
+                          absolute
+                          top-5
+                          right-5
+                          bg-[#E63946]
+                          text-white
+                          px-5
+                          py-2
+                          text-sm
+                          font-bold
+                          rounded-full
+                        "
+                      >
+                        {story.category}
+                      </div>
+
+                      <div
+                        className="
+                          absolute
+                          bottom-7
+                          left-7
+                          right-7
+                          text-white
+                        "
+                      >
+
+                        <h3
+                          className="
+                            text-2xl
+                            font-bold
+                            mb-4
+                            leading-snug
+                          "
+                        >
+                          {story.title}
+                        </h3>
+
+                        <button
+                          type="button"
+
+                          onClick={() =>
+                            navigate(`/stories/${story._id}`)
+                          }
+
+                          className="
+                            bg-white/20
+                            backdrop-blur-md
+                            hover:bg-white/30
+                            text-white
+                            px-5
+                            py-2
+                            rounded-full
+                            text-sm
+                            font-semibold
+                            transition-all
+                            duration-300
+                          "
+                        >
+                          Read More
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  )
+                )}
 
             </div>
 
           </div>
 
-          {/* TALL */}
+          {/* =====================================
+              TALL
+          ===================================== */}
 
           {tallStory && (
 
@@ -550,11 +623,16 @@ function Story() {
 
               <img
                 src={
-                  tallStory.image ||
-                  "https://via.placeholder.com/1200x800?text=Story+Image"
+                  getImageUrl(
+                    tallStory.image
+                  )
                 }
 
-                alt={tallStory.title}
+                alt={
+                  tallStory.title
+                }
+
+                loading="lazy"
 
                 onError={(e) => {
 
@@ -568,6 +646,9 @@ function Story() {
                   w-full
                   h-full
                   object-cover
+                  group-hover:scale-105
+                  transition-all
+                  duration-700
                 "
               />
 
@@ -623,6 +704,8 @@ function Story() {
                 </p>
 
                 <button
+                  type="button"
+
                   onClick={() =>
                     navigate(`/stories/${tallStory._id}`)
                   }
@@ -638,7 +721,8 @@ function Story() {
                     flex
                     items-center
                     gap-3
-                    transition
+                    transition-all
+                    duration-300
                   "
                 >
 

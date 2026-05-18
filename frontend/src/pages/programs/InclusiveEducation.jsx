@@ -1,7 +1,19 @@
 import Navbar from "../../components/common/Navbar"
 import Footer from "../../components/common/Footer"
 
+import {
+  usePageData,
+} from "../../context/PageContext"
+
 export default function InclusiveEducation() {
+
+  /* =====================================
+      GLOBAL PAGE DATA
+  ===================================== */
+
+  const {
+    pageData,
+  } = usePageData()
 
   const programs = [
 
@@ -294,8 +306,11 @@ export default function InclusiveEducation() {
 
       <div className="edu-page">
 
-        <Navbar />
+        {/* NAVBAR */}
 
+        <Navbar
+          pageData={pageData}
+        />
 
         {/* HERO */}
 
@@ -392,8 +407,106 @@ export default function InclusiveEducation() {
 
         </section>
 
+        {/* IMPACT */}
 
-        <Footer />
+        <section className="impact-section">
+
+          <div className="impact-inner">
+
+            <h2 className="section-title">
+
+              Education <span>Impact</span>
+
+            </h2>
+
+            <div className="impact-grid">
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  300+
+                </div>
+
+                <div className="impact-text">
+                  Children supported through inclusive education programs.
+                </div>
+
+              </div>
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  50+
+                </div>
+
+                <div className="impact-text">
+                  Schools and educators connected with inclusive practices.
+                </div>
+
+              </div>
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  95%
+                </div>
+
+                <div className="impact-text">
+                  Improvement observed in confidence and classroom participation.
+                </div>
+
+              </div>
+
+              <div className="impact-card">
+
+                <div className="impact-number">
+                  1000+
+                </div>
+
+                <div className="impact-text">
+                  Learning sessions and therapy-based educational activities conducted.
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* CTA */}
+
+        <section className="cta-section">
+
+          <h2 className="cta-title">
+
+            Learning For <span>Every Child</span>
+
+          </h2>
+
+          <p className="cta-desc">
+
+            Together we can create inclusive classrooms,
+            equal opportunities,
+            and brighter futures where every child feels valued and supported.
+
+          </p>
+
+          <a
+            href="/contact"
+            className="cta-btn"
+          >
+            Connect With Us
+          </a>
+
+        </section>
+
+        {/* FOOTER */}
+
+        <Footer
+          pageData={pageData}
+        />
 
       </div>
     </>
