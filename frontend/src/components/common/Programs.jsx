@@ -1,532 +1,318 @@
+import {
+  Link,
+} from "react-router-dom"
+
 function Programs({ pageData }) {
 
-  const programList =
+  /* =====================================
+      PROGRAM DATA
+  ===================================== */
+
+  const programs =
     pageData?.programs || []
 
   /* =====================================
-      IMAGE HELPER
+      IMAGE SUPPORT
   ===================================== */
 
-  const getImageUrl = (
-    image
-  ) => {
+  const getImageUrl = (image) => {
 
-    if (!image) {
+    if (!image)
+      return "https://via.placeholder.com/600x400?text=Program+Image"
 
-      return "https://via.placeholder.com/600x600?text=Program+Image"
-    }
-
-    return typeof image === "string"
-      && image.startsWith("http")
-        ? image
-        : `https://prarambha-backend.onrender.com${image}`
+    return image.startsWith("http")
+      ? image
+      : `https://prarambha-backend.onrender.com${image}`
   }
 
   /* =====================================
-      FIRST PROGRAM IMAGES
+      GALLERY IMAGES
   ===================================== */
 
-  const firstProgram = {
+  const galleryImages = [
 
-    image1:
-      pageData?.programImage1,
+    getImageUrl(
+      pageData?.programImage1
+    ),
 
-    image2:
-      pageData?.programImage2,
+    getImageUrl(
+      pageData?.programImage2
+    ),
 
-    image3:
-      pageData?.programImage3,
-  }
+    getImageUrl(
+      pageData?.programImage3
+    ),
+  ]
 
   return (
 
-    <section className="bg-white py-14 lg:py-24 overflow-hidden">
+    <section
+      className="
+        py-24
+        px-5
+        lg:px-14
+        bg-white
+      "
+    >
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        className="
+          max-w-[1400px]
+          mx-auto
+        "
+      >
+
+        {/* TOP */}
 
         <div
           className="
             grid
-            grid-cols-1
             lg:grid-cols-2
-            gap-12
-            lg:gap-20
-            items-center
+            gap-16
+            items-start
+            mb-20
           "
         >
 
-          {/* =====================================
-              LEFT CONTENT
-          ===================================== */}
-
           <div>
-
-            {/* TAG */}
 
             <p
               className="
                 text-[#E63946]
-                font-bold
                 uppercase
-                tracking-[4px]
-                text-xs
-                mb-4
+                tracking-[5px]
+                font-bold
+                mb-5
+                text-sm
               "
             >
               Our Core Programs
             </p>
 
-            {/* HEADING */}
-
             <h2
               className="
-                text-[36px]
-                sm:text-[44px]
-                lg:text-5xl
-                font-extrabold
-                text-[#0B1B4D]
+                text-5xl
+                lg:text-7xl
                 leading-[1.05]
-                mb-6
+                font-black
+                text-[#0B1B4D]
+                mb-8
               "
             >
 
               Supporting Every Child
 
-              <span className="block text-[#E63946]">
+              <span className="text-[#E63946]">
+                {" "}
                 With Care & Inclusion
               </span>
 
             </h2>
 
-            {/* DESCRIPTION */}
-
             <p
               className="
-                text-gray-600
-                text-[15px]
-                lg:text-lg
-                leading-relaxed
-                mb-10
-                max-w-2xl
+                text-[#5B6475]
+                text-xl
+                leading-[2]
+                max-w-[650px]
               "
             >
 
               Our programs focus on early intervention,
-              therapy, inclusive education, sensory
-              development, and family support to help
-              children grow with confidence, independence,
+              therapy,
+              inclusive education,
+              sensory development,
+              and family support
+              to help children grow with confidence,
+              independence,
               and dignity.
 
             </p>
 
-            {/* PROGRAM LIST */}
+          </div>
 
-            <div className="space-y-5 lg:space-y-7">
+          {/* PROGRAM CARDS */}
 
-              {Array.isArray(programList)
-                && programList.map(
-                  (program, index) => (
+          <div className="space-y-7">
 
-                    <div
-                      key={index}
+            {
+              programs.map(
+                (
+                  program,
+                  index
+                ) => (
 
+                  <div
+                    key={index}
+
+                    className="
+                      bg-[#F8FAFC]
+                      rounded-[35px]
+                      p-8
+                      border
+                      border-gray-100
+                      hover:shadow-xl
+                      transition-all
+                      duration-300
+                    "
+
+                    style={{
+                      borderLeft:
+                        `6px solid ${program.color || "#E63946"}`,
+                    }}
+                  >
+
+                    <h3
                       className="
-                        bg-[#F8FAFC]
-                        rounded-[24px]
-                        p-5
-                        lg:p-7
-                        shadow-[0_4px_20px_rgba(0,0,0,0.04)]
-                        border
-                        border-gray-100
-                        transition-all
-                        duration-300
-                        hover:-translate-y-1
-                        hover:shadow-xl
+                        text-3xl
+                        font-black
+                        text-[#0B1B4D]
+                        mb-6
                       "
-
-                      style={{
-                        borderLeft:
-                          `5px solid ${program.color || "#E63946"}`,
-                      }}
                     >
+                      {program.title}
+                    </h3>
 
-                      {/* TITLE */}
+                    <ul className="space-y-4">
 
-                      <h3
-                        className="
-                          text-[18px]
-                          lg:text-xl
-                          font-bold
-                          text-[#0B1B4D]
-                          mb-4
-                          leading-snug
-                        "
-                      >
-                        {program.title}
-                      </h3>
-
-                      {/* POINTS */}
-
-                      <ul className="space-y-2.5">
-
-                        {(Array.isArray(program.points)
-                          ? program.points
-                          : []
-                        ).map(
-                          (item, idx) => (
+                      {
+                        program.points?.map(
+                          (
+                            point,
+                            i
+                          ) => (
 
                             <li
-                              key={idx}
+                              key={i}
 
                               className="
-                                text-gray-600
-                                text-sm
-                                lg:text-base
                                 flex
                                 items-start
-                                gap-2
-                                leading-relaxed
+                                gap-4
+                                text-[#5B6475]
+                                text-lg
                               "
                             >
 
                               <span
                                 className="
-                                  mt-[8px]
-                                  w-1.5
-                                  h-1.5
+                                  w-3
+                                  h-3
                                   rounded-full
+                                  mt-3
                                   flex-shrink-0
                                 "
 
                                 style={{
                                   background:
-                                    program.color || "#E63946",
+                                    program.color ||
+                                    "#E63946",
                                 }}
                               />
 
-                              {item}
+                              {point}
 
                             </li>
 
                           )
-                        )}
+                        )
+                      }
 
-                      </ul>
+                    </ul>
 
-                      {/* BUTTON */}
+                    <Link
+                      to="/contact"
 
-                      <button
-                        type="button"
+                      className="
+                        inline-flex
+                        items-center
+                        gap-2
+                        mt-8
+                        font-bold
+                        transition
+                        hover:translate-x-1
+                      "
 
-                        className="
-                          mt-5
-                          inline-flex
-                          items-center
-                          gap-2
-                          text-sm
-                          font-semibold
-                          transition-all
-                          duration-300
-                          hover:translate-x-1
-                        "
+                      style={{
+                        color:
+                          program.color ||
+                          "#E63946",
+                      }}
+                    >
 
-                        style={{
-                          color:
-                            program.color || "#E63946",
-                        }}
-                      >
+                      Read More →
 
-                        Read More →
+                    </Link>
 
-                      </button>
+                  </div>
 
-                    </div>
-
-                  )
-                )}
-
-            </div>
+                )
+              )
+            }
 
           </div>
 
-          {/* =====================================
-              RIGHT IMAGES
-          ===================================== */}
+        </div>
 
-          <div
-            className="
-              relative
-              mt-12
-              lg:mt-0
-              flex
-              items-center
-              justify-center
-            "
-          >
+        {/* =====================================
+            GALLERY
+        ===================================== */}
 
-            {/* =====================================
-                MOBILE
-            ===================================== */}
+        <div
+          className="
+            grid
+            md:grid-cols-3
+            gap-6
+          "
+        >
 
-            <div
-              className="
-                flex
-                flex-col
-                gap-6
-                lg:hidden
-                w-full
-                items-center
-              "
-            >
-
-              {/* IMAGE 1 */}
-
-              {firstProgram.image1 && (
-
-                <img
-                  src={getImageUrl(firstProgram.image1)}
-
-                  alt="Program"
-
-                  loading="lazy"
-
-                  onError={(e) => {
-
-                    e.target.onerror = null
-
-                    e.target.src =
-                      "https://via.placeholder.com/600x600?text=Program+Image"
-                  }}
-
-                  className="
-                    w-[220px]
-                    rounded-[28px]
-                    shadow-2xl
-                    rotate-[-4deg]
-                  "
-                />
-
-              )}
-
-              {/* IMAGE 2 */}
-
-              {firstProgram.image2 && (
-
-                <img
-                  src={getImageUrl(firstProgram.image2)}
-
-                  alt="Program"
-
-                  loading="lazy"
-
-                  onError={(e) => {
-
-                    e.target.onerror = null
-
-                    e.target.src =
-                      "https://via.placeholder.com/600x600?text=Program+Image"
-                  }}
-
-                  className="
-                    w-[280px]
-                    rounded-[30px]
-                    shadow-2xl
-                    rotate-[3deg]
-                    -mt-2
-                  "
-                />
-
-              )}
-
-              {/* IMAGE 3 */}
-
-              {firstProgram.image3 && (
-
-                <img
-                  src={getImageUrl(firstProgram.image3)}
-
-                  alt="Program"
-
-                  loading="lazy"
-
-                  onError={(e) => {
-
-                    e.target.onerror = null
-
-                    e.target.src =
-                      "https://via.placeholder.com/600x600?text=Program+Image"
-                  }}
-
-                  className="
-                    w-[230px]
-                    rounded-[28px]
-                    shadow-2xl
-                    rotate-[-3deg]
-                  "
-                />
-
-              )}
-
-            </div>
-
-            {/* =====================================
-                DESKTOP
-            ===================================== */}
-
-            <div
-              className="
-                hidden
-                lg:block
-                relative
-                h-[620px]
-                w-full
-              "
-            >
-
-              {/* IMAGE 1 */}
-
-              {firstProgram.image1 && (
+          {
+            galleryImages.map(
+              (
+                image,
+                index
+              ) => (
 
                 <div
+                  key={index}
+
                   className="
-                    absolute
-                    top-40
-                    left-12
-                    w-[240px]
-                    rounded-[30px]
                     overflow-hidden
-                    shadow-2xl
-                    rotate-[-6deg]
-                    hover:rotate-0
-                    transition-all
-                    duration-500
-                    z-10
+                    rounded-[35px]
+                    shadow-lg
+                    group
+                    h-[320px]
                   "
                 >
 
                   <img
-                    src={getImageUrl(firstProgram.image1)}
+                    src={image}
 
-                    alt="Program"
+                    alt={`Program ${index + 1}`}
 
-                    loading="lazy"
+                    className="
+                      w-full
+                      h-full
+                      object-cover
+                      group-hover:scale-110
+                      transition-all
+                      duration-500
+                    "
 
                     onError={(e) => {
 
                       e.target.onerror = null
 
                       e.target.src =
-                        "https://via.placeholder.com/600x600?text=Program+Image"
+                        "https://via.placeholder.com/600x400?text=Program+Image"
                     }}
-
-                    className="
-                      w-full
-                      h-[200px]
-                      object-cover
-                    "
                   />
 
                 </div>
 
-              )}
-
-              {/* IMAGE 2 */}
-
-              {firstProgram.image2 && (
-
-                <div
-                  className="
-                    absolute
-                    top-[280px]
-                    right-1
-                    w-[300px]
-                    rounded-[30px]
-                    overflow-hidden
-                    shadow-2xl
-                    rotate-[4deg]
-                    hover:rotate-0
-                    transition-all
-                    duration-500
-                    z-20
-                  "
-                >
-
-                  <img
-                    src={getImageUrl(firstProgram.image2)}
-
-                    alt="Program"
-
-                    loading="lazy"
-
-                    onError={(e) => {
-
-                      e.target.onerror = null
-
-                      e.target.src =
-                        "https://via.placeholder.com/600x600?text=Program+Image"
-                    }}
-
-                    className="
-                      w-full
-                      h-[300px]
-                      object-cover
-                    "
-                  />
-
-                </div>
-
-              )}
-
-              {/* IMAGE 3 */}
-
-              {firstProgram.image3 && (
-
-                <div
-                  className="
-                    absolute
-                    bottom-[-80px]
-                    left-28
-                    w-[260px]
-                    rounded-[30px]
-                    overflow-hidden
-                    shadow-2xl
-                    rotate-[-4deg]
-                    hover:rotate-0
-                    transition-all
-                    duration-500
-                    z-10
-                  "
-                >
-
-                  <img
-                    src={getImageUrl(firstProgram.image3)}
-
-                    alt="Program"
-
-                    loading="lazy"
-
-                    onError={(e) => {
-
-                      e.target.onerror = null
-
-                      e.target.src =
-                        "https://via.placeholder.com/600x600?text=Program+Image"
-                    }}
-
-                    className="
-                      w-full
-                      h-[220px]
-                      object-cover
-                    "
-                  />
-
-                </div>
-
-              )}
-
-            </div>
-
-          </div>
+              )
+            )
+          }
 
         </div>
 

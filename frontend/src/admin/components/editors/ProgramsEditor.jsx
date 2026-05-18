@@ -158,7 +158,7 @@ function ProgramsEditor({
   }
 
   /* =====================================
-      IMAGE UPLOAD
+      IMAGE UPLOAD + DATABASE SAVE
   ===================================== */
 
   const uploadProgramGalleryImage = async (
@@ -181,7 +181,11 @@ function ProgramsEditor({
 
     try {
 
-      const response =
+      /* =========================
+          UPLOAD IMAGE
+      ========================= */
+
+      const uploadResponse =
         await fetch(
           "https://prarambha-backend.onrender.com/api/upload",
           {
@@ -190,16 +194,44 @@ function ProgramsEditor({
           }
         )
 
-      const data =
-        await response.json()
+      const uploadData =
+        await uploadResponse.json()
 
-      setPageData((prev) => ({
+      /* =========================
+          UPDATE PAGE DATA
+      ========================= */
 
-        ...prev,
+      const updatedPageData = {
+
+        ...pageData,
 
         [field]:
-          data.image,
-      }))
+          uploadData.image,
+      }
+
+      setPageData(
+        updatedPageData
+      )
+
+      /* =========================
+          SAVE TO DATABASE
+      ========================= */
+
+      await fetch(
+        "https://prarambha-backend.onrender.com/api/pages/home",
+        {
+          method: "PUT",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body: JSON.stringify(
+            updatedPageData
+          ),
+        }
+      )
 
     } catch (error) {
 
@@ -262,8 +294,6 @@ function ProgramsEditor({
 
         </div>
 
-        {/* ADD BUTTON */}
-
         <button
           onClick={addProgram}
 
@@ -284,61 +314,6 @@ function ProgramsEditor({
         </button>
 
       </div>
-
-      {/* EMPTY */}
-
-      {programs.length === 0 && (
-
-        <div
-          className="
-            border
-            border-dashed
-            border-gray-300
-            rounded-[30px]
-            p-12
-            text-center
-          "
-        >
-
-          <h3
-            className="
-              text-2xl
-              font-bold
-              mb-3
-            "
-          >
-            No Programs Added
-          </h3>
-
-          <p
-            className="
-              text-gray-500
-              mb-6
-            "
-          >
-            Add your first program.
-          </p>
-
-          <button
-            onClick={addProgram}
-
-            className="
-              bg-black
-              text-white
-              px-6
-              py-3
-              rounded-2xl
-              font-semibold
-            "
-          >
-
-            Add Program
-
-          </button>
-
-        </div>
-
-      )}
 
       {/* PROGRAMS */}
 
@@ -491,8 +466,7 @@ function ProgramsEditor({
                       <input
                         type="text"
 
-                        placeholder={`Point ${pointIndex + 1
-                          }`}
+                        placeholder={`Point ${pointIndex + 1}`}
 
                         value={point}
 
@@ -643,16 +617,6 @@ function ProgramsEditor({
 
                 alt="Program"
 
-                loading="lazy"
-
-                onError={(e) => {
-
-                  e.target.onerror = null
-
-                  e.target.src =
-                    "https://via.placeholder.com/600x400?text=Program+Image"
-                }}
-
                 className="
                   w-full
                   h-[180px]
@@ -713,16 +677,6 @@ function ProgramsEditor({
 
                 alt="Program"
 
-                loading="lazy"
-
-                onError={(e) => {
-
-                  e.target.onerror = null
-
-                  e.target.src =
-                    "https://via.placeholder.com/600x400?text=Program+Image"
-                }}
-
                 className="
                   w-full
                   h-[180px]
@@ -782,16 +736,6 @@ function ProgramsEditor({
                 }
 
                 alt="Program"
-
-                loading="lazy"
-
-                onError={(e) => {
-
-                  e.target.onerror = null
-
-                  e.target.src =
-                    "https://via.placeholder.com/600x400?text=Program+Image"
-                }}
 
                 className="
                   w-full
