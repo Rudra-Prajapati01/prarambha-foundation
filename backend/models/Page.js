@@ -185,6 +185,24 @@ const pageSchema = mongoose.Schema(
     programs: [programSchema],
 
     /* =====================================
+        PROGRAM GALLERY IMAGES
+    ===================================== */
+    programImage1: {
+      type: String,
+      default: "",
+    },
+
+    programImage2: {
+      type: String,
+      default: "",
+    },
+
+    programImage3: {
+      type: String,
+      default: "",
+    },
+
+    /* =====================================
         IMPACT STORIES
     ===================================== */
     impactStories: [impactStorySchema],
