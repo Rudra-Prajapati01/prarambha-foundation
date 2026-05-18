@@ -36,7 +36,6 @@ function Pages() {
   const pagesList = [
     "home",
     "about",
-    "programs",
   ]
 
   /* =====================================
@@ -60,11 +59,6 @@ function Pages() {
       "cta",
     ],
 
-    programs: [
-      "hero",
-      "programs",
-      "footer",
-    ],
   }
 
   /* =====================================
