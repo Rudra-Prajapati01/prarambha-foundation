@@ -20,10 +20,7 @@ function Footer({ pageData }) {
   ===================================== */
 
   const dynamicLogo =
-
-    footer?.logo
-      ? footer.logo
-      : "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"
+    footer?.logo || ""
 
   return (
 
@@ -56,29 +53,33 @@ function Footer({ pageData }) {
 
             {/* LOGO */}
 
-            <img
-              src={dynamicLogo}
+            {
+              dynamicLogo && (
 
-              alt="Prarambha Foundation"
+                <img
+                  src={dynamicLogo}
 
-              loading="lazy"
+                  alt="Prarambha Foundation"
 
-              onError={(e) => {
+                  loading="eager"
 
-                e.target.onerror = null
+                  onError={(e) => {
 
-                e.target.src =
-                  "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"
-              }}
+                    e.target.style.display =
+                      "none"
+                  }}
 
-              className="
-                  w-[240px]
-                  lg:w-[260px]
-                  h-[110px]
-                  object-contain
-                  mb-5
-              "
-            />
+                  className="
+                    w-[240px]
+                    lg:w-[260px]
+                    h-[110px]
+                    object-contain
+                    mb-5
+                  "
+                />
+
+              )
+            }
 
             {/* DESCRIPTION */}
 
@@ -495,142 +496,6 @@ function Footer({ pageData }) {
               Donate Now
 
             </Link>
-
-          </div>
-
-        </div>
-
-        {/* =====================================
-            BOTTOM SECTION
-        ===================================== */}
-
-        <div className="pt-6 flex flex-col gap-5">
-
-          {/* COPYRIGHT */}
-
-          <div
-            className="
-              flex
-              flex-col
-              md:flex-row
-              items-center
-              justify-between
-              gap-4
-            "
-          >
-
-            <p
-              className="
-                text-gray-500
-                text-sm
-                text-center
-                md:text-left
-              "
-            >
-
-              © 2026 Prarambha Foundation.
-              All Rights Reserved.
-
-            </p>
-
-            <p
-              className="
-                text-gray-500
-                text-sm
-                text-center
-                md:text-right
-              "
-            >
-
-              Designed with care for every child’s future.
-
-            </p>
-
-          </div>
-
-          {/* LEGAL */}
-
-          <div
-            className="
-              border-t
-              border-gray-200
-              pt-5
-              flex
-              flex-col
-              lg:flex-row
-              items-center
-              justify-between
-              gap-3
-            "
-          >
-
-            <p
-              className="
-                text-gray-500
-                text-xs
-                text-center
-                lg:text-left
-                leading-relaxed
-              "
-            >
-
-              Registered NGO • Inclusive Education &
-              Child Development Initiative
-
-            </p>
-
-            <div
-              className="
-                flex
-                flex-wrap
-                items-center
-                justify-center
-                gap-4
-                text-xs
-                text-gray-500
-              "
-            >
-
-              <button
-                type="button"
-
-                className="
-                  hover:text-[#E63946]
-                  transition-all
-                  duration-300
-                  cursor-pointer
-                "
-              >
-                Privacy Policy
-              </button>
-
-              <button
-                type="button"
-
-                className="
-                  hover:text-[#E63946]
-                  transition-all
-                  duration-300
-                  cursor-pointer
-                "
-              >
-                Terms & Conditions
-              </button>
-
-              <button
-                type="button"
-
-                className="
-                  hover:text-[#E63946]
-                  transition-all
-                  duration-300
-                  cursor-pointer
-                "
-              >
-                Child Protection Policy
-              </button>
-
-            </div>
 
           </div>
 

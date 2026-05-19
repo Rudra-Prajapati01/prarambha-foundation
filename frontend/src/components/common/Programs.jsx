@@ -204,19 +204,22 @@ function Programs({ pageData }) {
                     href="/about"
 
                     className="
-                      mt-5
-                      inline-flex
-                      items-center
-                      gap-2
-                      text-sm
-                      font-semibold
-                      transition
-                      hover:translate-x-1
-                    "
+                            mt-5
+                            inline-flex
+                            items-center
+                            gap-2
+                            text-sm
+                            font-semibold
+                            transition
+                            hover:translate-x-1
+                            relative
+                            z-50
+                            cursor-pointer
+                          "
 
                     style={{
-                      color:
-                        program.color,
+                      color: program.color,
+                      pointerEvents: "auto",
                     }}
                   >
 
