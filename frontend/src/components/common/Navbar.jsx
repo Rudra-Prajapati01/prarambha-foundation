@@ -31,12 +31,8 @@ function Navbar({ pageData }) {
   const dynamicLogo =
 
     footer?.logo
-      ? typeof footer.logo === "string"
-        && footer.logo.startsWith("http")
-        ? footer.logo
-        : `https://prarambha-backend.onrender.com${footer.logo}`
-      : "/logo.png"
-
+      ? footer.logo
+      : "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"
   /* =========================================
      PREVENT BODY SCROLL
   ========================================= */
@@ -234,7 +230,7 @@ function Navbar({ pageData }) {
                   e.target.onerror = null
 
                   e.target.src =
-                    "/logo.png"
+                    "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"
                 }}
 
                 className="

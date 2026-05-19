@@ -22,11 +22,8 @@ function Footer({ pageData }) {
   const dynamicLogo =
 
     footer?.logo
-      ? typeof footer.logo === "string"
-        && footer.logo.startsWith("http")
-          ? footer.logo
-          : `https://prarambha-backend.onrender.com${footer.logo}`
-      : "/logo.png"
+      ? footer.logo
+      : "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"
 
   return (
 
@@ -70,10 +67,11 @@ function Footer({ pageData }) {
 
                 e.target.onerror = null
 
-                e.target.src = "/logo.png"
+                e.target.src =
+                  "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"
               }}
 
-                className="
+              className="
                   w-[240px]
                   lg:w-[260px]
                   h-[110px]
@@ -106,7 +104,7 @@ function Footer({ pageData }) {
               <a
                 href={
                   footer?.facebook
-                    || "https://facebook.com"
+                  || "https://facebook.com"
                 }
 
                 target="_blank"
@@ -141,7 +139,7 @@ function Footer({ pageData }) {
               <a
                 href={
                   footer?.instagram
-                    || "https://instagram.com"
+                  || "https://instagram.com"
                 }
 
                 target="_blank"
@@ -176,7 +174,7 @@ function Footer({ pageData }) {
               <a
                 href={
                   footer?.youtube
-                    || "https://youtube.com"
+                  || "https://youtube.com"
                 }
 
                 target="_blank"

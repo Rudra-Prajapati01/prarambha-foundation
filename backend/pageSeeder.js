@@ -1,121 +1,153 @@
-await Page.create([
+import dotenv from "dotenv"
 
-  {
-    page: "home",
+import connectDB from "./config/db.js"
 
-    hero: {
+import Page from "./models/Page.js"
 
-      title:
-        "Discovering Ability Before Disability",
+dotenv.config()
 
-      subtitle:
-        "Prarambha Foundation",
+connectDB()
 
-      description:
-        "Supporting children through inclusive education, therapy support, sensory learning, early intervention, and family-centered care programs that help every child grow with confidence, dignity, and opportunity.",
+const seedPages = async () => {
 
-      buttonText:
-        "Explore Programs",
+  try {
 
-      image: "",
-    },
+    await Page.deleteMany()
 
-    sections: [
+    await Page.create([
 
       {
-        heading: "Who We Are",
+        page: "home",
 
-        content:
-          "At Prarambha Foundation, we believe that every child deserves understanding, support, and equal opportunities during their early developmental years. We focus on early intervention, inclusive education, therapy support, and family guidance to help children discover their strengths before limitations define them.",
+        hero: {
+
+          title:
+            "Discovering Ability Before Disability",
+
+          subtitle:
+            "Prarambha Foundation",
+
+          description:
+            "Supporting children through inclusive education, therapy support, sensory learning, early intervention, and family-centered care programs that help every child grow with confidence, dignity, and opportunity.",
+
+          buttonText:
+            "Explore Programs",
+
+          image: "",
+        },
+
+        sections: [
+
+          {
+            heading: "Who We Are",
+
+            content:
+              "At Prarambha Foundation, we believe that every child deserves understanding, support, and equal opportunities during their early developmental years.",
+          },
+
+          {
+            heading: "Our Mission",
+
+            content:
+              "Our mission is to create a safe, inclusive, and empowering environment.",
+          },
+
+          {
+            heading: "Our Vision",
+
+            content:
+              "To build a world where every child is understood before being judged.",
+          },
+        ],
       },
+
+      /* =====================================
+          DONATE PAGE
+      ===================================== */
 
       {
-        heading: "Our Mission",
+        page: "donate",
 
-        content:
-          "Our mission is to create a safe, inclusive, and empowering environment where every child receives the care, education, and developmental support they need to thrive emotionally, socially, and academically.",
+        donate: {
+
+          heroTitle: "Donate",
+
+          heroSubtitle:
+            "Support Inclusion & Early Intervention",
+
+          heroDescription:
+            "Your contribution helps children receive therapy, inclusive education, developmental support, awareness programs, and a brighter future.",
+
+          cards: [
+
+            {
+              title:
+                "Sponsor a Child",
+
+              amount:
+                "₹45,000",
+
+              desc:
+                "Support therapy, education, intervention, and development programs for one child.",
+
+              buttonText:
+                "Donate Now",
+
+              icon:
+                "❤️",
+            },
+
+            {
+              title:
+                "Therapy Support Kit",
+
+              amount:
+                "₹25,000",
+
+              desc:
+                "Help provide sensory tools, therapy materials, and learning resources.",
+
+              buttonText:
+                "Donate Now",
+
+              icon:
+                "🧠",
+            },
+
+            {
+              title:
+                "Inclusive Classroom",
+
+              amount:
+                "₹1,50,000",
+
+              desc:
+                "Support classroom setup, learning equipment, and inclusive education infrastructure.",
+
+              buttonText:
+                "Donate Now",
+
+              icon:
+                "🏫",
+            },
+          ],
+        },
       },
 
-      {
-        heading: "Our Vision",
+    ])
 
-        content:
-          "To build a world where every child is understood before being judged, supported before being excluded, and celebrated for their unique abilities and potential.",
-      },
-    ],
-  },
+    console.log(
+      "Pages Seeded Successfully"
+    )
 
-  /* =====================================
-      DONATE PAGE
-  ===================================== */
+    process.exit()
 
-  {
-    page: "donate",
+  } catch (error) {
 
-    donate: {
+    console.log(error)
 
-      heroTitle: "Donate",
+    process.exit(1)
+  }
+}
 
-      heroSubtitle:
-        "Support Inclusion & Early Intervention",
-
-      heroDescription:
-        "Your contribution helps children receive therapy, inclusive education, developmental support, awareness programs, and a brighter future.",
-
-      cards: [
-
-        {
-          title:
-            "Sponsor a Child",
-
-          amount:
-            "₹45,000",
-
-          desc:
-            "Support therapy, education, intervention, and development programs for one child.",
-
-          buttonText:
-            "Donate Now",
-
-          icon:
-            "❤️",
-        },
-
-        {
-          title:
-            "Therapy Support Kit",
-
-          amount:
-            "₹25,000",
-
-          desc:
-            "Help provide sensory tools, therapy materials, and learning resources.",
-
-          buttonText:
-            "Donate Now",
-
-          icon:
-            "🧠",
-        },
-
-        {
-          title:
-            "Inclusive Classroom",
-
-          amount:
-            "₹1,50,000",
-
-          desc:
-            "Support classroom setup, learning equipment, and inclusive education infrastructure.",
-
-          buttonText:
-            "Donate Now",
-
-          icon:
-            "🏫",
-        },
-      ],
-    },
-  },
-
-])
+seedPages()

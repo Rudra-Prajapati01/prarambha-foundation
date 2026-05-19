@@ -1,17 +1,26 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
-import { PageProvider } from "./context/PageContext"
+import React from "react"
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-<React.StrictMode>
+import ReactDOM from "react-dom/client"
 
-  <PageProvider>
+import App from "./App"
 
-    <App />
+import "./index.css"
 
-  </PageProvider>
+import {
+  PageProvider,
+} from "./context/PageContext"
 
-</React.StrictMode>
+ReactDOM.createRoot(
+  document.getElementById("root")
+).render(
+
+  <React.StrictMode>
+
+    <PageProvider>
+
+      <App />
+
+    </PageProvider>
+
+  </React.StrictMode>
 )
