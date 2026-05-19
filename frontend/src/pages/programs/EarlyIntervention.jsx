@@ -17,21 +17,46 @@ export default function EarlyIntervention() {
 
   const services = [
 
-    "Autism Support",
+    {
+      title:
+        "Autism & ADHD Support",
 
-    "ADHD Support",
+      icon: "🧠",
 
-    "Developmental Delay Support",
+      desc:
+        "Structured intervention programs focused on communication, behavior, attention, and emotional development.",
+    },
 
-    "Specific Learning Disorder Support",
+    {
+      title:
+        "Developmental Delay Support",
 
-    "Speech & Communication Development",
+      icon: "🌱",
 
-    "School Readiness Program",
+      desc:
+        "Helping children improve motor skills, social interaction, learning ability, and developmental milestones.",
+    },
 
-    "Individualised Learning Plans (ILP)",
+    {
+      title:
+        "Speech & Communication Development",
 
-    "Behavior & Attention Support",
+      icon: "🗣️",
+
+      desc:
+        "Supporting expressive language, listening skills, communication confidence, and speech clarity.",
+    },
+
+    {
+      title:
+        "School Readiness & ILP",
+
+      icon: "🏫",
+
+      desc:
+        "Preparing children for inclusive classrooms through individualised learning plans and readiness programs.",
+    },
+
   ]
 
   return (
@@ -41,44 +66,104 @@ export default function EarlyIntervention() {
         .ei-page {
           background: #fff;
           min-height: 100vh;
+          overflow-x: hidden;
         }
 
         /* HERO */
 
         .ei-hero {
-          padding: 120px 20px 90px;
+
+          padding:
+            120px 20px 90px;
+
           background:
             linear-gradient(
               135deg,
               #fff6d6,
               #ffffff
             );
+
+          position: relative;
+
+          overflow: hidden;
+        }
+
+        .ei-hero::before {
+
+          content: "";
+
+          position: absolute;
+
+          top: -150px;
+          right: -150px;
+
+          width: 400px;
+          height: 400px;
+
+          background:
+            rgba(
+              230,
+              57,
+              70,
+              0.08
+            );
+
+          border-radius: 50%;
         }
 
         .ei-hero-inner {
+
           max-width: 1200px;
+
           margin: auto;
+
           display: grid;
+
           grid-template-columns:
-            repeat(auto-fit,minmax(320px,1fr));
+            repeat(
+              auto-fit,
+              minmax(320px,1fr)
+            );
+
           gap: 60px;
+
           align-items: center;
+
+          position: relative;
+
+          z-index: 2;
         }
 
         .hero-tag {
+
           color: #E63946;
+
           font-size: 14px;
+
           font-weight: 800;
+
           letter-spacing: 2px;
+
           text-transform: uppercase;
+
           margin-bottom: 20px;
         }
 
         .hero-title {
-          font-size: clamp(42px, 6vw, 72px);
+
+          font-size:
+            clamp(
+              42px,
+              6vw,
+              72px
+            );
+
           line-height: 1.1;
+
           font-weight: 900;
+
           color: #0B1B4D;
+
           margin-bottom: 24px;
         }
 
@@ -87,32 +172,62 @@ export default function EarlyIntervention() {
         }
 
         .hero-desc {
+
           color: #555;
+
           line-height: 1.9;
+
           font-size: 18px;
+
           margin-bottom: 35px;
         }
 
         .hero-btn {
-          display: inline-block;
+
+          display: inline-flex;
+
+          align-items: center;
+
+          justify-content: center;
+
           background: #E63946;
+
           color: white;
+
           padding: 18px 40px;
+
           border-radius: 999px;
+
           text-decoration: none;
+
           font-weight: 700;
+
           transition: 0.3s;
         }
 
         .hero-btn:hover {
+
           transform: scale(1.05);
+
+          background: #d62839;
         }
 
         .hero-image img {
+
           width: 100%;
+
           border-radius: 32px;
+
           box-shadow:
-            0 20px 60px rgba(0,0,0,0.15);
+            0 20px 60px
+            rgba(
+              0,
+              0,
+              0,
+              0.15
+            );
+
+          object-fit: cover;
         }
 
         /* SERVICES */
@@ -127,10 +242,20 @@ export default function EarlyIntervention() {
         }
 
         .section-title {
+
           text-align: center;
-          font-size: clamp(38px,5vw,60px);
+
+          font-size:
+            clamp(
+              38px,
+              5vw,
+              60px
+            );
+
           font-weight: 900;
+
           color: #0B1B4D;
+
           margin-bottom: 70px;
         }
 
@@ -139,106 +264,121 @@ export default function EarlyIntervention() {
         }
 
         .services-grid {
+
           display: grid;
+
           grid-template-columns:
-            repeat(auto-fit,minmax(260px,1fr));
+            repeat(
+              auto-fit,
+              minmax(260px,1fr)
+            );
+
           gap: 28px;
         }
 
         .service-card {
+
           background: white;
+
           padding: 40px 30px;
+
           border-radius: 28px;
+
           box-shadow:
-            0 10px 40px rgba(0,0,0,0.08);
+            0 10px 40px
+            rgba(
+              0,
+              0,
+              0,
+              0.08
+            );
+
           border: 1px solid #eee;
+
           transition: 0.4s;
         }
 
         .service-card:hover {
-          transform: translateY(-8px);
+
+          transform:
+            translateY(-8px);
+
+          box-shadow:
+            0 18px 50px
+            rgba(
+              0,
+              0,
+              0,
+              0.12
+            );
         }
 
         .service-icon {
+
           width: 70px;
           height: 70px;
+
           border-radius: 20px;
+
           background: #FFE5E7;
+
           display: flex;
+
           align-items: center;
+
           justify-content: center;
+
           font-size: 32px;
+
           margin-bottom: 24px;
         }
 
         .service-title {
+
           font-size: 24px;
+
           font-weight: 800;
+
           color: #0B1B4D;
+
           line-height: 1.5;
         }
 
-        /* IMPACT */
+        .service-desc {
 
-        .impact-section {
-          background:
-            linear-gradient(
-              135deg,
-              #0B1B4D,
-              #1A2E6C
-            );
+          color: #666;
 
-          padding: 100px 20px;
-          color: white;
-        }
-
-        .impact-inner {
-          max-width: 1200px;
-          margin: auto;
-          text-align: center;
-        }
-
-        .impact-grid {
-          margin-top: 70px;
-          display: grid;
-          grid-template-columns:
-            repeat(auto-fit,minmax(240px,1fr));
-          gap: 30px;
-        }
-
-        .impact-card {
-          background:
-            rgba(255,255,255,0.08);
-
-          padding: 40px 20px;
-          border-radius: 28px;
-          backdrop-filter: blur(10px);
-        }
-
-        .impact-number {
-          font-size: 54px;
-          font-weight: 900;
-          color: #FFD600;
-          margin-bottom: 12px;
-        }
-
-        .impact-text {
           line-height: 1.8;
-          color: #f1f1f1;
+
+          margin-top: 14px;
+
+          font-size: 15px;
         }
 
         /* CTA */
 
         .cta-section {
+
           padding: 100px 20px;
+
           text-align: center;
+
           background: #fff6d6;
         }
 
         .cta-title {
-          font-size: clamp(38px,5vw,60px);
+
+          font-size:
+            clamp(
+              38px,
+              5vw,
+              60px
+            );
+
           font-weight: 900;
+
           color: #0B1B4D;
+
           margin-bottom: 20px;
         }
 
@@ -247,27 +387,68 @@ export default function EarlyIntervention() {
         }
 
         .cta-desc {
+
           max-width: 800px;
+
           margin: auto;
+
           line-height: 1.9;
+
           color: #555;
+
           font-size: 18px;
+
           margin-bottom: 40px;
         }
 
         .cta-btn {
-          display: inline-block;
+
+          display: inline-flex;
+
+          align-items: center;
+
+          justify-content: center;
+
           background: #E63946;
+
           color: white;
+
           padding: 18px 42px;
+
           border-radius: 999px;
+
           text-decoration: none;
+
           font-weight: 700;
+
           transition: 0.3s;
         }
 
         .cta-btn:hover {
+
           transform: scale(1.05);
+
+          background: #d62839;
+        }
+
+        @media(max-width:768px) {
+
+          .ei-hero {
+            padding:
+              90px 20px 70px;
+          }
+
+          .hero-title {
+            font-size: 46px;
+          }
+
+          .hero-desc {
+            font-size: 16px;
+          }
+
+          .service-title {
+            font-size: 22px;
+          }
         }
 
       `}</style>
@@ -312,7 +493,9 @@ export default function EarlyIntervention() {
                 href="/contact"
                 className="hero-btn"
               >
+
                 Get Support
+
               </a>
 
             </div>
@@ -320,8 +503,11 @@ export default function EarlyIntervention() {
             <div className="hero-image">
 
               <img
-                src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=1200&auto=format&fit=crop"
+                src="https://res.cloudinary.com/dvg5yktms/image/upload/v1779106706/prarambha-foundation/iwrcgpssqpg8vbwttw9s.jpg"
+
                 alt="Early Intervention"
+
+                loading="lazy"
               />
 
             </div>
@@ -345,92 +531,35 @@ export default function EarlyIntervention() {
             <div className="services-grid">
 
               {
-                services.map((item, index) => (
+                services.map(
+                  (
+                    item,
+                    index
+                  ) => (
 
-                  <div
-                    className="service-card"
-                    key={index}
-                  >
+                    <div
+                      className="service-card"
+                      key={index}
+                    >
 
-                    <div className="service-icon">
-                      🧩
+                      <div className="service-icon">
+                        {item.icon}
+                      </div>
+
+                      <div className="service-title">
+                        {item.title}
+                      </div>
+
+                      <p className="service-desc">
+
+                        {item.desc}
+
+                      </p>
+
                     </div>
-
-                    <div className="service-title">
-                      {item}
-                    </div>
-
-                  </div>
-                ))
+                  )
+                )
               }
-
-            </div>
-
-          </div>
-
-        </section>
-
-        {/* IMPACT */}
-
-        <section className="impact-section">
-
-          <div className="impact-inner">
-
-            <h2 className="section-title">
-
-              Positive <span>Impact</span>
-
-            </h2>
-
-            <div className="impact-grid">
-
-              <div className="impact-card">
-
-                <div className="impact-number">
-                  500+
-                </div>
-
-                <div className="impact-text">
-                  Children supported through structured intervention programs.
-                </div>
-
-              </div>
-
-              <div className="impact-card">
-
-                <div className="impact-number">
-                  120+
-                </div>
-
-                <div className="impact-text">
-                  Families guided with therapy and developmental support.
-                </div>
-
-              </div>
-
-              <div className="impact-card">
-
-                <div className="impact-number">
-                  50+
-                </div>
-
-                <div className="impact-text">
-                  Therapy and developmental sessions conducted every month.
-                </div>
-
-              </div>
-
-              <div className="impact-card">
-
-                <div className="impact-number">
-                  95%
-                </div>
-
-                <div className="impact-text">
-                  Improvement seen in communication, focus, and social skills.
-                </div>
-
-              </div>
 
             </div>
 
@@ -460,7 +589,9 @@ export default function EarlyIntervention() {
             href="/contact"
             className="cta-btn"
           >
+
             Connect With Us
+
           </a>
 
         </section>

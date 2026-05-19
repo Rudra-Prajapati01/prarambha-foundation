@@ -181,21 +181,71 @@ function StoryDetails() {
                     </Link>
 
                     {/* SHARE */}
+                    {/* SHARE */}
+
                     <button
+
                         className="
-              w-14
-              h-14
-              rounded-full
-              bg-white/20
-              backdrop-blur-md
-              text-white
-              flex
-              items-center
-              justify-center
-              text-xl
-              hover:bg-white/30
-              transition-all
-            "
+    w-14
+    h-14
+    rounded-full
+    bg-white/20
+    backdrop-blur-md
+    text-white
+    flex
+    items-center
+    justify-center
+    text-xl
+    hover:bg-white/30
+    transition-all
+  "
+
+                        onClick={async () => {
+
+                            try {
+
+                                /* ================================
+                                    WEB SHARE API
+                                ================================ */
+
+                                if (
+                                    navigator.share
+                                ) {
+
+                                    await navigator.share({
+
+                                        title:
+                                            story.title,
+
+                                        text:
+                                            story.desc,
+
+                                        url:
+                                            window.location.href,
+                                    })
+
+                                }
+
+                                /* ================================
+                                    FALLBACK COPY
+                                ================================ */
+
+                                else {
+
+                                    await navigator.clipboard.writeText(
+                                        window.location.href
+                                    )
+
+                                    alert(
+                                        "Story link copied 😄"
+                                    )
+                                }
+
+                            } catch (error) {
+
+                                console.log(error)
+                            }
+                        }}
                     >
 
                         <FaShareAlt />

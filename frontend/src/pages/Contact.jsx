@@ -6,7 +6,6 @@ import {
   FaEnvelope,
   FaPhoneAlt,
   FaMapMarkerAlt,
-  FaClock,
   FaPaperPlane,
 } from "react-icons/fa"
 
@@ -25,6 +24,13 @@ function Contact() {
   const {
     pageData,
   } = usePageData()
+
+  /* =========================================
+      DYNAMIC FOOTER DATA
+  ========================================= */
+
+  const footer =
+    pageData?.footer || {}
 
   /* =========================================
       STATES
@@ -322,8 +328,8 @@ function Contact() {
                     <p className="text-gray-600">
 
                       {
-                        contactData?.email
-                        || "foundationprarambha@gmail.com"
+                        footer.email ||
+                        "foundationprarambha@gmail.com"
                       }
 
                     </p>
@@ -377,8 +383,8 @@ function Contact() {
                     <p className="text-gray-600">
 
                       {
-                        contactData?.phone
-                        || "+91 940 911 8461"
+                        footer.phone ||
+                        "+91 940 911 8461"
                       }
 
                     </p>
@@ -432,63 +438,8 @@ function Contact() {
                     <p className="text-gray-600">
 
                       {
-                        contactData?.location
-                        || "Ahmedabad, Gujarat, India"
-                      }
-
-                    </p>
-
-                  </div>
-
-                </div>
-
-                {/* HOURS */}
-
-                <div
-                  className="
-                    flex
-                    items-center
-                    gap-5
-                    bg-white
-                    p-5
-                    rounded-3xl
-                    shadow-sm
-                  "
-                >
-
-                  <div
-                    className="
-                      w-16
-                      h-16
-                      rounded-2xl
-                      bg-[#EEF4FF]
-                      flex
-                      items-center
-                      justify-center
-                      text-[#2563EB]
-                      text-2xl
-                    "
-                  >
-                    <FaClock />
-                  </div>
-
-                  <div>
-
-                    <h3
-                      className="
-                        text-xl
-                        font-bold
-                        text-[#071952]
-                      "
-                    >
-                      Working Hours
-                    </h3>
-
-                    <p className="text-gray-600">
-
-                      {
-                        contactData?.hours
-                        || "Monday - Saturday : 9 AM - 6 PM"
+                        footer.address ||
+                        "Ahmedabad, Gujarat, India"
                       }
 
                     </p>

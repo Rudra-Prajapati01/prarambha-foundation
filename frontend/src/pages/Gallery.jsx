@@ -12,7 +12,7 @@ import { usePageData }
 function Gallery() {
 
   const { pageData } =
-  usePageData()
+    usePageData()
 
   const [gallery, setGallery] = useState([])
   const [selectedCategory, setSelectedCategory] = useState("All")
@@ -992,13 +992,71 @@ function Gallery() {
                 </div>
 
                 {/* Action buttons */}
+                {/* =====================================
+    ACTION BUTTONS
+===================================== */}
+
                 <div className="lb-i-btns">
-                  <button className="lb-i-btn-p" onClick={closeLightbox}>
+
+                  {/* CLOSE */}
+
+                  <button
+                    className="lb-i-btn-p"
+                    onClick={closeLightbox}
+                  >
+
                     ✕ Close Story
+
                   </button>
-                  <button className="lb-i-btn-g">
+
+                  {/* SHARE */}
+
+                  <button
+
+                    className="lb-i-btn-g"
+
+                    onClick={async () => {
+
+                      try {
+
+                        if (
+                          navigator.share
+                        ) {
+
+                          await navigator.share({
+
+                            title:
+                              selectedImage.title,
+
+                            text:
+                              selectedImage.caption,
+
+                            url:
+                              window.location.href,
+                          })
+
+                        } else {
+
+                          await navigator.clipboard.writeText(
+                            window.location.href
+                          )
+
+                          alert(
+                            "Link copied 😄"
+                          )
+                        }
+
+                      } catch (error) {
+
+                        console.log(error)
+                      }
+                    }}
+                  >
+
                     ❤️ Share
+
                   </button>
+
                 </div>
 
                 {/* Dot navigation */}

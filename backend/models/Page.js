@@ -3,280 +3,514 @@ import mongoose from "mongoose"
 /* =====================================
     GENERIC SECTION
 ===================================== */
-const sectionSchema = mongoose.Schema({
 
-  heading: String,
+const sectionSchema =
+  mongoose.Schema({
 
-  content: String,
+    heading: {
+      type: String,
+      default: "",
+    },
 
-  image: String,
-})
+    content: {
+      type: String,
+      default: "",
+    },
+
+    image: {
+      type: String,
+      default: "",
+    },
+
+  })
 
 /* =====================================
     PROGRAMS
 ===================================== */
-const programSchema = mongoose.Schema({
 
-  title: String,
+const programSchema =
+  mongoose.Schema({
 
-  points: [String],
+    title: {
+      type: String,
+      default: "",
+    },
 
-  color: String,
+    points: {
+      type: [String],
+      default: [],
+    },
 
-  image1: String,
+    color: {
+      type: String,
+      default: "#E63946",
+    },
 
-  image2: String,
+    image1: {
+      type: String,
+      default: "",
+    },
 
-  image3: String,
-})
+    image2: {
+      type: String,
+      default: "",
+    },
+
+    image3: {
+      type: String,
+      default: "",
+    },
+
+  })
 
 /* =====================================
     IMPACT STORIES
 ===================================== */
-const impactStorySchema = mongoose.Schema({
 
-  title: String,
+const impactStorySchema =
+  mongoose.Schema({
 
-  category: String,
+    title: {
+      type: String,
+      default: "",
+    },
 
-  image: String,
+    category: {
+      type: String,
+      default: "",
+    },
 
-  desc: String,
+    image: {
+      type: String,
+      default: "",
+    },
 
-  type: String,
-})
+    desc: {
+      type: String,
+      default: "",
+    },
+
+    type: {
+      type: String,
+      default: "",
+    },
+
+  })
 
 /* =====================================
     STATS
 ===================================== */
-const statsSchema = mongoose.Schema({
 
-  number: String,
+const statsSchema =
+  mongoose.Schema({
 
-  label: String,
+    number: {
+      type: String,
+      default: "",
+    },
 
-  icon: String,
-})
+    label: {
+      type: String,
+      default: "",
+    },
+
+    icon: {
+      type: String,
+      default: "smile",
+    },
+
+  })
 
 /* =====================================
     VALUES
 ===================================== */
-const valueSchema = mongoose.Schema({
 
-  title: String,
+const valueSchema =
+  mongoose.Schema({
 
-  desc: String,
+    title: {
+      type: String,
+      default: "",
+    },
 
-  icon: String,
+    desc: {
+      type: String,
+      default: "",
+    },
 
-  color: String,
-})
+    icon: {
+      type: String,
+      default: "",
+    },
+
+    color: {
+      type: String,
+      default: "#E63946",
+    },
+
+  })
 
 /* =====================================
     TEAM
 ===================================== */
-const teamSchema = mongoose.Schema({
 
-  name: String,
+const teamSchema =
+  mongoose.Schema({
 
-  role: String,
+    name: {
+      type: String,
+      default: "",
+    },
 
-  image: String,
+    role: {
+      type: String,
+      default: "",
+    },
 
-  color: String,
-})
+    image: {
+      type: String,
+      default: "",
+    },
+
+    color: {
+      type: String,
+      default: "#E63946",
+    },
+
+  })
 
 /* =====================================
     MAIN PAGE SCHEMA
 ===================================== */
-const pageSchema = mongoose.Schema(
-  {
-    page: {
-      type: String,
-      required: true,
-      unique: true,
+
+const pageSchema =
+  mongoose.Schema(
+
+    {
+      page: {
+        type: String,
+        required: true,
+        unique: true,
+      },
+
+      /* =====================================
+          HERO
+      ===================================== */
+
+      hero: {
+
+        title: {
+          type: String,
+          default: "",
+        },
+
+        subtitle: {
+          type: String,
+          default: "",
+        },
+
+        description: {
+          type: String,
+          default: "",
+        },
+
+        buttonText: {
+          type: String,
+          default: "",
+        },
+
+        image: {
+          type: String,
+          default: "",
+        },
+
+      },
+
+      /* =====================================
+          STORY SECTION
+      ===================================== */
+
+      story: {
+
+        heading: {
+          type: String,
+          default: "",
+        },
+
+        title: {
+          type: String,
+          default: "",
+        },
+
+        description: {
+          type: String,
+          default: "",
+        },
+
+        image: {
+          type: String,
+          default: "",
+        },
+
+      },
+
+      /* =====================================
+          MISSION SECTION
+      ===================================== */
+
+      mission: {
+
+        heading: {
+          type: String,
+          default: "",
+        },
+
+        content: {
+          type: String,
+          default: "",
+        },
+
+        image: {
+          type: String,
+          default: "",
+        },
+
+      },
+
+      /* =====================================
+          PHILOSOPHY
+      ===================================== */
+
+      philosophy: {
+
+        title: {
+          type: String,
+          default: "",
+        },
+
+        description: {
+          type: String,
+          default: "",
+        },
+
+      },
+
+      /* =====================================
+          CHAIRPERSON
+      ===================================== */
+
+      chairperson: {
+
+        name: {
+          type: String,
+          default: "",
+        },
+
+        role: {
+          type: String,
+          default: "",
+        },
+
+        quote: {
+          type: String,
+          default: "",
+        },
+
+        description: {
+          type: String,
+          default: "",
+        },
+
+        image: {
+          type: String,
+          default: "",
+        },
+
+      },
+
+      /* =====================================
+          CTA
+      ===================================== */
+
+      cta: {
+
+        title: {
+          type: String,
+          default: "",
+        },
+
+        description: {
+          type: String,
+          default: "",
+        },
+
+        button1: {
+          type: String,
+          default: "",
+        },
+
+        button2: {
+          type: String,
+          default: "",
+        },
+
+      },
+
+      /* =====================================
+          PROGRAMS
+      ===================================== */
+
+      programs: {
+        type: [programSchema],
+        default: [],
+      },
+
+      /* =====================================
+          PROGRAM GALLERY IMAGES
+      ===================================== */
+
+      programImage1: {
+        type: String,
+        default: "",
+      },
+
+      programImage2: {
+        type: String,
+        default: "",
+      },
+
+      programImage3: {
+        type: String,
+        default: "",
+      },
+
+      /* =====================================
+          DONATE PAGE
+      ===================================== */
+
+      donate: {
+
+        heroTitle: {
+          type: String,
+          default: "",
+        },
+
+        heroSubtitle: {
+          type: String,
+          default: "",
+        },
+
+        heroDescription: {
+          type: String,
+          default: "",
+        },
+
+        cards: {
+
+          type: [
+            {
+              title: String,
+              amount: String,
+              desc: String,
+              buttonText: String,
+              icon: String,
+            }
+          ],
+
+          default: [],
+        },
+
+      },
+
+      /* =====================================
+          IMPACT STORIES
+      ===================================== */
+
+      impactStories: {
+        type: [impactStorySchema],
+        default: [],
+      },
+
+      /* =====================================
+          STATS
+      ===================================== */
+
+      stats: {
+        type: [statsSchema],
+        default: [],
+      },
+
+      /* =====================================
+          VALUES
+      ===================================== */
+
+      values: {
+        type: [valueSchema],
+        default: [],
+      },
+
+      /* =====================================
+          TEAM
+      ===================================== */
+
+      team: {
+        type: [teamSchema],
+        default: [],
+      },
+
+      /* =====================================
+          FOOTER
+      ===================================== */
+
+      footer: {
+
+        description: {
+          type: String,
+          default: "",
+        },
+
+        phone: {
+          type: String,
+          default: "",
+        },
+
+        email: {
+          type: String,
+          default: "",
+        },
+
+        address: {
+          type: String,
+          default: "",
+        },
+
+        logo: {
+          type: String,
+          default: "",
+        },
+
+      },
+
+      /* =====================================
+          GENERIC SECTIONS
+      ===================================== */
+
+      sections: {
+        type: [sectionSchema],
+        default: [],
+      },
+
     },
 
-    /* =====================================
-        HERO
-    ===================================== */
-    hero: {
+    {
+      timestamps: true,
+    }
+  )
 
-      title: String,
-
-      subtitle: String,
-
-      description: String,
-
-      buttonText: String,
-
-      image: String,
-    },
-
-    /* =====================================
-        STORY SECTION
-    ===================================== */
-    story: {
-
-      heading: String,
-
-      title: String,
-
-      description: String,
-
-      image: String,
-    },
-
-    /* =====================================
-        MISSION SECTION
-    ===================================== */
-    mission: {
-
-      heading: String,
-
-      content: String,
-
-      image: String,
-    },
-
-    /* =====================================
-        PHILOSOPHY
-    ===================================== */
-    philosophy: {
-
-      title: String,
-
-      description: String,
-    },
-
-    /* =====================================
-        CHAIRPERSON
-    ===================================== */
-    chairperson: {
-
-      name: String,
-
-      role: String,
-
-      quote: String,
-
-      description: String,
-
-      image: String,
-    },
-
-    /* =====================================
-        CTA
-    ===================================== */
-    cta: {
-
-      title: String,
-
-      description: String,
-
-      button1: String,
-
-      button2: String,
-    },
-
-    /* =====================================
-        PROGRAMS
-    ===================================== */
-    programs: [programSchema],
-
-    /* =====================================
-        PROGRAM GALLERY IMAGES
-    ===================================== */
-    programImage1: {
-      type: String,
-      default: "",
-    },
-
-    programImage2: {
-      type: String,
-      default: "",
-    },
-
-    programImage3: {
-      type: String,
-      default: "",
-    },
-
-    /* =====================================
-    DONATE PAGE
-===================================== */
-    donate: {
-
-      heroTitle: String,
-
-      heroSubtitle: String,
-
-      heroDescription: String,
-
-      cards: [
-        {
-          title: String,
-
-          amount: String,
-
-          desc: String,
-
-          buttonText: String,
-
-          icon: String,
-        }
-      ],
-    },
-
-    /* =====================================
-        IMPACT STORIES
-    ===================================== */
-    impactStories: [impactStorySchema],
-
-    /* =====================================
-        STATS
-    ===================================== */
-    stats: [statsSchema],
-
-    /* =====================================
-        VALUES
-    ===================================== */
-    values: [valueSchema],
-
-    /* =====================================
-        TEAM
-    ===================================== */
-    team: [teamSchema],
-
-    /* =====================================
-        FOOTER
-    ===================================== */
-    footer: {
-
-      description: String,
-
-      phone: String,
-
-      email: String,
-
-      address: String,
-
-      logo: String,
-    },
-
-    /* =====================================
-        GENERIC SECTIONS
-    ===================================== */
-    sections: [sectionSchema],
-  },
-  {
-    timestamps: true,
-  }
-)
-
-const Page = mongoose.model(
-  "Page",
-  pageSchema
-)
+const Page =
+  mongoose.model(
+    "Page",
+    pageSchema
+  )
 
 export default Page
