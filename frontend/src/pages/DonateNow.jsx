@@ -26,6 +26,9 @@ export default function DonateNow() {
   const [loading, setLoading] =
     useState(true)
 
+  const [error, setError] =
+    useState(false)
+
   /* =====================================
       FETCH DONATE PAGE
   ===================================== */
@@ -42,16 +45,28 @@ export default function DonateNow() {
               "https://prarambha-backend.onrender.com/api/pages/donate"
             )
 
+          if (!response.ok) {
+
+            throw new Error(
+              "Failed to fetch donate page"
+            )
+          }
+
           const data =
             await response.json()
 
-          console.log(data)
+          console.log(
+            "DONATE DATA =>",
+            data
+          )
 
           setDonateData(data)
 
         } catch (error) {
 
           console.log(error)
+
+          setError(true)
 
         } finally {
 
@@ -82,11 +97,49 @@ export default function DonateNow() {
         }}
       >
 
-        Loading...
+        Loading Donate Page...
 
       </div>
     )
   }
+
+  /* =====================================
+      ERROR
+  ===================================== */
+
+  if (error) {
+
+    return (
+
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "24px",
+          fontWeight: "700",
+          color: "red",
+        }}
+      >
+
+        Failed To Load Donate Page
+
+      </div>
+    )
+  }
+
+  /* =====================================
+      DONATE DATA
+  ===================================== */
+
+  const donate =
+    donateData?.donate || {}
+
+  const cards =
+    Array.isArray(donate.cards)
+      ? donate.cards
+      : []
 
   return (
 
@@ -430,8 +483,8 @@ export default function DonateNow() {
             <p className="hero-tag">
 
               {
-                donateData?.donate?.heroSubtitle ||
-                "Support Inclusion"
+                donate.heroSubtitle ||
+                "Support Inclusion & Early Intervention"
               }
 
             </p>
@@ -439,7 +492,7 @@ export default function DonateNow() {
             <h1 className="hero-title">
 
               {
-                donateData?.donate?.heroTitle ||
+                donate.heroTitle ||
                 "Donate Now"
               }
 
@@ -448,8 +501,8 @@ export default function DonateNow() {
             <p className="hero-desc">
 
               {
-                donateData?.donate?.heroDescription ||
-                "Support children with therapy and education."
+                donate.heroDescription ||
+                "Support children with therapy and inclusive education."
               }
 
             </p>
@@ -469,53 +522,70 @@ export default function DonateNow() {
             <div className="donation-grid">
 
               {
-                donateData?.donate?.cards?.map(
-                  (item, index) => (
+                cards.length > 0
+                  ? cards.map(
+                      (
+                        item,
+                        index
+                      ) => (
 
-                    <div
-                      className="donation-card"
-                      key={index}
-                    >
+                        <div
+                          className="donation-card"
+                          key={index}
+                        >
 
-                      <div className="donation-icon">
+                          <div className="donation-icon">
 
-                        {item.icon}
+                            {
+                              item.icon
+                            }
 
-                      </div>
+                          </div>
 
-                      <div className="donation-title">
+                          <div className="donation-title">
 
-                        {item.title}
+                            {
+                              item.title
+                            }
 
-                      </div>
+                          </div>
 
-                      <div className="donation-amount">
+                          <div className="donation-amount">
 
-                        {item.amount}
+                            {
+                              item.amount
+                            }
 
-                      </div>
+                          </div>
 
-                      <div className="donation-desc">
+                          <div className="donation-desc">
 
-                        {item.desc}
+                            {
+                              item.desc
+                            }
 
-                      </div>
+                          </div>
 
-                      <a
-                        href="/contact"
-                        className="donate-btn"
-                      >
+                          <a
+                            href="/contact"
+                            className="donate-btn"
+                          >
 
-                        {
-                          item.buttonText ||
-                          "Donate Now"
-                        }
+                            {
+                              item.buttonText ||
+                              "Donate Now"
+                            }
 
-                      </a>
+                          </a>
 
-                    </div>
+                        </div>
+                      )
+                    )
+                  : (
+                    <h2>
+                      No Donation Cards Found
+                    </h2>
                   )
-                )
               }
 
             </div>

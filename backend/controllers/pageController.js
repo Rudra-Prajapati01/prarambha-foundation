@@ -50,84 +50,165 @@ const updatePage = async (req, res) => {
     /* =====================================
         HERO
     ===================================== */
-    page.hero =
-      req.body.hero
+    if (req.body.hero !== undefined) {
+
+      page.hero =
+        req.body.hero
+    }
 
     /* =====================================
         STORY
     ===================================== */
-    page.story =
-      req.body.story
+    if (req.body.story !== undefined) {
+
+      page.story =
+        req.body.story
+    }
 
     /* =====================================
         MISSION
     ===================================== */
-    page.mission =
-      req.body.mission
+    if (req.body.mission !== undefined) {
+
+      page.mission =
+        req.body.mission
+    }
 
     /* =====================================
         PHILOSOPHY
     ===================================== */
-    page.philosophy =
-      req.body.philosophy
+    if (req.body.philosophy !== undefined) {
+
+      page.philosophy =
+        req.body.philosophy
+    }
 
     /* =====================================
         CTA
     ===================================== */
-    page.cta =
-      req.body.cta
+    if (req.body.cta !== undefined) {
+
+      page.cta =
+        req.body.cta
+    }
 
     /* =====================================
         PROGRAMS
     ===================================== */
-    page.programs =
-      req.body.programs
+    if (req.body.programs !== undefined) {
 
+      page.programs =
+        req.body.programs
+    }
 
-    page.donate =
-      req.body.donate
+    /* =====================================
+        PROGRAM IMAGES
+    ===================================== */
+    if (
+      req.body.programImage1 !== undefined
+    ) {
+
+      page.programImage1 =
+        req.body.programImage1
+    }
+
+    if (
+      req.body.programImage2 !== undefined
+    ) {
+
+      page.programImage2 =
+        req.body.programImage2
+    }
+
+    if (
+      req.body.programImage3 !== undefined
+    ) {
+
+      page.programImage3 =
+        req.body.programImage3
+    }
+
+    /* =====================================
+        DONATE PAGE
+    ===================================== */
+    if (req.body.donate !== undefined) {
+
+      page.donate =
+        req.body.donate
+    }
 
     /* =====================================
         IMPACT STORIES
     ===================================== */
-    page.impactStories =
-      req.body.impactStories
+    if (
+      req.body.impactStories !== undefined
+    ) {
+
+      page.impactStories =
+        req.body.impactStories
+    }
 
     /* =====================================
         STATS
     ===================================== */
-    page.stats =
-      req.body.stats
+    if (req.body.stats !== undefined) {
+
+      page.stats =
+        req.body.stats
+    }
 
     /* =====================================
         VALUES
     ===================================== */
-    page.values =
-      req.body.values
+    if (req.body.values !== undefined) {
+
+      page.values =
+        req.body.values
+    }
 
     /* =====================================
         CHAIRPERSON
     ===================================== */
-    page.chairperson =
-      req.body.chairperson
+    if (
+      req.body.chairperson !== undefined
+    ) {
+
+      page.chairperson =
+        req.body.chairperson
+    }
 
     /* =====================================
         TEAM
     ===================================== */
-    page.team =
-      req.body.team
+    if (req.body.team !== undefined) {
+
+      page.team =
+        req.body.team
+    }
 
     /* =====================================
         FOOTER
     ===================================== */
-    page.footer =
-      req.body.footer
+    if (req.body.footer !== undefined) {
+
+      page.footer =
+        req.body.footer
+    }
 
     /* =====================================
         GENERIC SECTIONS
     ===================================== */
-    page.sections =
-      req.body.sections
+    if (
+      req.body.sections !== undefined
+    ) {
+
+      page.sections =
+        req.body.sections
+    }
+
+    /* =====================================
+        SAVE PAGE
+    ===================================== */
 
     const updatedPage =
       await page.save()
@@ -135,6 +216,8 @@ const updatePage = async (req, res) => {
     res.json(updatedPage)
 
   } catch (error) {
+
+    console.log(error)
 
     res.status(500).json({
       message: error.message,
