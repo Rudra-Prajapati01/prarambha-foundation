@@ -47,16 +47,6 @@ export default function InclusiveEducation() {
         "Structured ILP-based educational support designed around every child’s developmental level, strengths, pace, and learning needs.",
     },
 
-    {
-      title:
-        "School Readiness Programs",
-
-      icon: "🎒",
-
-      desc:
-        "Supporting communication, attention span, classroom behavior, emotional regulation, and readiness for inclusive school environments.",
-    },
-
   ]
 
   return (
