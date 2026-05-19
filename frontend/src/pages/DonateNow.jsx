@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react"
+
 import Navbar from "../components/common/Navbar"
 import Footer from "../components/common/Footer"
 
@@ -15,44 +17,76 @@ export default function DonateNow() {
   } = usePageData()
 
   /* =====================================
-      DONATION OPTIONS
+      DONATE PAGE DATA
   ===================================== */
 
-  const donations = [
+  const [donateData, setDonateData] =
+    useState(null)
 
-    {
-      title: "Sponsor a Child",
+  const [loading, setLoading] =
+    useState(true)
 
-      amount: "₹45,000",
+  /* =====================================
+      FETCH DONATE PAGE
+  ===================================== */
 
-      desc:
-        "Support therapy, education, intervention, and development programs for one child.",
+  useEffect(() => {
 
-      icon: "❤️",
-    },
+    const fetchDonatePage =
+      async () => {
 
-    {
-      title: "Therapy Support Kit",
+        try {
 
-      amount: "₹25,000",
+          const response =
+            await fetch(
+              "https://prarambha-backend.onrender.com/api/pages/donate"
+            )
 
-      desc:
-        "Help provide sensory tools, therapy materials, and learning resources.",
+          const data =
+            await response.json()
 
-      icon: "🧠",
-    },
+          console.log(data)
 
-    {
-      title: "Inclusive Classroom",
+          setDonateData(data)
 
-      amount: "₹1,50,000",
+        } catch (error) {
 
-      desc:
-        "Support classroom setup, learning equipment, and inclusive education infrastructure.",
+          console.log(error)
 
-      icon: "🏫",
-    },
-  ]
+        } finally {
+
+          setLoading(false)
+        }
+      }
+
+    fetchDonatePage()
+
+  }, [])
+
+  /* =====================================
+      LOADING
+  ===================================== */
+
+  if (loading) {
+
+    return (
+
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "24px",
+          fontWeight: "700",
+        }}
+      >
+
+        Loading...
+
+      </div>
+    )
+  }
 
   return (
 
@@ -343,134 +377,6 @@ export default function DonateNow() {
         }
 
         /* =====================================
-            QR SECTION
-        ===================================== */
-
-        .qr-section {
-
-          background:
-            linear-gradient(
-              135deg,
-              #0B1B4D,
-              #16295c
-            );
-
-          padding: 110px 20px;
-
-          text-align: center;
-
-          color: white;
-
-          position: relative;
-
-          overflow: hidden;
-        }
-
-        .qr-section::before {
-
-          content: "";
-
-          position: absolute;
-
-          top: -100px;
-          left: -100px;
-
-          width: 300px;
-          height: 300px;
-
-          background: #FFD600;
-
-          opacity: 0.08;
-
-          border-radius: 50%;
-        }
-
-        .qr-section::after {
-
-          content: "";
-
-          position: absolute;
-
-          bottom: -120px;
-          right: -120px;
-
-          width: 340px;
-          height: 340px;
-
-          background: #ffffff;
-
-          opacity: 0.05;
-
-          border-radius: 50%;
-        }
-
-        .qr-title {
-
-          font-size:
-            clamp(38px,5vw,64px);
-
-          font-weight: 900;
-
-          margin-bottom: 24px;
-
-          position: relative;
-
-          z-index: 2;
-        }
-
-        .qr-title span {
-          color: #FFD600;
-        }
-
-        .qr-desc {
-
-          max-width: 750px;
-
-          margin: auto;
-
-          line-height: 2;
-
-          color: #f1f1f1;
-
-          margin-bottom: 55px;
-
-          position: relative;
-
-          z-index: 2;
-        }
-
-        .qr-box {
-
-          width: 280px;
-          height: 280px;
-
-          margin: auto;
-
-          background: white;
-
-          border-radius: 30px;
-
-          display: flex;
-
-          align-items: center;
-
-          justify-content: center;
-
-          color: #999;
-
-          font-weight: 700;
-
-          padding: 20px;
-
-          position: relative;
-
-          z-index: 2;
-
-          box-shadow:
-            0 15px 60px rgba(0,0,0,0.25);
-        }
-
-        /* =====================================
             MOBILE
         ===================================== */
 
@@ -499,11 +405,6 @@ export default function DonateNow() {
           .donation-card {
             padding: 40px 28px;
           }
-
-          .qr-box {
-            width: 230px;
-            height: 230px;
-          }
         }
 
       `}</style>
@@ -528,21 +429,28 @@ export default function DonateNow() {
 
             <p className="hero-tag">
 
-              Support Inclusion & Early Intervention
+              {
+                donateData?.donate?.heroSubtitle ||
+                "Support Inclusion"
+              }
 
             </p>
 
             <h1 className="hero-title">
 
-              Donate <span>Now</span>
+              {
+                donateData?.donate?.heroTitle ||
+                "Donate Now"
+              }
 
             </h1>
 
             <p className="hero-desc">
 
-              Your contribution helps children receive therapy,
-              inclusive education, developmental support,
-              awareness programs, and a brighter future.
+              {
+                donateData?.donate?.heroDescription ||
+                "Support children with therapy and education."
+              }
 
             </p>
 
@@ -561,7 +469,7 @@ export default function DonateNow() {
             <div className="donation-grid">
 
               {
-                donations.map(
+                donateData?.donate?.cards?.map(
                   (item, index) => (
 
                     <div
@@ -597,7 +505,12 @@ export default function DonateNow() {
                         href="/contact"
                         className="donate-btn"
                       >
-                        Donate Now
+
+                        {
+                          item.buttonText ||
+                          "Donate Now"
+                        }
+
                       </a>
 
                     </div>

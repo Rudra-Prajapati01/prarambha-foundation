@@ -83,6 +83,10 @@ const updatePage = async (req, res) => {
     page.programs =
       req.body.programs
 
+
+    page.donate =
+      req.body.donate
+
     /* =====================================
         IMPACT STORIES
     ===================================== */
