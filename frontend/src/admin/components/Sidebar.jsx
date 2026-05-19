@@ -6,60 +6,103 @@ import {
   FaEnvelope,
   FaCog,
   FaSignOutAlt,
+  FaDonate,
 } from "react-icons/fa"
 
-import { Link, useNavigate } from "react-router-dom"
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom"
 
 function Sidebar() {
 
-  const navigate = useNavigate()
+  const navigate =
+    useNavigate()
 
   const logoutHandler = () => {
 
-    localStorage.removeItem("adminInfo")
+    localStorage.removeItem(
+      "adminInfo"
+    )
 
     navigate("/admin")
   }
 
   const menuItems = [
+
     {
       title: "Dashboard",
-      icon: <FaTachometerAlt />,
-      path: "/admin/dashboard",
+
+      icon:
+        <FaTachometerAlt />,
+
+      path:
+        "/admin/dashboard",
     },
 
     {
       title: "Manage Pages",
-      icon: <FaFileAlt />,
-      path: "/admin/pages",
+
+      icon:
+        <FaFileAlt />,
+
+      path:
+        "/admin/pages",
+    },
+
+    {
+      title: "Donate CMS",
+
+      icon:
+        <FaDonate />,
+
+      path:
+        "/admin/donate",
     },
 
     {
       title: "Gallery",
-      icon: <FaImages />,
-      path: "/admin/gallery",
+
+      icon:
+        <FaImages />,
+
+      path:
+        "/admin/gallery",
     },
 
     {
       title: "Stories",
-      icon: <FaFileAlt />,
-      path: "/admin/stories",
+
+      icon:
+        <FaFileAlt />,
+
+      path:
+        "/admin/stories",
     },
 
     {
       title: "Messages",
-      icon: <FaEnvelope />,
-      path: "/admin/messages",
+
+      icon:
+        <FaEnvelope />,
+
+      path:
+        "/admin/messages",
     },
 
     {
       title: "Settings",
-      icon: <FaCog />,
-      path: "/admin/settings",
+
+      icon:
+        <FaCog />,
+
+      path:
+        "/admin/settings",
     },
   ]
 
   return (
+
     <div
       className="
         w-[280px]
@@ -75,6 +118,7 @@ function Sidebar() {
     >
 
       {/* LOGO */}
+
       <div className="mb-10">
 
         <h1
@@ -100,46 +144,55 @@ function Sidebar() {
       </div>
 
       {/* MENU */}
+
       <div className="flex flex-col gap-3">
 
-        {menuItems.map((item, index) => (
+        {
+          menuItems.map(
+            (item, index) => (
 
-          <Link
-            key={index}
-            to={item.path}
-            className="
-              flex
-              items-center
-              gap-4
-              px-5
-              py-4
-              rounded-2xl
-              text-[#1F2937]
-              font-semibold
-              hover:bg-[#FFF7E8]
-              hover:text-[#E63946]
-              transition-all
-              duration-300
-            "
-          >
+              <Link
+                key={index}
 
-            <span className="text-lg">
+                to={item.path}
 
-              {item.icon}
+                className="
+                  flex
+                  items-center
+                  gap-4
+                  px-5
+                  py-4
+                  rounded-2xl
+                  text-[#1F2937]
+                  font-semibold
+                  hover:bg-[#FFF7E8]
+                  hover:text-[#E63946]
+                  transition-all
+                  duration-300
+                "
+              >
 
-            </span>
+                <span className="text-lg">
 
-            {item.title}
+                  {item.icon}
 
-          </Link>
+                </span>
 
-        ))}
+                {item.title}
+
+              </Link>
+
+            )
+          )
+        }
 
       </div>
 
       {/* LOGOUT */}
+
       <button
         onClick={logoutHandler}
+
         className="
           mt-auto
           flex

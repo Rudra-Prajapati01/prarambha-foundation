@@ -15,44 +15,11 @@ export default function DonateNow() {
   } = usePageData()
 
   /* =====================================
-      DONATION OPTIONS
+      DYNAMIC DONATIONS
   ===================================== */
 
-  const donations = [
-
-    {
-      title: "Sponsor a Child",
-
-      amount: "₹45,000",
-
-      desc:
-        "Support therapy, education, intervention, and development programs for one child.",
-
-      icon: "❤️",
-    },
-
-    {
-      title: "Therapy Support Kit",
-
-      amount: "₹25,000",
-
-      desc:
-        "Help provide sensory tools, therapy materials, and learning resources.",
-
-      icon: "🧠",
-    },
-
-    {
-      title: "Inclusive Classroom",
-
-      amount: "₹1,50,000",
-
-      desc:
-        "Support classroom setup, learning equipment, and inclusive education infrastructure.",
-
-      icon: "🏫",
-    },
-  ]
+  const donations =
+    pageData?.donate?.cards || []
 
   return (
 
@@ -343,134 +310,6 @@ export default function DonateNow() {
         }
 
         /* =====================================
-            QR SECTION
-        ===================================== */
-
-        .qr-section {
-
-          background:
-            linear-gradient(
-              135deg,
-              #0B1B4D,
-              #16295c
-            );
-
-          padding: 110px 20px;
-
-          text-align: center;
-
-          color: white;
-
-          position: relative;
-
-          overflow: hidden;
-        }
-
-        .qr-section::before {
-
-          content: "";
-
-          position: absolute;
-
-          top: -100px;
-          left: -100px;
-
-          width: 300px;
-          height: 300px;
-
-          background: #FFD600;
-
-          opacity: 0.08;
-
-          border-radius: 50%;
-        }
-
-        .qr-section::after {
-
-          content: "";
-
-          position: absolute;
-
-          bottom: -120px;
-          right: -120px;
-
-          width: 340px;
-          height: 340px;
-
-          background: #ffffff;
-
-          opacity: 0.05;
-
-          border-radius: 50%;
-        }
-
-        .qr-title {
-
-          font-size:
-            clamp(38px,5vw,64px);
-
-          font-weight: 900;
-
-          margin-bottom: 24px;
-
-          position: relative;
-
-          z-index: 2;
-        }
-
-        .qr-title span {
-          color: #FFD600;
-        }
-
-        .qr-desc {
-
-          max-width: 750px;
-
-          margin: auto;
-
-          line-height: 2;
-
-          color: #f1f1f1;
-
-          margin-bottom: 55px;
-
-          position: relative;
-
-          z-index: 2;
-        }
-
-        .qr-box {
-
-          width: 280px;
-          height: 280px;
-
-          margin: auto;
-
-          background: white;
-
-          border-radius: 30px;
-
-          display: flex;
-
-          align-items: center;
-
-          justify-content: center;
-
-          color: #999;
-
-          font-weight: 700;
-
-          padding: 20px;
-
-          position: relative;
-
-          z-index: 2;
-
-          box-shadow:
-            0 15px 60px rgba(0,0,0,0.25);
-        }
-
-        /* =====================================
             MOBILE
         ===================================== */
 
@@ -499,11 +338,6 @@ export default function DonateNow() {
           .donation-card {
             padding: 40px 28px;
           }
-
-          .qr-box {
-            width: 230px;
-            height: 230px;
-          }
         }
 
       `}</style>
@@ -528,21 +362,30 @@ export default function DonateNow() {
 
             <p className="hero-tag">
 
-              Support Inclusion & Early Intervention
+              {
+                pageData?.donate?.heroSubtitle ||
+                "Support Inclusion & Early Intervention"
+              }
 
             </p>
 
             <h1 className="hero-title">
 
-              Donate <span>Now</span>
+              {
+                pageData?.donate?.heroTitle ||
+                "Donate"
+              }
+
+              <span> Now</span>
 
             </h1>
 
             <p className="hero-desc">
 
-              Your contribution helps children receive therapy,
-              inclusive education, developmental support,
-              awareness programs, and a brighter future.
+              {
+                pageData?.donate?.heroDescription ||
+                "Your contribution helps children receive therapy, inclusive education, developmental support, awareness programs, and a brighter future."
+              }
 
             </p>
 
@@ -571,7 +414,9 @@ export default function DonateNow() {
 
                       <div className="donation-icon">
 
-                        {item.icon}
+                        {
+                          item.icon || "❤️"
+                        }
 
                       </div>
 
@@ -597,7 +442,12 @@ export default function DonateNow() {
                         href="/contact"
                         className="donate-btn"
                       >
-                        Donate Now
+
+                        {
+                          item.buttonText ||
+                          "Donate Now"
+                        }
+
                       </a>
 
                     </div>

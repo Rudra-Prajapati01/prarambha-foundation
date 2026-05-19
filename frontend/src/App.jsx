@@ -25,6 +25,7 @@ import StoriesAdmin from "./admin/pages/StoriesAdmin"
 
 import Messages from "./admin/pages/Messages"
 
+import DonateEditor from "./admin/components/editors/DonateEditor"
 /* =====================================
    CHAIRPERSON
 ===================================== */
@@ -214,6 +215,15 @@ function App() {
 
                 <Messages />
 
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/donate"
+            element={
+              <ProtectedRoute>
+                <DonateEditor />
               </ProtectedRoute>
             }
           />

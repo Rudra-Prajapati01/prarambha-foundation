@@ -203,6 +203,32 @@ const pageSchema = mongoose.Schema(
     },
 
     /* =====================================
+    DONATE PAGE
+===================================== */
+    donate: {
+
+      heroTitle: String,
+
+      heroSubtitle: String,
+
+      heroDescription: String,
+
+      cards: [
+        {
+          title: String,
+
+          amount: String,
+
+          desc: String,
+
+          buttonText: String,
+
+          icon: String,
+        }
+      ],
+    },
+
+    /* =====================================
         IMPACT STORIES
     ===================================== */
     impactStories: [impactStorySchema],

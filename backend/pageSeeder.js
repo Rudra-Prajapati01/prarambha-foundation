@@ -1,75 +1,121 @@
-import dotenv from "dotenv"
+await Page.create([
 
-import connectDB from "./config/db.js"
+  {
+    page: "home",
 
-import Page from "./models/Page.js"
+    hero: {
 
-dotenv.config()
+      title:
+        "Discovering Ability Before Disability",
 
-connectDB()
+      subtitle:
+        "Prarambha Foundation",
 
-const seedPages = async () => {
+      description:
+        "Supporting children through inclusive education, therapy support, sensory learning, early intervention, and family-centered care programs that help every child grow with confidence, dignity, and opportunity.",
 
-  try {
+      buttonText:
+        "Explore Programs",
 
-    await Page.deleteMany()
+      image: "",
+    },
 
-    await Page.create({
+    sections: [
 
-      page: "home",
+      {
+        heading: "Who We Are",
 
-      hero: {
-
-        title:
-          "Discovering Ability Before Disability",
-
-        subtitle:
-          "Prarambha Foundation",
-
-        description:
-          "Supporting children through inclusive education, therapy support, sensory learning, early intervention, and family-centered care programs that help every child grow with confidence, dignity, and opportunity.",
-
-        buttonText:
-          "Explore Programs",
-
-        image: "",
+        content:
+          "At Prarambha Foundation, we believe that every child deserves understanding, support, and equal opportunities during their early developmental years. We focus on early intervention, inclusive education, therapy support, and family guidance to help children discover their strengths before limitations define them.",
       },
 
-      sections: [
+      {
+        heading: "Our Mission",
+
+        content:
+          "Our mission is to create a safe, inclusive, and empowering environment where every child receives the care, education, and developmental support they need to thrive emotionally, socially, and academically.",
+      },
+
+      {
+        heading: "Our Vision",
+
+        content:
+          "To build a world where every child is understood before being judged, supported before being excluded, and celebrated for their unique abilities and potential.",
+      },
+    ],
+  },
+
+  /* =====================================
+      DONATE PAGE
+  ===================================== */
+
+  {
+    page: "donate",
+
+    donate: {
+
+      heroTitle: "Donate",
+
+      heroSubtitle:
+        "Support Inclusion & Early Intervention",
+
+      heroDescription:
+        "Your contribution helps children receive therapy, inclusive education, developmental support, awareness programs, and a brighter future.",
+
+      cards: [
 
         {
-          heading: "Who We Are",
+          title:
+            "Sponsor a Child",
 
-          content:
-            "At Prarambha Foundation, we believe that every child deserves understanding, support, and equal opportunities during their early developmental years. We focus on early intervention, inclusive education, therapy support, and family guidance to help children discover their strengths before limitations define them.",
+          amount:
+            "₹45,000",
+
+          desc:
+            "Support therapy, education, intervention, and development programs for one child.",
+
+          buttonText:
+            "Donate Now",
+
+          icon:
+            "❤️",
         },
 
         {
-          heading: "Our Mission",
+          title:
+            "Therapy Support Kit",
 
-          content:
-            "Our mission is to create a safe, inclusive, and empowering environment where every child receives the care, education, and developmental support they need to thrive emotionally, socially, and academically.",
+          amount:
+            "₹25,000",
+
+          desc:
+            "Help provide sensory tools, therapy materials, and learning resources.",
+
+          buttonText:
+            "Donate Now",
+
+          icon:
+            "🧠",
         },
 
         {
-          heading: "Our Vision",
+          title:
+            "Inclusive Classroom",
 
-          content:
-            "To build a world where every child is understood before being judged, supported before being excluded, and celebrated for their unique abilities and potential.",
+          amount:
+            "₹1,50,000",
+
+          desc:
+            "Support classroom setup, learning equipment, and inclusive education infrastructure.",
+
+          buttonText:
+            "Donate Now",
+
+          icon:
+            "🏫",
         },
       ],
-    })
+    },
+  },
 
-    console.log("Pages Seeded Successfully")
-
-    process.exit()
-
-  } catch (error) {
-
-    console.log(error)
-
-    process.exit(1)
-  }
-}
-
-seedPages()
+])
