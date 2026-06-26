@@ -489,6 +489,21 @@ const pageSchema =
           default: "",
         },
 
+        facebook: {
+          type: String,
+          default: "",
+        },
+
+        instagram: {
+          type: String,
+          default: "",
+        },
+
+        youtube: {
+          type: String,
+          default: "",
+        },
+
       },
 
       /* =====================================

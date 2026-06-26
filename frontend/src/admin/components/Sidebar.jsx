@@ -51,16 +51,6 @@ function Sidebar() {
     },
 
     {
-      title: "Donate CMS",
-
-      icon:
-        <FaDonate />,
-
-      path:
-        "/admin/donate",
-    },
-
-    {
       title: "Gallery",
 
       icon:
@@ -88,16 +78,6 @@ function Sidebar() {
 
       path:
         "/admin/messages",
-    },
-
-    {
-      title: "Settings",
-
-      icon:
-        <FaCog />,
-
-      path:
-        "/admin/settings",
     },
   ]
 

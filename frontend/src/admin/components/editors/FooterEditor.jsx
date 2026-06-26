@@ -154,6 +154,8 @@ function FooterEditor({
           return
         }
 
+        setPageData(data)
+
         alert(
           "Footer updated successfully"
         )

@@ -91,26 +91,31 @@ function Navbar({ pageData }) {
       dropdown: [
 
         {
-          name: "Early Intervention",
+          name: "EARLY SCREENING & IDENTIFICATION",
           path: "/programs/early-intervention",
         },
 
         {
-          name: "Therapy Support",
+          name: "SPECIAL EDUCATION & INCLUSIVE LEARNING",
           path: "/programs/therapy-support",
         },
 
         {
-          name: "Inclusive Education",
+          name: "GUIDANCE & THERAPY SUPPORT",
           path: "/programs/inclusive-education",
         },
 
         {
-          name: "Community Support",
+          name: "FAMILY, SCHOOL & COMMUNITY PARTNERSHIP",
           path: "/programs/community-support",
         },
 
       ],
+    },
+
+    {
+      name: "Our Centre",
+      path: "/our-centre",
     },
 
     {
@@ -235,7 +240,7 @@ function Navbar({ pageData }) {
                     className="
                       w-[180px]
                       lg:w-[210px]
-                      h-[85px]
+                      h-[120px]
                       object-contain
                     "
                   />
@@ -397,7 +402,7 @@ function Navbar({ pageData }) {
               {/* DONATE BUTTON */}
 
               <Link
-                to="/donate"
+                to="/support-us"
 
                 className="
                   hidden
@@ -418,7 +423,7 @@ function Navbar({ pageData }) {
 
                 <FaHeart />
 
-                Donate Now
+                Support Us
 
               </Link>
 

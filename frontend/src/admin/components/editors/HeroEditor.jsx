@@ -63,45 +63,6 @@ function HeroEditor({
 
       <div className="space-y-6">
 
-        {/* HERO TAG */}
-
-        <div>
-
-          <label
-            className="
-              block
-              mb-2
-              font-semibold
-              text-gray-700
-            "
-          >
-            Hero Tag
-          </label>
-
-          <input
-            type="text"
-
-            name="tag"
-
-            placeholder="Every Child Deserves Support"
-
-            value={
-              pageData.hero?.tag || ""
-            }
-
-            onChange={handleHeroChange}
-
-            className="
-              w-full
-              h-[60px]
-              px-5
-              rounded-2xl
-              bg-[#F3F4F6]
-              outline-none
-            "
-          />
-
-        </div>
 
         {/* HERO TITLE */}
 

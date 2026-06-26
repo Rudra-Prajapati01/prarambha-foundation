@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import Home from "./pages/Home"
 import About from "./pages/About"
+import OurCentre from "./pages/OurCentre"
 import Services from "./pages/Services"
 
 import Gallery from "./pages/Gallery"
@@ -19,7 +20,7 @@ import StoryDetails from "./pages/StoryDetails"
 
 import Stories from "./components/common/stories/Stories"
 
-import DonateNow from "./pages/DonateNow"
+import SupportUs from "./pages/SupportUs"
 
 import StoriesAdmin from "./admin/pages/StoriesAdmin"
 
@@ -69,6 +70,11 @@ function App() {
           />
 
           <Route
+            path="/our-centre"
+            element={<OurCentre />}
+          />
+
+          <Route
             path="/services"
             element={<Services />}
           />
@@ -84,8 +90,8 @@ function App() {
           />
 
           <Route
-            path="/donate"
-            element={<DonateNow />}
+            path="/support-us"
+            element={<SupportUs />}
           />
 
           {/* =====================================

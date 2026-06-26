@@ -199,23 +199,19 @@ export default function MissionSection({ data }) {
           <ul className="mission-list">
 
             <li>
-              Early intervention & child development programs
+              EARLY SCREENING & IDENTIFICATION
             </li>
 
             <li>
-              Speech & behavioural therapy support
+              PARENT GUIDANCE & COUNSELLING
             </li>
 
             <li>
-              Inclusive education for special children
+              SPECIAL EDUCATION
             </li>
 
             <li>
-              Family counselling & engagement
-            </li>
-
-            <li>
-              Community support initiatives
+              GUIDANCE ON THERAPY SUPPORT
             </li>
 
           </ul>

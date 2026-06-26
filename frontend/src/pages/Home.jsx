@@ -7,6 +7,7 @@ import Story from "../components/common/Story"
 import Footer from "../components/common/Footer"
 import Programs from "../components/common/Programs"
 import Stats from "../components/common/Stats"
+import EarlyIdentification from "../components/common/EarlyIdentification"
 
 function Home() {
 
@@ -117,6 +118,12 @@ function Home() {
       <Hero
         pageData={pageData}
       />
+
+      {/* =====================================
+          EARLY IDENTIFICATION MATTERS
+      ===================================== */}
+
+      <EarlyIdentification />
 
       {/* =====================================
           PROGRAMS

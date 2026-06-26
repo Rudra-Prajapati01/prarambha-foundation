@@ -1,10 +1,6 @@
 import {
   FaHeart,
   FaUsers,
-  FaBook,
-  FaHandHoldingHeart,
-  FaUserFriends,
-  FaChevronRight,
 } from "react-icons/fa"
 
 import hero from "../../assets/hero/hero2.png"
@@ -26,11 +22,11 @@ export default function Hero({ pageData }) {
 
   const heroDescription = heroData.description || ""
 
-  const primaryButton = heroData.buttonText || "Donate Now"
+  const primaryButton = heroData.buttonText || "Support Us"
 
   const secondaryButton = heroData.secondaryButtonText || "Learn More"
 
-  const primaryButtonLink = heroData.buttonLink || "/donate"
+  const primaryButtonLink = heroData.buttonLink || "/support-us"
 
   const secondaryButtonLink = heroData.secondaryButtonLink || "/about"
 
@@ -46,36 +42,6 @@ export default function Hero({ pageData }) {
   ===================================== */
   const heroImage =
     heroData.image || hero
-
-  /* =====================================
-      FEATURES
-  ===================================== */
-  const features = [
-    {
-      icon: <FaBook className="text-yellow-600 text-xl" />,
-      bg: "bg-yellow-100",
-      title: "Special Education",
-      desc: "Personalized learning programs for every child to help them grow.",
-    },
-    {
-      icon: <FaHandHoldingHeart className="text-pink-500 text-xl" />,
-      bg: "bg-pink-100",
-      title: "Therapy Support",
-      desc: "Occupational, speech, and behavioral therapies for holistic development.",
-    },
-    {
-      icon: <FaUserFriends className="text-blue-500 text-xl" />,
-      bg: "bg-blue-100",
-      title: "Inclusive Programs",
-      desc: "Activities and programs that encourage creativity, social skills and confidence.",
-    },
-    {
-      icon: <FaUsers className="text-green-600 text-xl" />,
-      bg: "bg-green-100",
-      title: "Family Support",
-      desc: "Counseling and guidance for families to build a strong support system.",
-    },
-  ]
 
   return (
     <div className="font-sans antialiased bg-white overflow-x-hidden">
@@ -178,19 +144,23 @@ export default function Hero({ pageData }) {
           <img
             src={heroImage}
             alt="Children"
-
             onError={(e) => {
               e.target.src = hero
             }}
-
+            /* 
+              FIX: Added h-[280px] and object-bottom to constrain box height.
+              object-contain scales the image down to fit the box.
+              object-bottom aligns it to the bottom-center of the container.
+            */
             className="
-                    relative z-10
-                    w-[90%]
-                    max-w-[360px]
-                    sm:max-w-[440px]
-                    object-contain
-                  "
-
+              relative z-10
+              w-[90%]
+              max-w-[360px]
+              sm:max-w-[440px]
+              h-[280px]
+              object-contain
+              object-bottom
+            "
             style={{
               marginBottom: "-4px",
             }}
@@ -218,26 +188,22 @@ export default function Hero({ pageData }) {
             background: "linear-gradient(135deg, #FFD600 0%, #FFC107 100%)",
           }}
         >
-          {/* IMAGE anchored to bottom-right of yellow shape, no translate */}
+          {/* IMAGE anchored to the yellow shape */}
           <img
             src={heroImage}
             alt="Children"
-
             onError={(e) => {
               e.target.src = hero
             }}
-
+            
             className="
               absolute
-              bottom-0
-              right-0
+              inset-0
+              w-full
               h-full
-              w-auto
-              max-w-none
               object-contain
               object-bottom
             "
-
             style={{
               zIndex: 1,
             }}
@@ -336,73 +302,6 @@ export default function Hero({ pageData }) {
               "
             />
           </svg>
-        </div>
-
-      </section>
-
-      {/* =========================================================
-          FEATURES SECTION
-      ========================================================= */}
-      <section className="bg-white relative z-30 py-6 lg:py-10">
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* MOBILE FEATURES */}
-          <div className="flex flex-col gap-3 lg:hidden">
-            {features.map((item, index) => (
-              <div
-                key={index}
-                className="
-                  flex items-center gap-4
-                  bg-white rounded-2xl px-4 py-4
-                  shadow-[0_2px_12px_rgba(0,0,0,0.07)]
-                  border border-gray-100
-                "
-              >
-                <div className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center flex-shrink-0`}>
-                  {item.icon}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-[#0B1B4D] text-[15px] mb-0.5 leading-tight">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-500 text-xs leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gray-50 flex items-center justify-center">
-                  <FaChevronRight className="text-gray-400 text-[10px]" />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* DESKTOP FEATURES */}
-          <div className="hidden lg:grid lg:grid-cols-4 gap-5">
-            {features.map((item, index) => (
-              <div
-                key={index}
-                className="
-                  bg-[#F9FAFB] rounded-2xl
-                  flex items-start gap-5 p-6
-                  shadow-sm hover:shadow-md transition
-                "
-              >
-                <div className={`w-14 h-14 rounded-full ${item.bg} flex items-center justify-center flex-shrink-0`}>
-                  {item.icon}
-                </div>
-                <div>
-                  <h3 className="font-bold text-[#0B1B4D] text-lg mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
         </div>
 
       </section>

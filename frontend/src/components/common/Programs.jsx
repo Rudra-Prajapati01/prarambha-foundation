@@ -74,22 +74,19 @@ function Programs({ pageData }) {
 
             <h2
               className="
-                text-[36px]
-                sm:text-[44px]
-                lg:text-5xl
-                font-extrabold
-                text-[#0B1B4D]
-                leading-[1.05]
-                mb-6
-              "
+    text-[36px]
+    sm:text-[44px]
+    lg:text-5xl
+    font-extrabold
+    text-[#0B1B4D]
+    leading-[1.1]
+    mb-6
+  "
             >
-
-              Supporting Every Child
-
-              <span className="block text-[#E63946]">
-                With Care & Inclusion
+              Supporting Every Child{" "}
+              <span className="text-[#E63946] whitespace-nowrap">
+                With Education, Therapy & Skills
               </span>
-
             </h2>
 
             {/* DESCRIPTION */}

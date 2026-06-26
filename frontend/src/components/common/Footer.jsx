@@ -105,7 +105,7 @@ function Footer({ pageData }) {
               <a
                 href={
                   footer?.facebook
-                  || "https://facebook.com"
+                  || "https://www.facebook.com/p/Prarambha-Foundation-61586256287748/"
                 }
 
                 target="_blank"
@@ -140,7 +140,7 @@ function Footer({ pageData }) {
               <a
                 href={
                   footer?.instagram
-                  || "https://instagram.com"
+                  || "https://www.instagram.com/prarambhafoundation/"
                 }
 
                 target="_blank"
@@ -431,11 +431,11 @@ function Footer({ pageData }) {
 
               <div className="flex items-start gap-3">
 
-                <FaPhoneAlt className="text-[#E63946] mt-1" />
+                <FaPhoneAlt className="text-[#E63946] text-xl flex-shrink-0 mt-1" />
 
-                <p>
+                <p className="flex-1">
                   {footer.phone ||
-                    "+91 940 911 8461"}
+                    "+91 9825052901, 9409118461"}
                 </p>
 
               </div>
@@ -444,9 +444,9 @@ function Footer({ pageData }) {
 
               <div className="flex items-start gap-3">
 
-                <FaEnvelope className="text-[#E63946] mt-1" />
+                <FaEnvelope className="text-[#E63946] text-xl flex-shrink-0 mt-1" />
 
-                <p>
+                <p className="flex-1">
                   {footer.email ||
                     "foundationprarambha@gmail.com"}
                 </p>
@@ -457,11 +457,10 @@ function Footer({ pageData }) {
 
               <div className="flex items-start gap-3">
 
-                <FaMapMarkerAlt className="text-[#E63946] mt-1" />
+                <FaMapMarkerAlt className="text-[#E63946] text-xl flex-shrink-0 mt-1" />
 
-                <p>
-                  {footer.address ||
-                    "Ahmedabad, Gujarat, India"}
+                <p className="flex-1">
+                  {footer.address || ""}
                 </p>
 
               </div>
@@ -471,7 +470,7 @@ function Footer({ pageData }) {
             {/* DONATE BUTTON */}
 
             <Link
-              to="/donate"
+              to="/support-us"
 
               className="
                 mt-6
@@ -493,7 +492,7 @@ function Footer({ pageData }) {
 
               <FaHeart />
 
-              Donate Now
+              Support Us
 
             </Link>
 
