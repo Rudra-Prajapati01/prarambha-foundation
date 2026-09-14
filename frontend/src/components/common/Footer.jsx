@@ -435,7 +435,7 @@ function Footer({ pageData }) {
 
                 <p className="flex-1">
                   {footer.phone ||
-                    "+91 9825052901, 9409118461"}
+                    "+91 9979070998, 9409118461"}
                 </p>
 
               </div>

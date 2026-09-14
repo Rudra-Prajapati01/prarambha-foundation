@@ -7,9 +7,7 @@ import hero from "../../assets/hero/hero2.png"
 
 export default function Hero({ pageData }) {
 
-  /* =====================================
-      HERO DATA
-  ===================================== */
+
   const heroData = pageData?.hero || {}
 
   const heroTitle =
@@ -30,18 +28,11 @@ export default function Hero({ pageData }) {
 
   const secondaryButtonLink = heroData.secondaryButtonLink || "/about"
 
-  /* =====================================
-      TITLE SPLIT
-  ===================================== */
   const titleWords = heroTitle.split(" ")
   const firstLine = titleWords.slice(0, 2).join(" ")
   const secondLine = titleWords.slice(2).join(" ")
 
-  /* =====================================
-      HERO IMAGE
-  ===================================== */
-  const heroImage =
-    heroData.image || hero
+  const heroImage = heroData.image || hero
 
   return (
     <div className="font-sans antialiased bg-white overflow-x-hidden">
@@ -69,9 +60,11 @@ export default function Hero({ pageData }) {
           </h1>
 
           {/* SUBTITLE */}
-          <p className="text-[#0B1B4D] font-bold text-[15px] sm:text-base mb-3">
-            {heroSubtitle}
-          </p>
+          {heroSubtitle && (
+            <p className="text-[#0B1B4D] font-bold text-[15px] sm:text-base mb-3">
+              {heroSubtitle}
+            </p>
+          )}
 
           {/* DESCRIPTION */}
           <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-7 max-w-sm">
@@ -147,11 +140,6 @@ export default function Hero({ pageData }) {
             onError={(e) => {
               e.target.src = hero
             }}
-            /* 
-              FIX: Added h-[280px] and object-bottom to constrain box height.
-              object-contain scales the image down to fit the box.
-              object-bottom aligns it to the bottom-center of the container.
-            */
             className="
               relative z-10
               w-[90%]
@@ -172,134 +160,106 @@ export default function Hero({ pageData }) {
 
       {/* =========================================================
           DESKTOP HERO
-          Key fix: image is INSIDE the yellow shape div, clipped by it,
-          so it naturally stays behind the wave (z-index layering correct)
       ========================================================= */}
-      <section
-        className="relative bg-[#FFF7E8] overflow-hidden min-h-[555px] hidden lg:block"
-      >
+      <section className="relative bg-[#FFF7E8] overflow-hidden min-h-[550px] hidden lg:block pb-12">
 
-        {/* YELLOW SHAPE — image lives INSIDE this so it's clipped & behind wave */}
+        {/* YELLOW SHAPE & IMAGE CONTAINER */}
         <div
-          className="absolute top-0 right-0 w-[58%] h-full overflow-hidden"
+          className="absolute top-0 right-0 w-[55%] h-full overflow-hidden"
           style={{
-            borderBottomLeftRadius: "60%",
-            borderTopLeftRadius: "28%",
+            borderBottomLeftRadius: "50% 80%",
+            borderTopLeftRadius: "20% 40%",
             background: "linear-gradient(135deg, #FFD600 0%, #FFC107 100%)",
           }}
         >
-          {/* IMAGE anchored to the yellow shape */}
+          {/* HERO IMAGE */}
           <img
             src={heroImage}
             alt="Children"
             onError={(e) => {
               e.target.src = hero
             }}
-            
-            className="
-              absolute
-              inset-0
-              w-full
-              h-full
-              object-contain
-              object-bottom
-            "
-            style={{
-              zIndex: 1,
-            }}
+            className="absolute inset-0 w-full h-full object-contain object-bottom pb-8"
+            style={{ zIndex: 1 }}
           />
         </div>
 
-        {/* LEFT TEXT CONTENT — above yellow shape */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+        {/* LEFT TEXT CONTENT */}
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-12 pb-24 z-10">
+          <div className="max-w-2xl text-left">
 
-          <div className="flex flex-row items-center min-h-[540px]">
+            {/* TAG */}
+            <p className="text-red-500 font-semibold tracking-wide uppercase mb-3 text-sm">
+              {heroTag}
+            </p>
 
-            <div className="w-1/2 z-10 text-left">
+            {/* TITLE */}
+            <h1 className="text-[52px] xl:text-[62px] font-extrabold leading-[1.05] text-[#0B1B4D]">
+              {firstLine}
+            </h1>
 
-              {/* TAG */}
-              <p className="text-red-500 font-semibold tracking-wide uppercase mb-3 text-sm">
-                {heroTag}
-              </p>
+            <h1 className="text-[52px] xl:text-[62px] font-extrabold leading-[1.05] text-red-500 mb-5">
+              {secondLine}
+            </h1>
 
-              {/* TITLE */}
-              <h1 className="text-[70px] font-extrabold leading-[1.05] text-[#0B1B4D]">
-                {firstLine}
-              </h1>
-
-              <h1 className="text-[70px] font-extrabold leading-[1.05] text-red-500 mb-5">
-                {secondLine}
-              </h1>
-
-              {/* SUBTITLE */}
-              <p className="text-[#0B1B4D] font-semibold text-xl mb-4 max-w-xl">
+            {/* SUBTITLE */}
+            {heroSubtitle && (
+              <p className="text-[#0B1B4D] font-bold text-lg xl:text-xl mb-3">
                 {heroSubtitle}
               </p>
+            )}
 
-              {/* DESCRIPTION */}
-              <p className="text-gray-700 text-lg leading-relaxed max-w-xl mb-8">
-                {heroDescription}
-              </p>
+            {/* DESCRIPTION */}
+            <p className="text-gray-700 text-base xl:text-lg leading-relaxed mb-8 max-w-xl">
+              {heroDescription}
+            </p>
 
-              {/* BUTTONS */}
-              <div className="flex flex-row items-start gap-5">
+            {/* BUTTONS */}
+            <div className="flex flex-row items-center gap-4">
 
-                <a
-                  href={primaryButtonLink}
-                  className="
-                    flex items-center justify-center gap-3
-                    bg-red-500 hover:bg-red-600
-                    text-white font-semibold
-                    px-8 py-4 rounded-full
-                    shadow-lg transition
-                  "
-                >
-                  <FaHeart />
-                  {primaryButton}
-                </a>
+              <a
+                href={primaryButtonLink}
+                className="
+                  flex items-center justify-center gap-2.5
+                  bg-red-500 hover:bg-red-600
+                  text-white font-semibold
+                  px-7 py-3.5 rounded-full
+                  shadow-md transition text-base
+                "
+              >
+                <FaHeart />
+                {primaryButton}
+              </a>
 
-                <a
-                  href={secondaryButtonLink}
-                  className="
-                    flex items-center justify-center gap-3
-                    border-2 border-[#0B1B4D]
-                    text-[#0B1B4D]
-                    hover:bg-[#0B1B4D]
-                    hover:text-white
-                    font-semibold px-8 py-4
-                    rounded-full transition bg-white
-                  "
-                >
-                  <FaUsers />
-                  {secondaryButton}
-                </a>
-
-              </div>
+              <a
+                href={secondaryButtonLink}
+                className="
+                  flex items-center justify-center gap-2.5
+                  border-2 border-[#0B1B4D]
+                  text-[#0B1B4D] hover:bg-[#0B1B4D] hover:text-white
+                  font-semibold px-7 py-3.5
+                  rounded-full transition bg-white text-base
+                "
+              >
+                <FaUsers />
+                {secondaryButton}
+              </a>
 
             </div>
 
-            {/* Right half — intentionally empty, image is in yellow shape above */}
-            <div className="w-1/2" />
-
           </div>
-
         </div>
 
-        {/* WAVE — z-20 on top of image, pointer-events-none so buttons stay clickable */}
-        <div className="absolute bottom-0 left-0 w-full leading-none z-20 translate-y-[1px] pointer-events-none">
+        {/* WAVE OVERLAY */}
+        <div className="absolute bottom-0 left-0 w-full leading-none z-20 pointer-events-none">
           <svg
-            viewBox="0 0 1440 80"
-            className="w-full h-[146px] block"
+            viewBox="0 0 1440 100"
+            className="w-full h-[80px] xl:h-[100px] block"
             preserveAspectRatio="none"
           >
             <path
               fill="#ffffff"
-              d="
-                M0,40 C180,110 500,90 610,55
-                C720,25 900,10 1080,35
-                C1260,60 1380,20 1440,30
-                L1440,80 L0,80 Z
-              "
+              d="M0,40 C320,100 420,100 740,40 C1060,-20 1120,-10 1440,30 L1440,100 L0,100 Z"
             />
           </svg>
         </div>

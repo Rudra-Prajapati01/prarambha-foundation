@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import Home from "./pages/Home"
@@ -27,6 +28,7 @@ import StoriesAdmin from "./admin/pages/StoriesAdmin"
 import Messages from "./admin/pages/Messages"
 
 import DonateEditor from "./admin/components/editors/DonateEditor"
+
 /* =====================================
    CHAIRPERSON
 ===================================== */
@@ -46,6 +48,20 @@ import InclusiveEducation from "./pages/programs/InclusiveEducation"
 import CommunitySupport from "./pages/programs/CommunitySupport"
 
 function App() {
+
+  /* =====================================
+     FAVICON SETTER
+  ===================================== */
+  useEffect(() => {
+    let link = document.querySelector("link[rel*='icon']")
+    if (!link) {
+      link = document.createElement("link")
+      link.rel = "icon"
+      document.head.appendChild(link)
+    }
+    // public folder waala logo assign karein
+    link.href = "/logo.png"
+  }, [])
 
   return (
 

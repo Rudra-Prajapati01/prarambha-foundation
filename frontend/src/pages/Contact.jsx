@@ -106,7 +106,7 @@ function Contact() {
       try {
 
         await axios.post(
-          "https://prarambha-backend.onrender.com/api/messages",
+          "http://localhost:5000/api/messages",
           formData
         )
 

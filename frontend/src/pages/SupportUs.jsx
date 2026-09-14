@@ -20,7 +20,7 @@ export default function SupportUs() {
   };
 
   const complianceData = [
-    { title: "LEGAL REGISTRATION", icon: <FaShieldAlt className="text-[#0B1B4D] text-3xl mb-4 opacity-20" />, items: ["Section 8 Company Registration (MCA)", "Certificate of Incorporation", "PAN Card", "TAN (if applicable)"] },
+    { title: "LEGAL REGISTRATION", icon: <FaShieldAlt className="text-[#0B1B4D] text-3xl mb-4 opacity-20" />, items: ["Section 8 Company Registration (MCA)", "Certificate of Incorporation", "PAN Card", "TAN"] },
     { title: "NGO RECOGNITION", icon: <FaAward className="text-[#E63946] text-3xl mb-4 opacity-20" />, items: ["NGO Darpan Registration (NITI Aayog)", "CSR Ready (Eligible to receive CSR funding)"] },
     { title: "TAX & COMPLIANCE", icon: <FaFileInvoiceDollar className="text-[#E63946] text-3xl mb-4 opacity-20" />, items: ["12A Registration", "80G Registration", "Income Tax Compliance"] },
     { title: "FINANCIAL & ADMINISTRATIVE", icon: <FaFolderOpen className="text-[#0B1B4D] text-3xl mb-4 opacity-20" />, items: ["Dedicated Bank Account", "Donation Receipt System"] }

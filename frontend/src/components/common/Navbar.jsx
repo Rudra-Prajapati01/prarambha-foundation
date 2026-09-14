@@ -114,7 +114,7 @@ function Navbar({ pageData }) {
     },
 
     {
-      name: "Our Centre",
+      name: "Our association",
       path: "/our-centre",
     },
 
