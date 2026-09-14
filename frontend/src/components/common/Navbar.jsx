@@ -9,6 +9,7 @@ import {
   FaChevronDown,
 } from "react-icons/fa"
 
+
 function Navbar({ pageData }) {
 
   const [menuOpen, setMenuOpen] =
@@ -17,6 +18,7 @@ function Navbar({ pageData }) {
   const [activeDropdown, setActiveDropdown] =
     useState(null)
 
+
   /* =========================================
      DYNAMIC FOOTER DATA
   ========================================= */
@@ -24,12 +26,14 @@ function Navbar({ pageData }) {
   const footer =
     pageData?.footer || {}
 
+
   /* =========================================
      DYNAMIC LOGO
   ========================================= */
 
   const dynamicLogo =
     footer?.logo || ""
+
 
   /* =========================================
      PREVENT BODY SCROLL
@@ -48,6 +52,7 @@ function Navbar({ pageData }) {
         "auto"
     }
 
+
     return () => {
 
       document.body.style.overflow =
@@ -55,6 +60,7 @@ function Navbar({ pageData }) {
     }
 
   }, [menuOpen])
+
 
   /* =========================================
      NAV LINKS
@@ -135,6 +141,7 @@ function Navbar({ pageData }) {
 
   ]
 
+
   return (
 
     <>
@@ -164,21 +171,27 @@ function Navbar({ pageData }) {
 
         </p>
 
+
         <div className="flex items-center gap-8">
 
           <p>
+
             {footer.email ||
               "foundationprarambha@gmail.com"}
+
           </p>
 
           <p>
+
             {footer.phone ||
               "+91 940 911 8461"}
+
           </p>
 
         </div>
 
       </div>
+
 
       {/* =========================================
           NAVBAR
@@ -215,6 +228,7 @@ function Navbar({ pageData }) {
             "
           >
 
+
             {/* =====================================
                 LOGO
             ===================================== */}
@@ -249,6 +263,7 @@ function Navbar({ pageData }) {
               }
 
             </Link>
+
 
             {/* =====================================
                 DESKTOP MENU
@@ -322,6 +337,7 @@ function Navbar({ pageData }) {
 
                           </button>
 
+
                           {/* DESKTOP DROPDOWN */}
 
                           <div
@@ -393,11 +409,13 @@ function Navbar({ pageData }) {
 
             </ul>
 
+
             {/* =====================================
                 RIGHT SIDE
             ===================================== */}
 
             <div className="flex items-center gap-3">
+
 
               {/* DONATE BUTTON */}
 
@@ -427,12 +445,17 @@ function Navbar({ pageData }) {
 
               </Link>
 
+
               {/* MOBILE MENU BUTTON */}
 
               <button
                 type="button"
 
-                aria-label="Open Menu"
+                aria-label={
+                  menuOpen
+                    ? "Close Menu"
+                    : "Open Menu"
+                }
 
                 onClick={() =>
                   setMenuOpen(!menuOpen)
@@ -468,6 +491,7 @@ function Navbar({ pageData }) {
 
         </div>
 
+
         {/* =========================================
             MOBILE MENU
         ========================================= */}
@@ -480,6 +504,7 @@ function Navbar({ pageData }) {
             right-0
             h-screen
             w-[85%]
+            max-w-[420px]
             bg-white
             shadow-2xl
             z-[999]
@@ -493,6 +518,7 @@ function Navbar({ pageData }) {
           `}
         >
 
+
           {/* HEADER */}
 
           <div
@@ -502,6 +528,8 @@ function Navbar({ pageData }) {
               justify-between
               p-5
               border-b
+              border-gray-100
+              min-h-[110px]
             "
           >
 
@@ -522,14 +550,15 @@ function Navbar({ pageData }) {
                   }}
 
                   className="
-                    w-[180px]
-                    h-[85px]
+                    w-[150px]
+                    h-[75px]
                     object-contain
                   "
                 />
 
               )
             }
+
 
             <button
               type="button"
@@ -539,6 +568,17 @@ function Navbar({ pageData }) {
               onClick={() =>
                 setMenuOpen(false)
               }
+
+              className="
+                w-12
+                h-12
+                flex
+                items-center
+                justify-center
+                rounded-xl
+                hover:bg-gray-100
+                transition-all
+              "
             >
 
               <FaTimes
@@ -552,9 +592,10 @@ function Navbar({ pageData }) {
 
           </div>
 
+
           {/* MOBILE LINKS */}
 
-          <div className="p-5">
+          <div className="p-5 pb-10">
 
             {Array.isArray(navLinks)
               && navLinks.map(
@@ -562,26 +603,32 @@ function Navbar({ pageData }) {
 
                   <div
                     key={index}
-                    className="mb-3"
+                    className="mb-2"
                   >
+
+                    {/* NORMAL MOBILE LINK */}
 
                     {!link.dropdown ? (
 
                       <Link
                         to={link.path}
 
-                        onClick={() =>
+                        onClick={() => {
                           setMenuOpen(false)
-                        }
+                          setActiveDropdown(null)
+                        }}
 
                         className="
-                          block
+                          flex
+                          items-center
+                          justify-between
                           py-4
                           px-4
                           rounded-xl
                           font-semibold
                           text-[#1F2937]
                           hover:bg-gray-100
+                          hover:text-[#E63946]
                           transition-all
                           duration-300
                         "
@@ -593,9 +640,116 @@ function Navbar({ pageData }) {
 
                     ) : (
 
-                      <>
-                        {/* same dropdown code */}
-                      </>
+                      <div>
+
+                        {/* DROPDOWN BUTTON */}
+
+                        <button
+                          type="button"
+
+                          onClick={() =>
+                            setActiveDropdown(
+                              activeDropdown === index
+                                ? null
+                                : index
+                            )
+                          }
+
+                          className="
+                            w-full
+                            flex
+                            items-center
+                            justify-between
+                            py-4
+                            px-4
+                            rounded-xl
+                            font-semibold
+                            text-[#1F2937]
+                            hover:bg-gray-100
+                            hover:text-[#E63946]
+                            transition-all
+                            duration-300
+                          "
+                        >
+
+                          <span>
+                            {link.name}
+                          </span>
+
+                          <FaChevronDown
+                            className={`
+                              text-sm
+                              transition-transform
+                              duration-300
+                              ${
+                                activeDropdown === index
+                                  ? "rotate-180 text-[#E63946]"
+                                  : ""
+                              }
+                            `}
+                          />
+
+                        </button>
+
+
+                        {/* MOBILE DROPDOWN */}
+
+                        <div
+                          className={`
+                            overflow-hidden
+                            transition-all
+                            duration-300
+                            ${
+                              activeDropdown === index
+                                ? "max-h-[600px] opacity-100 mt-1"
+                                : "max-h-0 opacity-0"
+                            }
+                          `}
+                        >
+
+                          <div className="ml-3 border-l-2 border-[#E63946]/20">
+
+                            {Array.isArray(link.dropdown)
+                              && link.dropdown.map(
+                                (item, idx) => (
+
+                                  <Link
+                                    key={idx}
+
+                                    to={item.path}
+
+                                    onClick={() => {
+                                      setMenuOpen(false)
+                                      setActiveDropdown(null)
+                                    }}
+
+                                    className="
+                                      block
+                                      py-3
+                                      px-5
+                                      text-sm
+                                      font-medium
+                                      text-[#4B5563]
+                                      hover:text-[#E63946]
+                                      hover:bg-[#FFF5F5]
+                                      rounded-r-xl
+                                      transition-all
+                                      duration-300
+                                    "
+                                  >
+
+                                    {item.name}
+
+                                  </Link>
+
+                                )
+                              )}
+
+                          </div>
+
+                        </div>
+
+                      </div>
 
                     )}
 
@@ -603,6 +757,45 @@ function Navbar({ pageData }) {
 
                 )
               )}
+
+
+            {/* =====================================
+                MOBILE SUPPORT US BUTTON
+            ===================================== */}
+
+            <Link
+              to="/support-us"
+
+              onClick={() => {
+                setMenuOpen(false)
+                setActiveDropdown(null)
+              }}
+
+              className="
+                mt-6
+                flex
+                items-center
+                justify-center
+                gap-2
+                w-full
+                bg-[#EF4444]
+                hover:bg-[#DC2626]
+                text-white
+                px-6
+                py-4
+                rounded-full
+                font-semibold
+                shadow-md
+                transition-all
+                duration-300
+              "
+            >
+
+              <FaHeart />
+
+              Support Us
+
+            </Link>
 
           </div>
 
@@ -613,5 +806,6 @@ function Navbar({ pageData }) {
     </>
   )
 }
+
 
 export default Navbar
