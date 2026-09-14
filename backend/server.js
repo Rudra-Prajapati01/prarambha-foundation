@@ -11,8 +11,8 @@ import galleryRoutes from "./routes/galleryRoutes.js"
 import storyRoutes from "./routes/storyRoutes.js"
 import messageRoutes from "./routes/messageRoutes.js"
 import logoRoutes from "./routes/logoRoutes.js"
-
-dotenv.config()
+import path from "path";
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 connectDB()
 
