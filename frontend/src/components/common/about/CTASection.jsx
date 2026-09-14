@@ -1,5 +1,4 @@
 export default function CTASection({ data }) {
-
   return (
     <>
       <style>{`
@@ -133,15 +132,17 @@ export default function CTASection({ data }) {
 
           <div className="cta-buttons">
 
+            {/* Donate Now → Support Us */}
             <a
-              href="/donate"
+              href="/support-us"
               className="cta-btn-primary"
             >
-              {data?.button1 || "Donate Now"}
+              {data?.button1 || "Donate Now 💛"}
             </a>
 
+            {/* Become a Volunteer → Support Us */}
             <a
-              href="/volunteer"
+              href="/contact"
               className="cta-btn-outline"
             >
               {data?.button2 || "Become a Volunteer"}

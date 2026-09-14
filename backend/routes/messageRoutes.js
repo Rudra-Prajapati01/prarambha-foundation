@@ -9,6 +9,7 @@ const router = express.Router()
 ========================================= */
 
 router.post("/", async (req, res) => {
+  console.log('[DEBUG] /api/messages body:', req.body);
 
   try {
 
